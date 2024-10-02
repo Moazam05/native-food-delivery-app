@@ -1,4 +1,11 @@
-import {View, Text, StyleSheet, StatusBar, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useRef, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Onboarding1} from '../../assets/images';
@@ -11,7 +18,20 @@ const Onboarding = () => {
   const swiperRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const isLastSlide = activeIndex === onboarding.length - 1;
+  const isFirstSlide = activeIndex === 0;
   const navigation = useNavigation();
+
+  const handleNext = () => {
+    if (swiperRef.current && !isLastSlide) {
+      swiperRef.current.scrollBy(1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (swiperRef.current && !isFirstSlide) {
+      swiperRef.current.scrollBy(-1);
+    }
+  };
 
   return (
     <>
@@ -29,7 +49,8 @@ const Onboarding = () => {
             <Swiper
               ref={swiperRef}
               onIndexChanged={index => setActiveIndex(index)}
-              showsPagination={false}>
+              showsPagination={false}
+              loop={false}>
               {onboarding.map(item => (
                 <View key={item.id} style={styles.slide}>
                   <Text style={styles.title}>{item.title}</Text>
@@ -48,6 +69,20 @@ const Onboarding = () => {
                   )}
                 </View>
               ))}
+            </View>
+
+            <View style={styles.navigationButtons}>
+              <TouchableOpacity onPress={handlePrev} disabled={isFirstSlide}>
+                <Text
+                  style={[styles.navButton, isFirstSlide && {opacity: 0.5}]}>
+                  Prev
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleNext} disabled={isLastSlide}>
+                <Text style={[styles.navButton, isLastSlide && {opacity: 0.5}]}>
+                  {isLastSlide ? 'Done' : 'Next →'}
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -77,8 +112,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   contentWrap: {
-    // flex: 1, // Ensure it expands fully
-    height: 400,
+    height: 455,
     marginHorizontal: 32,
   },
   content: {
@@ -111,21 +145,33 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    // marginTop: 32,
+    marginBottom: 110,
   },
   dotWrapper: {
     marginHorizontal: 4,
   },
   dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: 'orange',
+    width: 24,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: '#C2C2C2',
   },
   activeDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+    width: 24,
+    height: 6,
+    borderRadius: 3,
     backgroundColor: themeColors.WHITE,
+  },
+  navigationButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: 20,
+    marginTop: 16,
+  },
+  navButton: {
+    color: themeColors.WHITE,
+    fontSize: 14,
+    fontFamily: Fonts.SEMIBOLD,
   },
 });
