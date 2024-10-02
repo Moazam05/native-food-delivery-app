@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
 import {Formik} from 'formik';
 import React, {useState} from 'react';
 import {
@@ -15,17 +16,12 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import {useDispatch} from 'react-redux';
 import * as Yup from 'yup';
-import {
-  GoogleIcon,
-  PasswordTextFieldIcon,
-  UserTextFieldIcon,
-} from '../../assets/images';
 import CustomButton from '../../components/CustomButton';
 import TextField from '../../components/TextField';
 import {themeColors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
-import {setUser} from '../../redux/auth/authSlice';
-import {useNavigation} from '@react-navigation/native';
+// import {setUser} from '../../../redux/auth/authSlice';
+import {Facebook, Google} from '../../assets/images';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -52,14 +48,109 @@ const Login = () => {
         translucent
         backgroundColor="transparent"
       />
-      <View>
-        <Text>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus,
-          aperiam quidem sapiente nulla deleniti saepe dolores quibusdam,
-          architecto praesentium in nesciunt facilis soluta! Ex aut molestiae
-          totam itaque. Ab, earum!
-        </Text>
-      </View>
+
+      <GestureHandlerRootView style={styles.gestureHandle}>
+        <SafeAreaView style={styles.container}>
+          <ScrollView
+            contentContainerStyle={styles.scrollContainer}
+            showsVerticalScrollIndicator={false}>
+            <View style={styles.headingWrap}>
+              <Text style={styles.heading}>Welcome</Text>
+              <Text style={styles.heading}>Back!</Text>
+            </View>
+
+            <Formik
+              initialValues={{email: '', password: ''}}
+              validationSchema={validationSchema}
+              onSubmit={handleSignin}>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                touched,
+              }) => {
+                return (
+                  <View style={styles.formContainer}>
+                    <View style={styles.fieldContainer}>
+                      <TextField
+                        placeholder="Email"
+                        value={values.email}
+                        onChangeText={handleChange('email')}
+                        onBlur={handleBlur('email')}
+                        keyboardType="email-address"
+                        error={touched.email && errors.email}
+                      />
+                      {errors.email && (
+                        <Text style={styles.errorText}>{errors.email}</Text>
+                      )}
+                    </View>
+                    <View style={styles.fieldContainer}>
+                      <TextField
+                        placeholder="Password"
+                        value={values.password}
+                        onChangeText={handleChange('password')}
+                        onBlur={handleBlur('password')}
+                        error={touched.password && errors.password}
+                        secureTextEntry={true}
+                      />
+                      {errors.password && (
+                        <Text style={styles.errorText}>{errors.password}</Text>
+                      )}
+                    </View>
+                    <View style={styles.forgotPasswordContainer}>
+                      <Text
+                        style={styles.forgotPasswordText}
+                        onPress={() => navigation.navigate('ForgotPassword')}>
+                        Forgot Password?
+                      </Text>
+                    </View>
+
+                    <View style={styles.buttonContainer}>
+                      <CustomButton
+                        name={
+                          loading ? (
+                            <ActivityIndicator color="#ffffff" />
+                          ) : (
+                            'Login'
+                          )
+                        }
+                        onPress={handleSubmit}
+                        disabled={loading}
+                      />
+                    </View>
+
+                    <View style={styles.orContainer}>
+                      <View style={styles.orWrap}>
+                        <View style={styles.orLine} />
+                        <Text style={styles.orText}> or sign in with </Text>
+                        <View style={styles.orLine} />
+                      </View>
+
+                      <View style={styles.googleIconContainer}>
+                        <Image source={Google} style={styles.googleIcon} />
+                        <Image source={Facebook} style={styles.googleIcon} />
+                      </View>
+                    </View>
+
+                    <View style={styles.signupContainer}>
+                      <Text style={styles.signupText}>
+                        Don't have an account?{' '}
+                        <Text
+                          style={styles.signupLink}
+                          onPress={() => navigation.navigate('Signup')}>
+                          Register
+                        </Text>
+                      </Text>
+                    </View>
+                  </View>
+                );
+              }}
+            </Formik>
+          </ScrollView>
+        </SafeAreaView>
+      </GestureHandlerRootView>
     </>
   );
 };
@@ -83,6 +174,10 @@ const styles = StyleSheet.create({
   headingWrap: {
     marginTop: 20,
   },
+  errorText: {
+    color: themeColors.PRIMARY,
+    fontSize: 12,
+  },
   heading: {
     fontSize: 36,
     fontFamily: Fonts.BOLD,
@@ -92,7 +187,7 @@ const styles = StyleSheet.create({
     marginTop: 36,
   },
   fieldContainer: {
-    marginBottom: 30,
+    height: 80,
   },
   forgotPasswordContainer: {
     marginTop: 5,
@@ -104,42 +199,54 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.REGULAR,
   },
   buttonContainer: {
-    marginTop: 50,
+    marginTop: 40,
   },
   orContainer: {
-    marginTop: 75,
+    marginTop: 25,
     justifyContent: 'center',
     alignItems: 'center',
   },
   orText: {
-    color: themeColors.TEXT,
+    color: themeColors.GRAY,
     fontSize: 14,
     fontFamily: Fonts.REGULAR,
   },
   googleIconContainer: {
-    marginTop: 20,
-    marginBottom: 30,
+    marginTop: 25,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 15,
   },
   googleIcon: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     resizeMode: 'contain',
   },
   signupContainer: {
-    marginTop: 20,
+    marginTop: 32,
     justifyContent: 'center',
     alignItems: 'center',
   },
   signupText: {
-    color: themeColors.TEXT,
+    color: themeColors.BLACK,
     fontSize: 14,
-    fontFamily: Fonts.REGULAR,
+    fontFamily: Fonts.MEDIUM,
   },
   signupLink: {
     color: themeColors.PRIMARY,
     fontFamily: Fonts.SEMIBOLD,
     fontSize: 14,
-    textDecorationColor: themeColors.PRIMARY,
-    textDecorationLine: 'underline',
+  },
+
+  orWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  orLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: themeColors.LIGHTGREY,
   },
 });

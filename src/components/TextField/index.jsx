@@ -64,10 +64,9 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   input: {
-    borderColor: '#676767',
+    borderColor: '#D6D6D6',
     borderWidth: 1,
-    borderRadius: 10,
-    backgroundColor: '#F3F3F3',
+    borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 15,

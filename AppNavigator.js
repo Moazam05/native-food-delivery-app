@@ -10,13 +10,13 @@ const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Onboarding"
           component={Onboarding}
           options={{
             headerShown: false,
           }}
-        />
+        /> */}
 
         <Stack.Screen
           name="Login"

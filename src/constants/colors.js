@@ -3,6 +3,7 @@ export const themeColors = {
   GRAY: '#878787',
   BLACK: '#101010',
   WHITE: '#fff',
+  ERROR: '#d32f2f',
 
   // OLD
   DOT: '#D1D3D8',

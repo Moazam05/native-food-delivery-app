@@ -20,13 +20,13 @@ const styles = StyleSheet.create({
   loginButton: {
     backgroundColor: themeColors.PRIMARY,
     padding: 12,
-    borderRadius: 4,
+    borderRadius: 100,
     alignItems: 'center',
     marginTop: 10,
   },
   buttonText: {
     color: '#ffffff',
-    fontSize: 20,
+    fontSize: 14,
     fontFamily: Fonts.SEMIBOLD,
   },
 });
