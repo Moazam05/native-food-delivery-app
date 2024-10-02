@@ -51,9 +51,9 @@ const Onboarding = () => {
       <View style={styles.container}>
         <Swiper
           ref={swiperRef}
-          dotColor="#fff"
-          activeDotColor="#fff"
-          // paginationStyle={styles.pagination}
+          showsPagination={false}
+          // scrollEnabled={false}
+          loop={false}
           onIndexChanged={setActiveIndex}>
           {images.map((image, index) => (
             <View key={index} style={styles.slide}>
@@ -64,7 +64,11 @@ const Onboarding = () => {
                   {onboarding[index]?.description}
                 </Text>
                 {/* Pagination */}
-                <View style={styles.pagination}>
+                <View
+                  style={[
+                    styles.pagination,
+                    isLastSlide && styles.lastPagination,
+                  ]}>
                   {images.map((_, i) => (
                     <View key={i} style={styles.dotWrapper}>
                       <View
@@ -141,6 +145,7 @@ const styles = StyleSheet.create({
     marginBottom: 32,
     marginHorizontal: 32,
     borderRadius: 48,
+    height: 370,
   },
   title: {
     fontSize: 32,
@@ -161,8 +166,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 110,
+    marginBottom: 90,
   },
+
   lastPagination: {
     marginBottom: 25,
   },
@@ -210,8 +216,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   OnboardArrow: {
-    width: 95,
-    height: 95,
+    width: 75,
+    height: 75,
     resizeMode: 'contain',
+    marginBottom: 10,
+    marginTop: 10,
   },
 });
