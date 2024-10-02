@@ -28,8 +28,8 @@ const Onboarding = () => {
           <View style={styles.content}>
             <Swiper
               ref={swiperRef}
-              loop={false}
-              onIndexChanged={index => setActiveIndex(index)}>
+              onIndexChanged={index => setActiveIndex(index)}
+              showsPagination={false}>
               {onboarding.map(item => (
                 <View key={item.id} style={styles.slide}>
                   <Text style={styles.title}>{item.title}</Text>
@@ -37,6 +37,18 @@ const Onboarding = () => {
                 </View>
               ))}
             </Swiper>
+
+            <View style={styles.pagination}>
+              {onboarding.map((_, index) => (
+                <View key={index} style={styles.dotWrapper}>
+                  {activeIndex === index ? (
+                    <View style={styles.activeDot} />
+                  ) : (
+                    <View style={styles.dot} />
+                  )}
+                </View>
+              ))}
+            </View>
           </View>
         </View>
       </View>
@@ -50,7 +62,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-end',
-    paddingHorizontal: 0,
   },
   coverImg: {
     position: 'absolute',
@@ -66,9 +77,12 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   contentWrap: {
+    // flex: 1, // Ensure it expands fully
+    height: 400,
     marginHorizontal: 32,
   },
   content: {
+    flex: 1,
     alignItems: 'center',
     marginBottom: 35,
     paddingHorizontal: 30,
@@ -77,24 +91,41 @@ const styles = StyleSheet.create({
     borderRadius: 48,
   },
   slide: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
   },
   title: {
-    marginTop: 20,
-    fontSize: 24,
-    color: themeColors.BLACK,
+    fontSize: 32,
+    color: themeColors.WHITE,
     textAlign: 'center',
-    fontFamily: Fonts.EXTRABOLD,
+    fontFamily: Fonts.BOLD,
   },
   description: {
-    marginTop: 10,
+    marginTop: 16,
     fontSize: 14,
-    color: themeColors.GRAY,
+    color: themeColors.WHITE,
     textAlign: 'center',
-    paddingHorizontal: 20,
-    fontFamily: Fonts.SEMIBOLD,
+    fontFamily: Fonts.REGULAR,
+  },
+  pagination: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // marginTop: 32,
+  },
+  dotWrapper: {
+    marginHorizontal: 4,
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: 'orange',
+  },
+  activeDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: themeColors.WHITE,
   },
 });
