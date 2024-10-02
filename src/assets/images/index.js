@@ -1,6 +1,7 @@
-import Onboarding1 from './onboarding1.webp';
-import Onboarding2 from './onboarding2.webp';
-import Onboarding3 from './onboarding3.webp';
+import Onboarding1 from './Onboarding1.webp';
+import Onboarding2 from './Onboarding2.webp';
+import Onboarding3 from './Onboarding3.webp';
 import OnboardArrow from './OnboardArrow.png';
+import RightWhiteArrow from './RightWhiteArrow.png';
 
-export {Onboarding1, Onboarding2, Onboarding3, OnboardArrow};
+export {Onboarding1, Onboarding2, Onboarding3, OnboardArrow, RightWhiteArrow};
