@@ -138,7 +138,7 @@ const Login = () => {
                         Don't have an account?{' '}
                         <Text
                           style={styles.signupLink}
-                          onPress={() => navigation.navigate('Signup')}>
+                          onPress={() => navigation.navigate('SignUp')}>
                           Register
                         </Text>
                       </Text>
