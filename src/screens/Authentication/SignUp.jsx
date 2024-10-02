@@ -25,6 +25,7 @@ import {Facebook, Google} from '../../assets/images';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
+  userName: Yup.string().required('Username is required'),
   email: Yup.string()
     .email('Invalid email address')
     .required('Email is required'),
@@ -63,7 +64,7 @@ const SignUp = () => {
             </View>
 
             <Formik
-              initialValues={{email: '', password: ''}}
+              initialValues={{userName: '', email: '', password: ''}}
               validationSchema={validationSchema}
               onSubmit={handleSignUp}>
               {({
@@ -88,6 +89,18 @@ const SignUp = () => {
                         error={touched.email && errors.email}
                       />
                     </View>
+
+                    <View style={styles.fieldContainer}>
+                      <Text style={styles.label}>User Name</Text>
+                      <TextField
+                        placeholder="User Name"
+                        value={values.userName}
+                        onChangeText={handleChange('userName')}
+                        onBlur={handleBlur('userName')}
+                        error={touched.userName && errors.userName}
+                      />
+                    </View>
+
                     <View style={styles.fieldContainer}>
                       <Text style={styles.label}>Password</Text>
 
@@ -100,11 +113,11 @@ const SignUp = () => {
                         secureTextEntry={true}
                       />
                     </View>
-                    <View style={styles.forgotPasswordContainer}>
-                      <Text
-                        style={styles.forgotPasswordText}
-                        onPress={() => navigation.navigate('ForgotPassword')}>
-                        Forgot Password?
+                    <View style={styles.agreeContainer}>
+                      {/* checkbox */}
+
+                      <Text style={styles.agreeText}>
+                        I Agree with Terms of Service and Privacy Policy
                       </Text>
                     </View>
 
@@ -114,7 +127,7 @@ const SignUp = () => {
                           loading ? (
                             <ActivityIndicator color="#ffffff" />
                           ) : (
-                            'Sign In'
+                            'Register'
                           )
                         }
                         onPress={handleSubmit}
@@ -195,8 +208,8 @@ const styles = StyleSheet.create({
   fieldContainer: {
     marginBottom: 15,
   },
-  forgotPasswordContainer: {
-    alignItems: 'flex-end',
+  agreeContainer: {
+    alignItems: 'flex-start',
   },
   label: {
     fontSize: 14,
@@ -204,13 +217,13 @@ const styles = StyleSheet.create({
     color: themeColors.BLACK,
     marginBottom: 8,
   },
-  forgotPasswordText: {
-    color: themeColors.PRIMARY,
+  agreeText: {
+    color: themeColors.BLACK,
     fontSize: 12,
     fontFamily: Fonts.REGULAR,
   },
   buttonContainer: {
-    marginTop: 40,
+    marginTop: 20,
   },
   orContainer: {
     marginTop: 25,
