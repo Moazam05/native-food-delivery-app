@@ -8,7 +8,13 @@ import {
 } from 'react-native';
 import React, {useRef, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {Onboarding1, RightWhiteArrow} from '../../assets/images';
+import {
+  OnboardArrow,
+  Onboarding1,
+  Onboarding2,
+  Onboarding3,
+  RightWhiteArrow,
+} from '../../assets/images';
 import {themeColors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
 import {onboarding} from '../../constants';
@@ -42,7 +48,16 @@ const Onboarding = () => {
       />
       <View style={styles.container}>
         <View style={styles.coverImg}>
-          <Image source={Onboarding1} style={styles.imgWrap} />
+          <Image
+            source={
+              activeIndex === 0
+                ? Onboarding1
+                : activeIndex === 1
+                ? Onboarding2
+                : Onboarding3
+            }
+            style={styles.imgWrap}
+          />
         </View>
         <View style={styles.contentWrap}>
           <View style={styles.content}>
@@ -59,7 +74,11 @@ const Onboarding = () => {
               ))}
             </Swiper>
 
-            <View style={styles.pagination}>
+            <View
+              style={[
+                styles.pagination,
+                isLastSlide ? styles.lastPagination : null,
+              ]}>
               {onboarding.map((_, index) => (
                 <View key={index} style={styles.dotWrapper}>
                   {activeIndex === index ? (
@@ -71,24 +90,29 @@ const Onboarding = () => {
               ))}
             </View>
 
-            <View style={styles.navigationButtons}>
-              <TouchableOpacity onPress={handlePrev} disabled={isFirstSlide}>
-                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                  <Text style={styles.navButton}>Skip</Text>
+            {isLastSlide ? (
+              <Image source={OnboardArrow} style={styles.OnboardArrow} />
+            ) : (
+              <View style={styles.navigationButtons}>
+                <TouchableOpacity onPress={handlePrev} disabled={isFirstSlide}>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('Login')}>
+                    <Text style={styles.navButton}>Skip</Text>
+                  </TouchableOpacity>
                 </TouchableOpacity>
-              </TouchableOpacity>
-              {isLastSlide ? (
-                ''
-              ) : (
-                <TouchableOpacity
-                  onPress={handleNext}
-                  disabled={isLastSlide}
-                  style={styles.nextWrap}>
-                  <Text style={styles.navButton}>Next</Text>
-                  <Image source={RightWhiteArrow} style={styles.whiteArrow} />
-                </TouchableOpacity>
-              )}
-            </View>
+                {isLastSlide ? (
+                  ''
+                ) : (
+                  <TouchableOpacity
+                    onPress={handleNext}
+                    disabled={isLastSlide}
+                    style={styles.nextWrap}>
+                    <Text style={styles.navButton}>Next</Text>
+                    <Image source={RightWhiteArrow} style={styles.whiteArrow} />
+                  </TouchableOpacity>
+                )}
+              </View>
+            )}
           </View>
         </View>
       </View>
@@ -152,6 +176,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 110,
   },
+  lastPagination: {
+    marginBottom: 25,
+  },
   dotWrapper: {
     marginHorizontal: 4,
   },
@@ -189,5 +216,12 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     resizeMode: 'contain',
+  },
+  OnboardArrow: {
+    width: 95,
+    height: 95,
+    resizeMode: 'contain',
+    // marginTop: 15,
+    marginBottom: 20,
   },
 });
