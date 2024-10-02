@@ -55,8 +55,9 @@ const Login = () => {
             contentContainerStyle={styles.scrollContainer}
             showsVerticalScrollIndicator={false}>
             <View style={styles.headingWrap}>
-              <Text style={styles.heading}>Welcome</Text>
-              <Text style={styles.heading}>Back!</Text>
+              <Text style={styles.heading}>Login to your</Text>
+              <Text style={styles.heading}>account</Text>
+              <Text style={styles.tagline}>Please sign in to your account</Text>
             </View>
 
             <Formik
@@ -74,19 +75,20 @@ const Login = () => {
                 return (
                   <View style={styles.formContainer}>
                     <View style={styles.fieldContainer}>
+                      <Text style={styles.label}>Email Address</Text>
+
                       <TextField
-                        placeholder="Email"
+                        placeholder="Email Address"
                         value={values.email}
                         onChangeText={handleChange('email')}
                         onBlur={handleBlur('email')}
                         keyboardType="email-address"
                         error={touched.email && errors.email}
                       />
-                      {errors.email && (
-                        <Text style={styles.errorText}>{errors.email}</Text>
-                      )}
                     </View>
                     <View style={styles.fieldContainer}>
+                      <Text style={styles.label}>Password</Text>
+
                       <TextField
                         placeholder="Password"
                         value={values.password}
@@ -95,9 +97,6 @@ const Login = () => {
                         error={touched.password && errors.password}
                         secureTextEntry={true}
                       />
-                      {errors.password && (
-                        <Text style={styles.errorText}>{errors.password}</Text>
-                      )}
                     </View>
                     <View style={styles.forgotPasswordContainer}>
                       <Text
@@ -113,7 +112,7 @@ const Login = () => {
                           loading ? (
                             <ActivityIndicator color="#ffffff" />
                           ) : (
-                            'Login'
+                            'Sign In'
                           )
                         }
                         onPress={handleSubmit}
@@ -183,15 +182,25 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.BOLD,
     color: themeColors.BLACK,
   },
+  tagline: {
+    fontSize: 14,
+    fontFamily: Fonts.MEDIUM,
+    color: themeColors.GRAY,
+  },
   formContainer: {
     marginTop: 36,
   },
   fieldContainer: {
-    height: 80,
+    marginBottom: 15,
   },
   forgotPasswordContainer: {
-    marginTop: 5,
     alignItems: 'flex-end',
+  },
+  label: {
+    fontSize: 14,
+    fontFamily: Fonts.MEDIUM,
+    color: themeColors.BLACK,
+    marginBottom: 8,
   },
   forgotPasswordText: {
     color: themeColors.PRIMARY,
