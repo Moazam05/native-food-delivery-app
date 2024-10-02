@@ -52,7 +52,7 @@ const Onboarding = () => {
         <Swiper
           ref={swiperRef}
           showsPagination={false}
-          // scrollEnabled={false}
+          scrollEnabled={false}
           loop={false}
           onIndexChanged={setActiveIndex}>
           {images.map((image, index) => (
@@ -85,29 +85,31 @@ const Onboarding = () => {
                     <Image source={OnboardArrow} style={styles.OnboardArrow} />
                   </View>
                 ) : (
-                  <View style={styles.navigationButtons}>
-                    <TouchableOpacity
-                      onPress={handlePrev}
-                      disabled={isFirstSlide}>
+                  <View style={styles.navigationWrap}>
+                    <View style={styles.navigationButtons}>
                       <TouchableOpacity
-                        onPress={() => navigation.navigate('Login')}>
-                        <Text style={styles.navButton}>Skip</Text>
+                        onPress={handlePrev}
+                        disabled={isFirstSlide}>
+                        <TouchableOpacity
+                          onPress={() => navigation.navigate('Login')}>
+                          <Text style={styles.navButton}>Skip</Text>
+                        </TouchableOpacity>
                       </TouchableOpacity>
-                    </TouchableOpacity>
-                    {isLastSlide ? (
-                      ''
-                    ) : (
-                      <TouchableOpacity
-                        onPress={handleNext}
-                        disabled={isLastSlide}
-                        style={styles.nextWrap}>
-                        <Text style={styles.navButton}>Next</Text>
-                        <Image
-                          source={RightWhiteArrow}
-                          style={styles.whiteArrow}
-                        />
-                      </TouchableOpacity>
-                    )}
+                      {isLastSlide ? (
+                        ''
+                      ) : (
+                        <TouchableOpacity
+                          onPress={handleNext}
+                          disabled={isLastSlide}
+                          style={styles.nextWrap}>
+                          <Text style={styles.navButton}>Next</Text>
+                          <Image
+                            source={RightWhiteArrow}
+                            style={styles.whiteArrow}
+                          />
+                        </TouchableOpacity>
+                      )}
+                    </View>
                   </View>
                 )}
               </View>
@@ -145,7 +147,7 @@ const styles = StyleSheet.create({
     marginBottom: 32,
     marginHorizontal: 32,
     borderRadius: 48,
-    height: 370,
+    height: 350,
   },
   title: {
     fontSize: 32,
@@ -166,7 +168,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 90,
   },
 
   lastPagination: {
@@ -186,6 +187,10 @@ const styles = StyleSheet.create({
     height: 6,
     borderRadius: 3,
     backgroundColor: themeColors.WHITE,
+  },
+  navigationWrap: {
+    flex: 1,
+    justifyContent: 'flex-end',
   },
 
   navigationButtons: {
@@ -220,6 +225,6 @@ const styles = StyleSheet.create({
     height: 75,
     resizeMode: 'contain',
     marginBottom: 10,
-    marginTop: 10,
+    marginTop: 5,
   },
 });
