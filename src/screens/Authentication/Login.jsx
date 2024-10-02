@@ -178,8 +178,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   heading: {
-    fontSize: 36,
-    fontFamily: Fonts.BOLD,
+    fontSize: 32,
+    fontFamily: Fonts.SEMIBOLD,
     color: themeColors.BLACK,
   },
   tagline: {
