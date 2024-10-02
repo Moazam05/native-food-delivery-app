@@ -81,9 +81,11 @@ const Onboarding = () => {
                 </View>
                 {/* bottom */}
                 {isLastSlide ? (
-                  <View style={styles.lastWrap}>
+                  <TouchableOpacity
+                    style={styles.lastWrap}
+                    onPress={() => navigation.navigate('Login')}>
                     <Image source={OnboardArrow} style={styles.OnboardArrow} />
-                  </View>
+                  </TouchableOpacity>
                 ) : (
                   <View style={styles.navigationWrap}>
                     <View style={styles.navigationButtons}>
