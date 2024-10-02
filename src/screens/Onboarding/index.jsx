@@ -1,11 +1,18 @@
 import {View, Text, StyleSheet, StatusBar, Image} from 'react-native';
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Onboarding1} from '../../assets/images';
 import {themeColors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
+import {onboarding} from '../../constants';
+import Swiper from 'react-native-swiper';
 
 const Onboarding = () => {
+  const swiperRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const isLastSlide = activeIndex === onboarding.length - 1;
+  const navigation = useNavigation();
+
   return (
     <>
       <StatusBar
@@ -17,9 +24,20 @@ const Onboarding = () => {
         <View style={styles.coverImg}>
           <Image source={Onboarding1} style={styles.imgWrap} />
         </View>
-        <View style={styles.content}>
-          <Text style={styles.tagLine}>You want Authentic, here you go!</Text>
-          <Text style={styles.findText}>Find it here, buy it now!</Text>
+        <View style={styles.contentWrap}>
+          <View style={styles.content}>
+            <Swiper
+              ref={swiperRef}
+              loop={false}
+              onIndexChanged={index => setActiveIndex(index)}>
+              {onboarding.map(item => (
+                <View key={item.id} style={styles.slide}>
+                  <Text style={styles.title}>{item.title}</Text>
+                  <Text style={styles.description}>{item.description}</Text>
+                </View>
+              ))}
+            </Swiper>
+          </View>
         </View>
       </View>
     </>
@@ -47,23 +65,36 @@ const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'cover',
   },
+  contentWrap: {
+    marginHorizontal: 32,
+  },
   content: {
     alignItems: 'center',
     marginBottom: 35,
-    paddingHorizontal: 25,
+    paddingHorizontal: 30,
+    paddingVertical: 32,
+    backgroundColor: themeColors.PRIMARY,
+    borderRadius: 48,
   },
-  tagLine: {
-    fontSize: 34,
-    color: themeColors.WHITE,
-    fontFamily: Fonts.SEMIBOLD,
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  title: {
+    marginTop: 20,
+    fontSize: 24,
+    color: themeColors.BLACK,
     textAlign: 'center',
-    marginBottom: 15,
+    fontFamily: Fonts.EXTRABOLD,
   },
-  findText: {
+  description: {
+    marginTop: 10,
     fontSize: 14,
-    color: '#F2F2F2',
-    fontFamily: Fonts.REGULAR,
+    color: themeColors.GRAY,
     textAlign: 'center',
-    marginBottom: 45,
+    paddingHorizontal: 20,
+    fontFamily: Fonts.SEMIBOLD,
   },
 });
