@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import {Formik} from 'formik';
 import React, {useState} from 'react';
@@ -11,6 +10,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
@@ -30,11 +30,11 @@ const validationSchema = Yup.object().shape({
     .email('Invalid email address')
     .required('Email is required'),
   password: Yup.string().required('Password is required'),
+  agreeTerms: Yup.boolean().oneOf([true], 'You must agree to the terms'),
 });
 
 const SignUp = () => {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
 
@@ -64,7 +64,12 @@ const SignUp = () => {
             </View>
 
             <Formik
-              initialValues={{userName: '', email: '', password: ''}}
+              initialValues={{
+                userName: '',
+                email: '',
+                password: '',
+                agreeTerms: false,
+              }}
               validationSchema={validationSchema}
               onSubmit={handleSignUp}>
               {({
@@ -74,6 +79,7 @@ const SignUp = () => {
                 values,
                 errors,
                 touched,
+                setFieldValue,
               }) => {
                 return (
                   <View style={styles.formContainer}>
@@ -114,10 +120,25 @@ const SignUp = () => {
                       />
                     </View>
                     <View style={styles.agreeContainer}>
-                      {/* checkbox */}
-
+                      <CheckBox
+                        value={values.agreeToTerms}
+                        onValueChange={value =>
+                          setFieldValue('agreeToTerms', value)
+                        }
+                      />
                       <Text style={styles.agreeText}>
-                        I Agree with Terms of Service and Privacy Policy
+                        I Agree with{' '}
+                        <Text
+                          style={styles.linkText}
+                          onPress={() => navigation.navigate('TermsOfService')}>
+                          Terms of Service
+                        </Text>{' '}
+                        and{' '}
+                        <Text
+                          style={styles.linkText}
+                          onPress={() => navigation.navigate('PrivacyPolicy')}>
+                          Privacy Policy
+                        </Text>
                       </Text>
                     </View>
 
@@ -209,7 +230,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   agreeContainer: {
-    alignItems: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   label: {
     fontSize: 14,
@@ -221,9 +243,14 @@ const styles = StyleSheet.create({
     color: themeColors.BLACK,
     fontSize: 12,
     fontFamily: Fonts.REGULAR,
+    marginLeft: 3,
+  },
+  linkText: {
+    color: themeColors.PRIMARY,
+    fontFamily: Fonts.SEMIBOLD,
   },
   buttonContainer: {
-    marginTop: 20,
+    marginTop: 10,
   },
   orContainer: {
     marginTop: 25,
