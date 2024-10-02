@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React, {useRef, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {Onboarding1} from '../../assets/images';
+import {Onboarding1, RightWhiteArrow} from '../../assets/images';
 import {themeColors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
 import {onboarding} from '../../constants';
@@ -73,16 +73,21 @@ const Onboarding = () => {
 
             <View style={styles.navigationButtons}>
               <TouchableOpacity onPress={handlePrev} disabled={isFirstSlide}>
-                <Text
-                  style={[styles.navButton, isFirstSlide && {opacity: 0.5}]}>
-                  Prev
-                </Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                  <Text style={styles.navButton}>Skip</Text>
+                </TouchableOpacity>
               </TouchableOpacity>
-              <TouchableOpacity onPress={handleNext} disabled={isLastSlide}>
-                <Text style={[styles.navButton, isLastSlide && {opacity: 0.5}]}>
-                  {isLastSlide ? 'Done' : 'Next →'}
-                </Text>
-              </TouchableOpacity>
+              {isLastSlide ? (
+                ''
+              ) : (
+                <TouchableOpacity
+                  onPress={handleNext}
+                  disabled={isLastSlide}
+                  style={styles.nextWrap}>
+                  <Text style={styles.navButton}>Next</Text>
+                  <Image source={RightWhiteArrow} style={styles.whiteArrow} />
+                </TouchableOpacity>
+              )}
             </View>
           </View>
         </View>
@@ -165,13 +170,24 @@ const styles = StyleSheet.create({
   navigationButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     width: '100%',
     paddingHorizontal: 20,
     marginTop: 16,
   },
   navButton: {
-    color: themeColors.WHITE,
     fontSize: 14,
+    color: themeColors.WHITE,
     fontFamily: Fonts.SEMIBOLD,
+  },
+  nextWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+  whiteArrow: {
+    width: 20,
+    height: 20,
+    resizeMode: 'contain',
   },
 });
