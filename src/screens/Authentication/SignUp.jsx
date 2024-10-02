@@ -14,7 +14,6 @@ import CheckBox from '@react-native-community/checkbox';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
-import {useDispatch} from 'react-redux';
 import * as Yup from 'yup';
 import CustomButton from '../../components/CustomButton';
 import TextField from '../../components/TextField';
@@ -119,12 +118,20 @@ const SignUp = () => {
                         secureTextEntry={true}
                       />
                     </View>
+
                     <View style={styles.agreeContainer}>
                       <CheckBox
-                        value={values.agreeToTerms}
+                        value={values.agreeTerms}
                         onValueChange={value =>
-                          setFieldValue('agreeToTerms', value)
+                          setFieldValue('agreeTerms', value)
                         }
+                        tintColors={{
+                          true: themeColors.PRIMARY,
+                          false:
+                            touched.agreeTerms && errors.agreeTerms
+                              ? themeColors.PRIMARY // red
+                              : themeColors.GREY, // Change border color on error
+                        }}
                       />
                       <Text style={styles.agreeText}>
                         I Agree with{' '}
