@@ -15,6 +15,16 @@ import ArrowDown from './ArrowDown.png';
 import Location from './Location.png';
 import Search from './Search.png';
 import Notification from './Notification.png';
+import Burger from './Burger.png';
+import Pizza from './Pizza.png';
+import Taco from './Taco.png';
+import CoolDrink from './CoolDrink.png';
+import Product1 from './Product1.png';
+import Product2 from './Product2.png';
+import Product3 from './Product3.png';
+import Product4 from './Product4.png';
+import Wishlist from './wishlist.png';
+import WishlistFill from './wishlist_fill.png';
 
 export {
   Onboarding1,
@@ -34,4 +44,14 @@ export {
   Location,
   Search,
   Notification,
+  Burger,
+  Pizza,
+  Taco,
+  CoolDrink,
+  Product1,
+  Product2,
+  Product3,
+  Product4,
+  Wishlist,
+  WishlistFill,
 };
