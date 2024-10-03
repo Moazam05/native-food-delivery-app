@@ -15,47 +15,14 @@ const HeroSection = () => {
     <ImageBackground source={HomeBG} style={styles.home}>
       <View style={styles.overlayContent}>
         <View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: 20,
-              marginTop: 45,
-              width: '100%',
-            }}>
+          <View style={styles.header}>
             <View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 10,
-                  marginBottom: 5,
-                }}>
+              <View style={styles.location}>
                 <Text style={styles.locationText}>Your Location</Text>
-                <Image
-                  source={ArrowDown}
-                  style={{
-                    width: 16,
-                    height: 16,
-                    resizeMode: 'contain',
-                  }}
-                />
+                <Image source={ArrowDown} style={styles.arrowDown} />
               </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 10,
-                }}>
-                <Image
-                  source={Location}
-                  style={{
-                    width: 16,
-                    height: 16,
-                    resizeMode: 'contain',
-                  }}
-                />
+              <View style={styles.locationDetails}>
+                <Image source={Location} style={styles.locationIcon} />
 
                 <Text style={styles.locationName}>Ichhra Lahore</Text>
               </View>
@@ -65,7 +32,7 @@ const HeroSection = () => {
               <Image source={Notification} style={styles.searchIcon} />
             </View>
           </View>
-          <View>
+          <View style={styles.taglineContainer}>
             <Text style={styles.tagline}>Provide the best</Text>
             <Text style={styles.tagline}>food for you</Text>
           </View>
@@ -90,6 +57,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 25,
   },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+    marginTop: 45,
+    width: '100%',
+  },
+  location: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 5,
+  },
+  locationDetails: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
   locationText: {
     color: themeColors.WHITE,
     fontSize: 14,
@@ -101,6 +87,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: Fonts.SEMIBOLD,
   },
+  arrowDown: {
+    width: 16,
+    height: 16,
+    resizeMode: 'contain',
+  },
+  locationIcon: {
+    width: 16,
+    height: 16,
+    resizeMode: 'contain',
+  },
   searchIcon: {
     width: 35,
     height: 35,
@@ -110,6 +106,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 15,
   },
+  taglineContainer: {},
   tagline: {
     color: themeColors.WHITE,
     fontSize: 32,
