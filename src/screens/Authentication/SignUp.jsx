@@ -10,7 +10,7 @@ import {
   Text,
   View,
 } from 'react-native';
-// Async Storage
+// React Navigation
 import {useNavigation} from '@react-navigation/native';
 // Formik
 import {Formik} from 'formik';
@@ -35,6 +35,7 @@ import {Facebook, Google} from '../../assets/images';
 // Custom
 import CustomButton from '../../components/CustomButton';
 import TextField from '../../components/TextField';
+// Hooks
 import useTypedSelector from '../../hooks/useTypedSelector';
 
 // Validation Schema

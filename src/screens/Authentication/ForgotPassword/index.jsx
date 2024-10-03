@@ -1,26 +1,35 @@
-import {useNavigation} from '@react-navigation/native';
-import {Formik} from 'formik';
+// React Import
 import React, {useState} from 'react';
+// React Native
 import {
   ActivityIndicator,
-  Image,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import Toast from 'react-native-toast-message';
+// React Navigation
+import {useNavigation} from '@react-navigation/native';
+// Formik
+import {Formik} from 'formik';
 import * as Yup from 'yup';
+// Gesture Handler
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+// Safe Area Context
+import {SafeAreaView} from 'react-native-safe-area-context';
+// Toast Message
+import Toast from 'react-native-toast-message';
+// Custom
 import CustomButton from '../../../components/CustomButton';
 import TextField from '../../../components/TextField';
+// Constants
 import {themeColors} from '../../../constants/colors';
 import {Fonts} from '../../../constants/fonts';
-// import {setUser} from '../../../redux/auth/authSlice';
-import {Facebook, Google} from '../../../assets/images';
+// Hooks
+import useTypedSelector from '../../../hooks/useTypedSelector';
+// Redux Slice
+import {selectUsers} from '../../../redux/users/userSlice';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -31,14 +40,30 @@ const validationSchema = Yup.object().shape({
 
 const ForgotPassword = () => {
   const navigation = useNavigation();
+  const usersList = useTypedSelector(selectUsers);
 
   const [loading, setLoading] = useState(false);
 
   const handleSignUp = async values => {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    if (values.email) {
+      // Find user based on email
+      const findUser = usersList.find(
+        user => user.email === values.email.toLowerCase(),
+      );
+
+      if (!findUser) {
+        throw new Error('User not found');
+      }
+
       navigation.navigate('EmailVerification');
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: error.message,
+      });
+    } finally {
       setLoading(false);
     }
   };
