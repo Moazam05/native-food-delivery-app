@@ -1,6 +1,6 @@
-import {useNavigation} from '@react-navigation/native';
-import {Formik} from 'formik';
+// React Import
 import React, {useEffect, useState} from 'react';
+// React Native
 import {
   ActivityIndicator,
   Image,
@@ -11,16 +11,27 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import Toast from 'react-native-toast-message';
+// React Navigation
+import {useNavigation, useRoute} from '@react-navigation/native';
+// Formik
+import {Formik} from 'formik';
 import * as Yup from 'yup';
+// Gesture Handler
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+// Safe Area Context
+import {SafeAreaView} from 'react-native-safe-area-context';
+// Toast Message
+import Toast from 'react-native-toast-message';
+// Custom
 import CustomButton from '../../../../components/CustomButton';
 import TextField from '../../../../components/TextField';
+// Constants
 import {themeColors} from '../../../../constants/colors';
 import {Fonts} from '../../../../constants/fonts';
+// Assets
 import {Back, Time} from '../../../../assets/images';
 
+// Validation Schema
 const validationSchema = Yup.object().shape({
   otp1: Yup.string().required('Required'),
   otp2: Yup.string().required('Required'),
@@ -30,6 +41,8 @@ const validationSchema = Yup.object().shape({
 
 const EmailVerification = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const {email} = route.params || {};
 
   const [loading, setLoading] = useState(false);
   const [time, setTime] = useState(60); // 1 minute timer
@@ -44,7 +57,32 @@ const EmailVerification = () => {
   }, [time]);
 
   const handleVerify = async values => {
-    setLoading(true);
+    try {
+      setLoading(true);
+
+      const verifyOTP = 1133; // Hardcoded OTP for testing
+      const otpCode = `${values.otp1}${values.otp2}${values.otp3}${values.otp4}`;
+
+      if (otpCode !== verifyOTP.toString()) {
+        throw new Error('Invalid OTP');
+      }
+
+      setTimeout(() => {
+        setLoading(false);
+
+        Toast.show({
+          type: 'success',
+          text1: 'OTP Verified',
+        });
+        navigation.navigate('ResetPassword');
+      }, 2000);
+    } catch (error) {
+      setLoading(false);
+      Toast.show({
+        type: 'error',
+        text1: error.message,
+      });
+    }
   };
 
   return (
@@ -77,7 +115,7 @@ const EmailVerification = () => {
               <Text style={styles.tagline}>
                 Enter the verification code we send you on:
               </Text>
-              <Text style={styles.tagline}>salman@gmail.com</Text>
+              <Text style={styles.tagline}>{email}</Text>
             </View>
 
             <Formik

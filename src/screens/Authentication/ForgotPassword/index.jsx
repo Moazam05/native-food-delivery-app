@@ -57,7 +57,9 @@ const ForgotPassword = () => {
         throw new Error('User not found');
       }
 
-      navigation.navigate('EmailVerification');
+      navigation.navigate('EmailVerification', {
+        email: values.email,
+      });
     } catch (error) {
       Toast.show({
         type: 'error',
