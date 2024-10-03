@@ -27,14 +27,15 @@ const ProductList = () => {
   );
 
   return (
-    <FlatList
-      data={ProductsData}
-      renderItem={renderItem}
-      keyExtractor={item => item.id.toString()}
-      numColumns={2} // Show 2 items per row
-      columnWrapperStyle={styles.rowWrap} // Style to add space between items in a row
-      contentContainerStyle={styles.container}
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={ProductsData}
+        renderItem={renderItem}
+        keyExtractor={item => item.id.toString()}
+        numColumns={2} // Show 2 items per row
+        columnWrapperStyle={styles.rowWrap} // Style to add space between items in a row
+      />
+    </View>
   );
 };
 
