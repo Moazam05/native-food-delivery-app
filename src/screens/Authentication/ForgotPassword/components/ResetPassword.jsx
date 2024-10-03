@@ -21,7 +21,14 @@ import {themeColors} from '../../../../constants/colors';
 import {Fonts} from '../../../../constants/fonts';
 import {Back, Time} from '../../../../assets/images';
 
-const validationSchema = Yup.object().shape({});
+const validationSchema = Yup.object().shape({
+  newPassword: Yup.string()
+    .required('New Password is required')
+    .min(8, 'New Password must be at least 8 characters'),
+  confirmPassword: Yup.string()
+    .required('Confirm Password is required')
+    .oneOf([Yup.ref('newPassword'), null], 'Passwords must match'),
+});
 
 const ResetPassword = () => {
   const navigation = useNavigation();
@@ -81,12 +88,39 @@ const ResetPassword = () => {
                 return (
                   <View style={styles.formContainer}>
                     <View style={styles.buttonContainer}>
+                      <View style={styles.fieldContainer}>
+                        <Text style={styles.label}>New Password</Text>
+
+                        <TextField
+                          placeholder="New Password"
+                          value={values.newPassword}
+                          onChangeText={handleChange('newPassword')}
+                          onBlur={handleBlur('newPassword')}
+                          error={touched.newPassword && errors.newPassword}
+                          secureTextEntry={true}
+                        />
+                      </View>
+
+                      <View style={styles.fieldContainer}>
+                        <Text style={styles.label}>Confirm Password</Text>
+
+                        <TextField
+                          placeholder="Confirm Password"
+                          value={values.confirmPassword}
+                          onChangeText={handleChange('confirmPassword')}
+                          onBlur={handleBlur('confirmPassword')}
+                          error={
+                            touched.confirmPassword && errors.confirmPassword
+                          }
+                          secureTextEntry={true}
+                        />
+                      </View>
                       <CustomButton
                         name={
                           loading ? (
                             <ActivityIndicator color="#ffffff" />
                           ) : (
-                            'Verify'
+                            'Continue'
                           )
                         }
                         onPress={handleSubmit}
@@ -123,12 +157,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   backIcon: {
-    width: 36,
-    height: 36,
+    width: 30,
+    height: 30,
     resizeMode: 'contain',
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: Fonts.SEMIBOLD,
     color: themeColors.BLACK,
   },
@@ -158,5 +192,14 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     marginTop: 32,
+  },
+  fieldContainer: {
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 14,
+    fontFamily: Fonts.MEDIUM,
+    color: themeColors.BLACK,
+    marginBottom: 8,
   },
 });

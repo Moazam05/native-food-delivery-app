@@ -215,12 +215,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   backIcon: {
-    width: 36,
-    height: 36,
+    width: 30,
+    height: 30,
     resizeMode: 'contain',
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: Fonts.SEMIBOLD,
     color: themeColors.BLACK,
   },
