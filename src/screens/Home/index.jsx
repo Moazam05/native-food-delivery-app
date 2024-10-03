@@ -11,6 +11,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {themeColors} from '../../constants/colors';
 import HeroSection from './components/HeroSection';
 import Categories from './components/Categories';
+import ProductList from './components/ProductList';
 
 const Home = () => {
   const [permissionGranted, setPermissionGranted] = useState(false);
@@ -100,6 +101,7 @@ const Home = () => {
         showsVerticalScrollIndicator={false}>
         <HeroSection />
         <Categories />
+        <ProductList />
       </ScrollView>
     </SafeAreaView>
   );

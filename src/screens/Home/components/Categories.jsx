@@ -82,7 +82,7 @@ export default Categories;
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 24,
-    marginVertical: 24,
+    marginTop: 24,
   },
   header: {
     flexDirection: 'row',
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 8,
-    marginVertical: 15,
+    marginTop: 15,
     marginRight: 13,
     display: 'flex',
     alignItems: 'center',
