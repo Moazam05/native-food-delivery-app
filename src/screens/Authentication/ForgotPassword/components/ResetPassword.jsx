@@ -73,7 +73,10 @@ const ResetPassword = () => {
             </View>
 
             <Formik
-              initialValues={{}}
+              initialValues={{
+                newPassword: '',
+                confirmPassword: '',
+              }}
               validationSchema={validationSchema}
               onSubmit={handleVerify}>
               {({
@@ -83,38 +86,43 @@ const ResetPassword = () => {
                 values,
                 errors,
                 touched,
-                setFieldValue,
               }) => {
                 return (
                   <View style={styles.formContainer}>
+                    <View style={styles.fieldContainer}>
+                      <Text style={styles.label}>New Password</Text>
+
+                      <TextField
+                        placeholder="New Password"
+                        value={values.newPassword}
+                        onChangeText={handleChange('newPassword')}
+                        onBlur={handleBlur('newPassword')}
+                        error={touched.newPassword && errors.newPassword}
+                        secureTextEntry={true}
+                      />
+                      <Text style={styles.errorText}>
+                        {touched.newPassword && errors.newPassword}
+                      </Text>
+                    </View>
+
+                    <View style={styles.fieldContainer}>
+                      <Text style={styles.label}>Confirm Password</Text>
+
+                      <TextField
+                        placeholder="Confirm Password"
+                        value={values.confirmPassword}
+                        onChangeText={handleChange('confirmPassword')}
+                        onBlur={handleBlur('confirmPassword')}
+                        error={
+                          touched.confirmPassword && errors.confirmPassword
+                        }
+                        secureTextEntry={true}
+                      />
+                      <Text style={styles.errorText}>
+                        {touched.confirmPassword && errors.confirmPassword}
+                      </Text>
+                    </View>
                     <View style={styles.buttonContainer}>
-                      <View style={styles.fieldContainer}>
-                        <Text style={styles.label}>New Password</Text>
-
-                        <TextField
-                          placeholder="New Password"
-                          value={values.newPassword}
-                          onChangeText={handleChange('newPassword')}
-                          onBlur={handleBlur('newPassword')}
-                          error={touched.newPassword && errors.newPassword}
-                          secureTextEntry={true}
-                        />
-                      </View>
-
-                      <View style={styles.fieldContainer}>
-                        <Text style={styles.label}>Confirm Password</Text>
-
-                        <TextField
-                          placeholder="Confirm Password"
-                          value={values.confirmPassword}
-                          onChangeText={handleChange('confirmPassword')}
-                          onBlur={handleBlur('confirmPassword')}
-                          error={
-                            touched.confirmPassword && errors.confirmPassword
-                          }
-                          secureTextEntry={true}
-                        />
-                      </View>
                       <CustomButton
                         name={
                           loading ? (
@@ -194,12 +202,15 @@ const styles = StyleSheet.create({
     marginTop: 32,
   },
   fieldContainer: {
-    marginBottom: 20,
+    marginBottom: 7,
   },
   label: {
     fontSize: 14,
     fontFamily: Fonts.MEDIUM,
     color: themeColors.BLACK,
     marginBottom: 8,
+  },
+  buttonContainer: {
+    marginTop: 50,
   },
 });
