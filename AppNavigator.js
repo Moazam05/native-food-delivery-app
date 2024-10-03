@@ -6,6 +6,7 @@ import Login from './src/screens/Authentication/Login';
 import SignUp from './src/screens/Authentication/SignUp';
 import ForgotPassword from './src/screens/Authentication/ForgotPassword';
 import EmailVerification from './src/screens/Authentication/ForgotPassword/components/EmailVerification';
+import ResetPassword from './src/screens/Authentication/ForgotPassword/components/ResetPassword';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +21,6 @@ const AppNavigator = () => {
             headerShown: false,
           }}
         /> */}
-
         {/* <Stack.Screen
           name="Login"
           component={Login}
@@ -28,7 +28,6 @@ const AppNavigator = () => {
             headerShown: false,
           }}
         /> */}
-
         {/* <Stack.Screen
           name="SignUp"
           component={SignUp}
@@ -36,7 +35,6 @@ const AppNavigator = () => {
             headerShown: false,
           }}
         /> */}
-
         {/* <Stack.Screen
           name="ForgotPassword"
           component={ForgotPassword}
@@ -44,10 +42,16 @@ const AppNavigator = () => {
             headerShown: false,
           }}
         /> */}
-
-        <Stack.Screen
+        {/* <Stack.Screen
           name="EmailVerification"
           component={EmailVerification}
+          options={{
+            headerShown: false,
+          }}
+        /> */}
+        <Stack.Screen
+          name="ResetPassword"
+          component={ResetPassword}
           options={{
             headerShown: false,
           }}
