@@ -10,6 +10,11 @@ import HideEye from './hide-eye.png';
 import Back from './Back.png';
 import Time from './Time.png';
 import Success from './Success.png';
+import HomeBG from './HomeBG.png';
+import ArrowDown from './ArrowDown.png';
+import Location from './Location.png';
+import Search from './Search.png';
+import Notification from './Notification.png';
 
 export {
   Onboarding1,
@@ -24,4 +29,9 @@ export {
   Back,
   Time,
   Success,
+  HomeBG,
+  ArrowDown,
+  Location,
+  Search,
+  Notification,
 };

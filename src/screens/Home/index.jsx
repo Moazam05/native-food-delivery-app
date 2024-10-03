@@ -50,9 +50,9 @@ const Home = () => {
     }
   };
 
-  console.log('latitude', latitude);
-  console.log('longitude', longitude);
-  console.log('API KEY', GOOGLE_MAPS_API_KEY);
+  // console.log('latitude', latitude);
+  // console.log('longitude', longitude);
+  // console.log('API KEY', GOOGLE_MAPS_API_KEY);
 
   const fetchAddress = async (lat, lng) => {
     const apiEndpoint = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_MAPS_API_KEY}`;
