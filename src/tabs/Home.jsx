@@ -1,10 +1,12 @@
 import {GOOGLE_MAPS_API_KEY} from '@env';
 import React, {useEffect, useState} from 'react';
 import {
+  FlatList,
   PermissionsAndroid,
   ScrollView,
   StatusBar,
   StyleSheet,
+  View,
 } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -12,6 +14,7 @@ import {themeColors} from '../constants/colors';
 import HeroSection from '../screens/Home/components/HeroSection';
 import Categories from '../screens/Home/components/Categories';
 import ProductList from '../screens/Home/components/ProductList';
+import {categoriesData} from '../constants';
 
 const Home = () => {
   const [permissionGranted, setPermissionGranted] = useState(false);
@@ -90,30 +93,30 @@ const Home = () => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar
-        barStyle="light-content"
-        translucent
-        backgroundColor={themeColors.PRIMARY_BG}
-      />
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        showsVerticalScrollIndicator={false}>
-        <HeroSection />
-        <Categories />
-        <ProductList />
-      </ScrollView>
-    </SafeAreaView>
+    <FlatList
+      data={categoriesData}
+      keyExtractor={item => item.id.toString()}
+      ListHeaderComponent={
+        <View>
+          <HeroSection />
+          <Categories />
+          <ProductList />
+        </View>
+      }
+      showsVerticalScrollIndicator={false}
+      renderItem={null} // Since categories are part of ListHeaderComponent
+      ListFooterComponent={<View style={styles.footer} />}
+      contentContainerStyle={styles.contentContainer}
+    />
   );
 };
 
 export default Home;
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: themeColors.PRIMARY_BG,
+  footer: {
+    marginBottom: 80,
   },
-  scrollContainer: {
-    paddingBottom: 20,
+  contentContainer: {
+    paddingTop: 20, // Adjust this value for more or less spacing
   },
 });
