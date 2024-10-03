@@ -5,6 +5,7 @@ import Onboarding from './src/screens/Onboarding';
 import Login from './src/screens/Authentication/Login';
 import SignUp from './src/screens/Authentication/SignUp';
 import ForgotPassword from './src/screens/Authentication/ForgotPassword';
+import EmailVerification from './src/screens/Authentication/ForgotPassword/components/EmailVerification';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,9 +37,17 @@ const AppNavigator = () => {
           }}
         /> */}
 
-        <Stack.Screen
+        {/* <Stack.Screen
           name="ForgotPassword"
           component={ForgotPassword}
+          options={{
+            headerShown: false,
+          }}
+        /> */}
+
+        <Stack.Screen
+          name="EmailVerification"
+          component={EmailVerification}
           options={{
             headerShown: false,
           }}

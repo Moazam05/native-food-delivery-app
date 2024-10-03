@@ -21,6 +21,7 @@ const TextField = ({
   leftIcon,
   inputWrap,
   editable,
+  textStyle,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -29,7 +30,11 @@ const TextField = ({
       <View style={[styles.input, inputWrap, error ? styles.inputError : null]}>
         {leftIcon && <View style={styles.leftIconContainer}>{leftIcon}</View>}
         <TextInput
-          style={[styles.textInput, multiline ? styles.multilineInput : null]}
+          style={[
+            styles.textInput,
+            textStyle,
+            multiline ? styles.multilineInput : null,
+          ]}
           placeholder={placeholder}
           value={value}
           onChangeText={onChangeText}

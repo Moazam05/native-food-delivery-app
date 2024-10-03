@@ -9,38 +9,32 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableOpacity,
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import * as Yup from 'yup';
-import CustomButton from '../../../components/CustomButton';
-import TextField from '../../../components/TextField';
-import {themeColors} from '../../../constants/colors';
-import {Fonts} from '../../../constants/fonts';
-// import {setUser} from '../../../redux/auth/authSlice';
-import {Facebook, Google} from '../../../assets/images';
+import CustomButton from '../../../../components/CustomButton';
+import TextField from '../../../../components/TextField';
+import {themeColors} from '../../../../constants/colors';
+import {Fonts} from '../../../../constants/fonts';
 
-// Validation Schema
 const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Invalid email address')
-    .required('Email is required'),
+  otp1: Yup.string().required('Required'),
+  otp2: Yup.string().required('Required'),
+  otp3: Yup.string().required('Required'),
+  otp4: Yup.string().required('Required'),
 });
 
-const ForgotPassword = () => {
+const EmailVerification = () => {
   const navigation = useNavigation();
 
   const [loading, setLoading] = useState(false);
 
-  const handleSignUp = async values => {
+  const handleVerify = async values => {
     setLoading(true);
-
-    if (values.email) {
-      navigation.navigate('EmailVerification');
-      setLoading(false);
-    }
   };
 
   return (
@@ -57,19 +51,22 @@ const ForgotPassword = () => {
             contentContainerStyle={styles.scrollContainer}
             showsVerticalScrollIndicator={false}>
             <View style={styles.headingWrap}>
-              <Text style={styles.heading}>Forgot password?</Text>
+              <Text style={styles.heading}>Email verification</Text>
               <Text style={styles.tagline}>
-                Enter your email address and we’ll send you confirmation code to
-                reset your password{' '}
+                Enter the verification code we send you on:
               </Text>
+              <Text style={styles.tagline}>salman@gmail.com</Text>
             </View>
 
             <Formik
               initialValues={{
-                email: '',
+                otp1: '',
+                otp2: '',
+                otp3: '',
+                otp4: '',
               }}
               validationSchema={validationSchema}
-              onSubmit={handleSignUp}>
+              onSubmit={handleVerify}>
               {({
                 handleChange,
                 handleBlur,
@@ -81,16 +78,43 @@ const ForgotPassword = () => {
               }) => {
                 return (
                   <View style={styles.formContainer}>
-                    <View style={styles.fieldContainer}>
-                      <Text style={styles.label}>Email Address</Text>
-
+                    <View style={styles.otpContainer}>
                       <TextField
-                        placeholder="Email Address"
-                        value={values.email}
-                        onChangeText={handleChange('email')}
-                        onBlur={handleBlur('email')}
-                        keyboardType="email-address"
-                        error={touched.email && errors.email}
+                        placeholder=""
+                        value={values.otp1}
+                        onChangeText={handleChange('otp1')}
+                        onBlur={handleBlur('otp1')}
+                        keyboardType="number-pad"
+                        inputWrap={styles.otpInput}
+                        textStyle={styles.otpInputText}
+                        error={touched.otp1 && errors.otp1}
+                      />
+                      <TextField
+                        placeholder=""
+                        value={values.otp2}
+                        onChangeText={handleChange('otp2')}
+                        onBlur={handleBlur('otp2')}
+                        keyboardType="number-pad"
+                        inputWrap={styles.otpInput}
+                        error={touched.otp2 && errors.otp2}
+                      />
+                      <TextField
+                        placeholder=""
+                        value={values.otp3}
+                        onChangeText={handleChange('otp3')}
+                        onBlur={handleBlur('otp3')}
+                        keyboardType="number-pad"
+                        inputWrap={styles.otpInput}
+                        error={touched.otp3 && errors.otp3}
+                      />
+                      <TextField
+                        placeholder=""
+                        value={values.otp4}
+                        onChangeText={handleChange('otp4')}
+                        onBlur={handleBlur('otp4')}
+                        keyboardType="number-pad"
+                        inputWrap={styles.otpInput}
+                        error={touched.otp4 && errors.otp4}
                       />
                     </View>
 
@@ -100,7 +124,7 @@ const ForgotPassword = () => {
                           loading ? (
                             <ActivityIndicator color="#ffffff" />
                           ) : (
-                            'Continue'
+                            'Verify'
                           )
                         }
                         onPress={handleSubmit}
@@ -118,7 +142,7 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default EmailVerification;
 
 const styles = StyleSheet.create({
   gestureHandle: {
@@ -152,32 +176,24 @@ const styles = StyleSheet.create({
     color: themeColors.GRAY,
   },
   formContainer: {
-    marginTop: 20,
+    marginTop: 32,
   },
-  fieldContainer: {
-    marginBottom: 15,
-  },
-  agreeContainer: {
+  otpContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  label: {
-    fontSize: 14,
-    fontFamily: Fonts.MEDIUM,
-    color: themeColors.BLACK,
-    marginBottom: 8,
+  otpInput: {
+    width: 65,
+    height: 62,
+    borderRadius: 12,
+    borderColor: themeColors.GRAY,
+    borderWidth: 1,
+    textAlign: 'center',
   },
-  agreeText: {
-    color: themeColors.BLACK,
-    fontSize: 12,
-    fontFamily: Fonts.REGULAR,
-    marginLeft: 3,
-  },
-  linkText: {
-    color: themeColors.PRIMARY,
-    fontFamily: Fonts.SEMIBOLD,
+  otpInputText: {
+    fontSize: 30,
   },
   buttonContainer: {
-    marginTop: 160,
+    marginTop: 40,
   },
 });
