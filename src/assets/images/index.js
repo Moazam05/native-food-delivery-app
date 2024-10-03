@@ -26,6 +26,10 @@ import Product4 from './Product4.png';
 import Wishlist from './wishlist.png';
 import WishlistFill from './wishlist_fill.png';
 import Star from './Star.png';
+import HomeIcon from './HomeIcon.png';
+import CartIcon from './CartIcon.png';
+import SearchIcon from './bottomSearch.png';
+import ProfileIcon from './ProfileIcon.png';
 
 export {
   Onboarding1,
@@ -56,4 +60,8 @@ export {
   Wishlist,
   WishlistFill,
   Star,
+  HomeIcon,
+  CartIcon,
+  SearchIcon,
+  ProfileIcon,
 };
