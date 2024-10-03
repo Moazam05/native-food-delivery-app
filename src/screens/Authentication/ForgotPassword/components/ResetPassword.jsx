@@ -1,6 +1,6 @@
-import {useNavigation} from '@react-navigation/native';
-import {Formik} from 'formik';
-import React, {useEffect, useState} from 'react';
+// React Import
+import React, {useState} from 'react';
+// React Native
 import {
   ActivityIndicator,
   Image,
@@ -11,21 +11,37 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import Toast from 'react-native-toast-message';
+// React Navigation
+import {useNavigation, useRoute} from '@react-navigation/native';
+// Formik
+import {Formik} from 'formik';
 import * as Yup from 'yup';
+// Gesture Handler
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+// Safe Area Context
+import {SafeAreaView} from 'react-native-safe-area-context';
+// Toast Message
+import Toast from 'react-native-toast-message';
+// Custom
 import CustomButton from '../../../../components/CustomButton';
 import TextField from '../../../../components/TextField';
+import PasswordChangeModal from './PasswordChangeModal';
+// Constants
 import {themeColors} from '../../../../constants/colors';
 import {Fonts} from '../../../../constants/fonts';
-import {Back, Time} from '../../../../assets/images';
-import PasswordChangeModal from './PasswordChangeModal';
+// Assets
+import {Back} from '../../../../assets/images';
+// Hooks
+import useTypedSelector from '../../../../hooks/useTypedSelector';
+// Redux Slice
+import {selectUsers, updateUser} from '../../../../redux/users/userSlice';
+// Redux
+import {useDispatch} from 'react-redux';
 
 const validationSchema = Yup.object().shape({
   newPassword: Yup.string()
     .required('New Password is required')
-    .min(8, 'New Password must be at least 8 characters'),
+    .min(6, 'New Password must be at least 6 characters'),
   confirmPassword: Yup.string()
     .required('Confirm Password is required')
     .oneOf([Yup.ref('newPassword'), null], 'Passwords must match'),
@@ -33,14 +49,44 @@ const validationSchema = Yup.object().shape({
 
 const ResetPassword = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const usersList = useTypedSelector(selectUsers);
+  const route = useRoute();
+  const {email} = route.params || {};
 
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleVerify = async values => {
-    setLoading(true);
-    if (values.newPassword === values.confirmPassword) {
-      setModalVisible(true);
+    try {
+      setLoading(true);
+
+      // Find user based on email
+      const findUser = usersList.find(
+        user => user.email === email.toLowerCase(),
+      );
+
+      if (!findUser) {
+        throw new Error('User not found');
+      }
+
+      // Update user password
+      const updatedUser = {
+        ...findUser,
+        password: values.newPassword,
+      };
+
+      setTimeout(async () => {
+        setLoading(false);
+        await dispatch(updateUser(updatedUser));
+        setModalVisible(true);
+      }, 2000);
+    } catch (error) {
+      setLoading(false);
+      Toast.show({
+        type: 'error',
+        text1: error.message,
+      });
     }
   };
 

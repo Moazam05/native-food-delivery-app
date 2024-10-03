@@ -74,7 +74,7 @@ const EmailVerification = () => {
           type: 'success',
           text1: 'OTP Verified',
         });
-        navigation.navigate('ResetPassword');
+        navigation.navigate('ResetPassword', {email});
       }, 2000);
     } catch (error) {
       setLoading(false);
@@ -303,6 +303,7 @@ const styles = StyleSheet.create({
   },
   otpInputText: {
     fontSize: 30,
+    textAlign: 'center',
   },
   buttonContainer: {
     marginTop: 40,
