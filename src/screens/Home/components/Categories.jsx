@@ -9,30 +9,7 @@ import {
 import React, {useState} from 'react';
 import {Fonts} from '../../../constants/fonts';
 import {themeColors} from '../../../constants/colors';
-import {Burger, CoolDrink, Pizza, Taco} from '../../../assets/images';
-
-const categoriesData = [
-  {
-    id: 1,
-    name: 'Burger',
-    image: Burger,
-  },
-  {
-    id: 2,
-    name: 'Taco',
-    image: Taco,
-  },
-  {
-    id: 3,
-    name: 'Drink',
-    image: CoolDrink,
-  },
-  {
-    id: 4,
-    name: 'Pizza',
-    image: Pizza,
-  },
-];
+import {categoriesData} from '../../../constants';
 
 const Categories = () => {
   const [selectedCategory, setSelectedCategory] = useState('Burger');

@@ -1,4 +1,13 @@
-import {Product1, Product2, Product3, Product4} from '../assets/images';
+import {
+  Burger,
+  CoolDrink,
+  Pizza,
+  Product1,
+  Product2,
+  Product3,
+  Product4,
+  Taco,
+} from '../assets/images';
 
 export const onboarding = [
   {
@@ -53,5 +62,28 @@ export const ProductsData = [
     rating: 4.7,
     price: 999,
     distance: '10-15',
+  },
+];
+
+export const categoriesData = [
+  {
+    id: 1,
+    name: 'Burger',
+    image: Burger,
+  },
+  {
+    id: 2,
+    name: 'Taco',
+    image: Taco,
+  },
+  {
+    id: 3,
+    name: 'Drink',
+    image: CoolDrink,
+  },
+  {
+    id: 4,
+    name: 'Pizza',
+    image: Pizza,
   },
 ];
