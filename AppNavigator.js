@@ -7,6 +7,7 @@ import SignUp from './src/screens/Authentication/SignUp';
 import ForgotPassword from './src/screens/Authentication/ForgotPassword';
 import EmailVerification from './src/screens/Authentication/ForgotPassword/components/EmailVerification';
 import ResetPassword from './src/screens/Authentication/ForgotPassword/components/ResetPassword';
+import Home from './src/screens/Home';
 
 const Stack = createNativeStackNavigator();
 
@@ -52,6 +53,14 @@ const AppNavigator = () => {
         <Stack.Screen
           name="ResetPassword"
           component={ResetPassword}
+          options={{
+            headerShown: false,
+          }}
+        />
+        {/* Protected */}
+        <Stack.Screen
+          name="Home"
+          component={Home}
           options={{
             headerShown: false,
           }}

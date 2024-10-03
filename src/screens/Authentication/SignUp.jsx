@@ -19,7 +19,6 @@ import CustomButton from '../../components/CustomButton';
 import TextField from '../../components/TextField';
 import {themeColors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
-// import {setUser} from '../../../redux/auth/authSlice';
 import {Facebook, Google} from '../../assets/images';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import {addUser, selectUsers} from '../../redux/users/userSlice';

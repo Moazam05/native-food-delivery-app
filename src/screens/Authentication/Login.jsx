@@ -20,8 +20,10 @@ import CustomButton from '../../components/CustomButton';
 import TextField from '../../components/TextField';
 import {themeColors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
-// import {setUser} from '../../../redux/auth/authSlice';
 import {Facebook, Google} from '../../assets/images';
+import useTypedSelector from '../../hooks/useTypedSelector';
+import {selectUsers} from '../../redux/users/userSlice';
+import {setUser} from '../../redux/auth/authSlice';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -34,11 +36,47 @@ const validationSchema = Yup.object().shape({
 const Login = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const usersList = useTypedSelector(selectUsers);
 
   const [loading, setLoading] = useState(false);
 
-  const handleSignin = async values => {
-    setLoading(true);
+  const handleSignIn = async values => {
+    try {
+      setLoading(true);
+
+      // Find user based on email
+      const findUser = usersList.find(
+        user => user.email === values.email.toLowerCase(),
+      );
+
+      if (!findUser) {
+        throw new Error('User not found');
+      }
+
+      if (findUser.password !== values.password) {
+        throw new Error('Invalid password');
+      }
+
+      setTimeout(async () => {
+        setLoading(false);
+        // Set user in local storage
+        await AsyncStorage.setItem('user', JSON.stringify(findUser));
+        dispatch(setUser(findUser));
+        // Navigate to home screen
+        navigation.navigate('Home');
+
+        Toast.show({
+          type: 'success',
+          text1: 'Logged in successfully',
+        });
+      }, 2000);
+    } catch (error) {
+      setLoading(false);
+      Toast.show({
+        type: 'error',
+        text1: error.message,
+      });
+    }
   };
 
   return (
@@ -63,7 +101,7 @@ const Login = () => {
             <Formik
               initialValues={{email: '', password: ''}}
               validationSchema={validationSchema}
-              onSubmit={handleSignin}>
+              onSubmit={handleSignIn}>
               {({
                 handleChange,
                 handleBlur,
