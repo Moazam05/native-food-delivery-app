@@ -1,6 +1,6 @@
-import {useNavigation} from '@react-navigation/native';
-import {Formik} from 'formik';
+// React Import
 import React, {useState} from 'react';
+// React Native
 import {
   ActivityIndicator,
   Image,
@@ -10,19 +10,32 @@ import {
   Text,
   View,
 } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import Toast from 'react-native-toast-message';
+// Async Storage
+import {useNavigation} from '@react-navigation/native';
+// Formik
+import {Formik} from 'formik';
 import * as Yup from 'yup';
-import CustomButton from '../../components/CustomButton';
-import TextField from '../../components/TextField';
+// CheckBox
+import CheckBox from '@react-native-community/checkbox';
+// Gesture Handler
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+// Safe Area Context
+import {SafeAreaView} from 'react-native-safe-area-context';
+// Toast Message
+import Toast from 'react-native-toast-message';
+// Redux Slice
+import {addUser, selectUsers} from '../../redux/users/userSlice';
+// Redux
+import {useDispatch} from 'react-redux';
+// Constants
 import {themeColors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
+// Assets
 import {Facebook, Google} from '../../assets/images';
+// Custom
+import CustomButton from '../../components/CustomButton';
+import TextField from '../../components/TextField';
 import useTypedSelector from '../../hooks/useTypedSelector';
-import {addUser, selectUsers} from '../../redux/users/userSlice';
-import {useDispatch} from 'react-redux';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({

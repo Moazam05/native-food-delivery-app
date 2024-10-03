@@ -1,7 +1,6 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation} from '@react-navigation/native';
-import {Formik} from 'formik';
+// React Import
 import React, {useState} from 'react';
+// React Native
 import {
   ActivityIndicator,
   Image,
@@ -11,17 +10,32 @@ import {
   Text,
   View,
 } from 'react-native';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import Toast from 'react-native-toast-message';
-import {useDispatch} from 'react-redux';
+// Async Storage
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// React Navigation
+import {useNavigation} from '@react-navigation/native';
+// Formik
+import {Formik} from 'formik';
 import * as Yup from 'yup';
-import CustomButton from '../../components/CustomButton';
-import TextField from '../../components/TextField';
+// Gesture Handler
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+// Safe Area Context
+import {SafeAreaView} from 'react-native-safe-area-context';
+// Toast Message
+import Toast from 'react-native-toast-message';
+// Redux
+import {useDispatch} from 'react-redux';
+// Constants
 import {themeColors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
+// Assets
 import {Facebook, Google} from '../../assets/images';
+// Custom
+import CustomButton from '../../components/CustomButton';
+import TextField from '../../components/TextField';
+// Hooks
 import useTypedSelector from '../../hooks/useTypedSelector';
+// Redux Slice
 import {selectUsers} from '../../redux/users/userSlice';
 import {setUser} from '../../redux/auth/authSlice';
 
