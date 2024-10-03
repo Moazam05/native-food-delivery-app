@@ -11,7 +11,7 @@ import {Fonts} from '../../../constants/fonts';
 import {themeColors} from '../../../constants/colors';
 import {Burger, CoolDrink, Pizza, Taco} from '../../../assets/images';
 
-const categoiesData = [
+const categoriesData = [
   {
     id: 1,
     name: 'Burger',
@@ -22,7 +22,6 @@ const categoiesData = [
     name: 'Taco',
     image: Taco,
   },
-
   {
     id: 3,
     name: 'Drink',
@@ -38,73 +37,40 @@ const categoiesData = [
 const Categories = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
 
+  const renderItem = ({item}) => {
+    return (
+      <TouchableOpacity
+        onPress={() => setSelectedCategory(item.name)}
+        style={[
+          styles.categoryItem,
+          selectedCategory === item.name && styles.selectedCategoryItem,
+        ]}>
+        <Image source={item.image} style={styles.categoryImage} />
+        <Text
+          style={[
+            styles.categoryName,
+            selectedCategory === item.name && styles.selectedCategoryName,
+          ]}>
+          {item.name}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}>
-        <Text
-          style={{
-            fontSize: 16,
-            fontFamily: Fonts.SEMIBOLD,
-            color: themeColors.BLACK,
-          }}>
-          Find by Category
-        </Text>
-        <Text
-          style={{
-            fontSize: 14,
-            fontFamily: Fonts.MEDIUM,
-            color: themeColors.PRIMARY,
-          }}>
-          See All
-        </Text>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Find by Category</Text>
+        <Text style={styles.seeAllText}>See All</Text>
       </View>
 
       <View>
         <FlatList
-          data={categoiesData}
+          data={categoriesData}
           keyExtractor={item => item.id.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              onPress={() => setSelectedCategory(item.name)}
-              style={{
-                paddingVertical: 10,
-                paddingHorizontal: 16,
-                borderRadius: 8,
-                marginVertical: 16,
-                marginRight: 20,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor:
-                  selectedCategory === item.name
-                    ? themeColors.PRIMARY
-                    : themeColors.WHITE,
-              }}>
-              <Image
-                source={item.image}
-                style={{width: 31, height: 31, resizeMode: 'contain'}}
-              />
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontFamily: Fonts.MEDIUM,
-                  color:
-                    selectedCategory === item.name
-                      ? themeColors.WHITE
-                      : themeColors.GRAY,
-                  textAlign: 'center',
-                  marginTop: 8,
-                }}>
-                {item.name}
-              </Text>
-            </TouchableOpacity>
-          )}
+          renderItem={renderItem}
         />
       </View>
     </View>
@@ -117,5 +83,48 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 24,
     marginVertical: 24,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  headerText: {
+    fontSize: 16,
+    fontFamily: Fonts.SEMIBOLD,
+    color: themeColors.BLACK,
+  },
+  seeAllText: {
+    fontSize: 14,
+    fontFamily: Fonts.MEDIUM,
+    color: themeColors.PRIMARY,
+  },
+  categoryItem: {
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    marginVertical: 16,
+    marginRight: 20,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: themeColors.WHITE,
+  },
+  selectedCategoryItem: {
+    backgroundColor: themeColors.PRIMARY,
+  },
+  categoryImage: {
+    width: 31,
+    height: 31,
+    resizeMode: 'contain',
+  },
+  categoryName: {
+    fontSize: 14,
+    fontFamily: Fonts.MEDIUM,
+    color: themeColors.GRAY,
+    textAlign: 'center',
+    marginTop: 8,
+  },
+  selectedCategoryName: {
+    color: themeColors.WHITE,
   },
 });
