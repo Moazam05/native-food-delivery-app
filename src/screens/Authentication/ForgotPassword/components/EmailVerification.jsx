@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {Formik} from 'formik';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Image,
@@ -20,6 +20,7 @@ import CustomButton from '../../../../components/CustomButton';
 import TextField from '../../../../components/TextField';
 import {themeColors} from '../../../../constants/colors';
 import {Fonts} from '../../../../constants/fonts';
+import {Back, Time} from '../../../../assets/images';
 
 const validationSchema = Yup.object().shape({
   otp1: Yup.string().required('Required'),
@@ -32,6 +33,16 @@ const EmailVerification = () => {
   const navigation = useNavigation();
 
   const [loading, setLoading] = useState(false);
+  const [time, setTime] = useState(120); // 2 minute timer
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (time > 0) {
+        setTime(time - 1);
+      }
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [time]);
 
   const handleVerify = async values => {
     setLoading(true);
@@ -47,6 +58,21 @@ const EmailVerification = () => {
 
       <GestureHandlerRootView style={styles.gestureHandle}>
         <SafeAreaView style={styles.container}>
+          {/* Top Bar */}
+          <View style={styles.topBar}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.reset({
+                  index: 0,
+                  routes: [{name: 'Main'}],
+                });
+              }}>
+              <Image source={Back} style={styles.backIcon} />
+            </TouchableOpacity>
+            <Text style={styles.title}>OTP</Text>
+            <Text style={styles.h}>Hide</Text>
+          </View>
+
           <ScrollView
             contentContainerStyle={styles.scrollContainer}
             showsVerticalScrollIndicator={false}>
@@ -118,6 +144,20 @@ const EmailVerification = () => {
                       />
                     </View>
 
+                    <View style={styles.receivedWrap}>
+                      <Text style={styles.didntReceiveText}>
+                        Didn't receive code?
+                      </Text>
+                      <TouchableOpacity onPress={() => setTime(60)}>
+                        <Text style={styles.resendText}>Resend</Text>
+                      </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.timeWrap}>
+                      <Image source={Time} style={styles.timeIcon} />
+                      <Text style={styles.timeText}>{time}</Text>
+                    </View>
+
                     <View style={styles.buttonContainer}>
                       <CustomButton
                         name={
@@ -155,11 +195,30 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
 
+  topBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  backIcon: {
+    width: 36,
+    height: 36,
+    resizeMode: 'contain',
+  },
+  title: {
+    fontSize: 18,
+    fontFamily: Fonts.SEMIBOLD,
+    color: themeColors.BLACK,
+  },
+  h: {
+    opacity: 0,
+  },
+
   scrollContainer: {
     paddingBottom: 20,
   },
   headingWrap: {
-    marginTop: 20,
+    marginTop: 32,
   },
   errorText: {
     color: themeColors.PRIMARY,
@@ -195,5 +254,41 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 40,
+  },
+
+  receivedWrap: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 16,
+    alignItems: 'center',
+    gap: 5,
+  },
+
+  didntReceiveText: {
+    fontSize: 14,
+    fontFamily: Fonts.MEDIUM,
+    color: themeColors.GRAY,
+  },
+  resendText: {
+    fontSize: 14,
+    fontFamily: Fonts.MEDIUM,
+    color: themeColors.PRIMARY,
+  },
+  timeWrap: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 45,
+  },
+  timeIcon: {
+    width: 19,
+    height: 19,
+    resizeMode: 'contain',
+  },
+  timeText: {
+    fontSize: 15,
+    fontFamily: Fonts.MEDIUM,
+    color: themeColors.GRAY,
+    marginLeft: 5,
   },
 });

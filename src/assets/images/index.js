@@ -7,6 +7,8 @@ import Google from './Google.png';
 import Facebook from './facebook.png';
 import OpenEye from './open-eye.png';
 import HideEye from './hide-eye.png';
+import Back from './Back.png';
+import Time from './Time.png';
 
 export {
   Onboarding1,
@@ -18,4 +20,6 @@ export {
   Facebook,
   OpenEye,
   HideEye,
+  Back,
+  Time,
 };
