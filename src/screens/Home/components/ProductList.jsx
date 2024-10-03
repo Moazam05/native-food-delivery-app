@@ -1,30 +1,40 @@
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, FlatList} from 'react-native';
 import React from 'react';
 import {themeColors} from '../../../constants/colors';
-import {Location, Product1, Star} from '../../../assets/images';
+import {Location, Star} from '../../../assets/images';
 import {Fonts} from '../../../constants/fonts';
+import {ProductsData} from '../../../constants';
 
 const ProductList = () => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.productCard}>
-        <Image source={Product1} style={styles.productImage} />
-        <Text style={styles.productTitle}>Ordinary Burgers</Text>
+  const renderItem = ({item}) => (
+    <View style={styles.productCard}>
+      <Image source={item.image} style={styles.productImage} />
+      <Text style={styles.productTitle}>{item.name}</Text>
 
+      <View style={styles.row}>
         <View style={styles.row}>
-          <View style={styles.row}>
-            <Image source={Star} style={styles.icon} />
-            <Text style={styles.ratingText}>4.5</Text>
-          </View>
-          <View style={styles.row}>
-            <Image source={Location} style={styles.locationIcon} />
-            <Text style={styles.distanceText}>190m</Text>
-          </View>
+          <Image source={Star} style={styles.icon} />
+          <Text style={styles.ratingText}>{item.rating}</Text>
         </View>
-
-        <Text style={styles.price}>Rs. 200</Text>
+        <View style={styles.row}>
+          <Image source={Location} style={styles.locationIcon} />
+          <Text style={styles.distanceText}>{item.distance} m</Text>
+        </View>
       </View>
+
+      <Text style={styles.price}>Rs. {item.price}</Text>
     </View>
+  );
+
+  return (
+    <FlatList
+      data={ProductsData}
+      renderItem={renderItem}
+      keyExtractor={item => item.id.toString()}
+      numColumns={2} // Show 2 items per row
+      columnWrapperStyle={styles.rowWrap} // Style to add space between items in a row
+      contentContainerStyle={styles.container}
+    />
   );
 };
 
@@ -32,14 +42,18 @@ export default ProductList;
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 24,
+    paddingHorizontal: 24,
     marginTop: 16,
+  },
+  rowWrap: {
+    justifyContent: 'space-between',
+    marginBottom: 16,
   },
   productCard: {
     backgroundColor: themeColors.WHITE,
     borderRadius: 12,
     padding: 8,
-    width: 155,
+    width: '48%',
   },
   productImage: {
     width: '100%',
@@ -51,13 +65,13 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.MEDIUM,
     fontSize: 16,
     color: themeColors.BLACK,
-    marginTop: 4,
+    marginTop: 5,
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 8,
+    marginTop: 4,
   },
   icon: {
     width: 16,
@@ -86,6 +100,6 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.BOLD,
     fontSize: 16,
     color: themeColors.PRIMARY,
-    marginTop: 8,
+    marginTop: 5,
   },
 });

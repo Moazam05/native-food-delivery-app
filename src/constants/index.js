@@ -28,7 +28,7 @@ export const ProductsData = [
     image: Product1,
     rating: 4.5,
     price: 499,
-    distance: 5 - 10,
+    distance: '5-10',
   },
   {
     id: 2,
@@ -36,7 +36,7 @@ export const ProductsData = [
     image: Product2,
     rating: 4.3,
     price: 650,
-    distance: 15 - 120,
+    distance: '15-120',
   },
   {
     id: 3,
@@ -44,7 +44,7 @@ export const ProductsData = [
     image: Product3,
     rating: 4.8,
     price: 799,
-    distance: 20 - 25,
+    distance: '20-25',
   },
   {
     id: 4,
@@ -52,6 +52,6 @@ export const ProductsData = [
     image: Product4,
     rating: 4.7,
     price: 999,
-    distance: 10 - 15,
+    distance: '10-15',
   },
 ];
