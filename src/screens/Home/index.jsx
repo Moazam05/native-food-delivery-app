@@ -10,6 +10,7 @@ import Geolocation from 'react-native-geolocation-service';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {themeColors} from '../../constants/colors';
 import HeroSection from './components/HeroSection';
+import Categories from './components/Categories';
 
 const Home = () => {
   const [permissionGranted, setPermissionGranted] = useState(false);
@@ -98,6 +99,7 @@ const Home = () => {
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}>
         <HeroSection />
+        <Categories />
       </ScrollView>
     </SafeAreaView>
   );
