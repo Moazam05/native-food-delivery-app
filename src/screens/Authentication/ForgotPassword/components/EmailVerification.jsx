@@ -192,6 +192,7 @@ const EmailVerification = () => {
                       <TouchableOpacity
                         onPress={() => setTime(60)}
                         disabled={time > 0}
+                        // eslint-disable-next-line react-native/no-inline-styles
                         style={{opacity: time > 0 ? 0.5 : 1}}>
                         <Text style={styles.resendText}>Resend</Text>
                       </TouchableOpacity>
