@@ -1,7 +1,15 @@
-import {View, Text, PermissionsAndroid} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import Geolocation from 'react-native-geolocation-service';
 import {GOOGLE_MAPS_API_KEY} from '@env';
+import React, {useEffect, useState} from 'react';
+import {
+  PermissionsAndroid,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+} from 'react-native';
+import Geolocation from 'react-native-geolocation-service';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {themeColors} from '../../constants/colors';
+import HeroSection from './components/HeroSection';
 
 const Home = () => {
   const [permissionGranted, setPermissionGranted] = useState(false);
@@ -80,11 +88,28 @@ const Home = () => {
   }, []);
 
   return (
-    <View>
-      <Text>Home</Text>
-      <Text>User Address: {userAddress}</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <StatusBar
+        barStyle="light-content"
+        translucent
+        backgroundColor="transparent"
+      />
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}>
+        <HeroSection />
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 export default Home;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: themeColors.PRIMARY_BG,
+  },
+  scrollContainer: {
+    paddingBottom: 20,
+  },
+});
