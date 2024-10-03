@@ -9,6 +9,7 @@ import OpenEye from './open-eye.png';
 import HideEye from './hide-eye.png';
 import Back from './Back.png';
 import Time from './Time.png';
+import Success from './Success.png';
 
 export {
   Onboarding1,
@@ -22,4 +23,5 @@ export {
   HideEye,
   Back,
   Time,
+  Success,
 };

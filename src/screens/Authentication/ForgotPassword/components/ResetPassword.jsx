@@ -20,6 +20,7 @@ import TextField from '../../../../components/TextField';
 import {themeColors} from '../../../../constants/colors';
 import {Fonts} from '../../../../constants/fonts';
 import {Back, Time} from '../../../../assets/images';
+import PasswordChangeModal from './PasswordChangeModal';
 
 const validationSchema = Yup.object().shape({
   newPassword: Yup.string()
@@ -34,9 +35,13 @@ const ResetPassword = () => {
   const navigation = useNavigation();
 
   const [loading, setLoading] = useState(false);
+  const [modalVisible, setModalVisible] = useState(true);
 
   const handleVerify = async values => {
     setLoading(true);
+    if (values.newPassword === values.confirmPassword) {
+      setModalVisible(true);
+    }
   };
 
   return (
@@ -141,6 +146,11 @@ const ResetPassword = () => {
             </Formik>
           </ScrollView>
         </SafeAreaView>
+        {/* Modal */}
+        <PasswordChangeModal
+          visible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
       </GestureHandlerRootView>
     </>
   );
