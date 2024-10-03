@@ -93,7 +93,7 @@ const Home = () => {
       <StatusBar
         barStyle="light-content"
         translucent
-        backgroundColor="transparent"
+        backgroundColor={themeColors.PRIMARY_BG}
       />
       <ScrollView
         contentContainerStyle={styles.scrollContainer}

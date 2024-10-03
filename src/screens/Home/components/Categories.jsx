@@ -35,7 +35,7 @@ const categoriesData = [
 ];
 
 const Categories = () => {
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('Burger');
 
   const renderItem = ({item}) => {
     return (
@@ -102,8 +102,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 8,
-    marginVertical: 16,
-    marginRight: 20,
+    marginVertical: 15,
+    marginRight: 13,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
