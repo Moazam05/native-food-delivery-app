@@ -1,3 +1,6 @@
+// React Import
+import React from 'react';
+// React Native
 import {
   View,
   Text,
@@ -7,10 +10,13 @@ import {
   Image,
   StatusBar,
 } from 'react-native';
-import React from 'react';
+// React Navigation
 import {useNavigation} from '@react-navigation/native';
+// Assets
 import {Success} from '../../../../assets/images';
+// Custom
 import CustomButton from '../../../../components/CustomButton';
+// Constants
 import {Fonts} from '../../../../constants/fonts';
 import {themeColors} from '../../../../constants/colors';
 
