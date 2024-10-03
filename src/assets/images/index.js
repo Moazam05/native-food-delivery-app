@@ -25,6 +25,7 @@ import Product3 from './Product3.png';
 import Product4 from './Product4.png';
 import Wishlist from './wishlist.png';
 import WishlistFill from './wishlist_fill.png';
+import Star from './Star.png';
 
 export {
   Onboarding1,
@@ -54,4 +55,5 @@ export {
   Product4,
   Wishlist,
   WishlistFill,
+  Star,
 };
