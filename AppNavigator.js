@@ -19,8 +19,8 @@ const AppNavigator = () => {
             headerShown: false,
           }}
         /> */}
-        {/* 
-        <Stack.Screen
+
+        {/* <Stack.Screen
           name="Login"
           component={Login}
           options={{
@@ -28,13 +28,13 @@ const AppNavigator = () => {
           }}
         /> */}
 
-        <Stack.Screen
+        {/* <Stack.Screen
           name="SignUp"
           component={SignUp}
           options={{
             headerShown: false,
           }}
-        />
+        /> */}
 
         <Stack.Screen
           name="ForgotPassword"
