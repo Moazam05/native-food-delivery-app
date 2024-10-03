@@ -21,34 +21,34 @@ const AppNavigator = () => {
             headerShown: false,
           }}
         /> */}
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Login"
           component={Login}
           options={{
             headerShown: false,
           }}
-        /> */}
-        {/* <Stack.Screen
+        />
+        <Stack.Screen
           name="SignUp"
           component={SignUp}
           options={{
             headerShown: false,
           }}
-        /> */}
-        {/* <Stack.Screen
+        />
+        <Stack.Screen
           name="ForgotPassword"
           component={ForgotPassword}
           options={{
             headerShown: false,
           }}
-        /> */}
-        {/* <Stack.Screen
+        />
+        <Stack.Screen
           name="EmailVerification"
           component={EmailVerification}
           options={{
             headerShown: false,
           }}
-        /> */}
+        />
         <Stack.Screen
           name="ResetPassword"
           component={ResetPassword}

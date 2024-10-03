@@ -35,7 +35,7 @@ const ResetPassword = () => {
   const navigation = useNavigation();
 
   const [loading, setLoading] = useState(false);
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleVerify = async values => {
     setLoading(true);
