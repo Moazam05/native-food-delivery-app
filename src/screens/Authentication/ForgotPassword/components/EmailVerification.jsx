@@ -33,7 +33,7 @@ const EmailVerification = () => {
   const navigation = useNavigation();
 
   const [loading, setLoading] = useState(false);
-  const [time, setTime] = useState(120); // 2 minute timer
+  const [time, setTime] = useState(60); // 1 minute timer
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -62,10 +62,7 @@ const EmailVerification = () => {
           <View style={styles.topBar}>
             <TouchableOpacity
               onPress={() => {
-                navigation.reset({
-                  index: 0,
-                  routes: [{name: 'Main'}],
-                });
+                navigation.goBack();
               }}>
               <Image source={Back} style={styles.backIcon} />
             </TouchableOpacity>
@@ -114,6 +111,7 @@ const EmailVerification = () => {
                         inputWrap={styles.otpInput}
                         textStyle={styles.otpInputText}
                         error={touched.otp1 && errors.otp1}
+                        maxLength={1}
                       />
                       <TextField
                         placeholder=""
@@ -122,7 +120,9 @@ const EmailVerification = () => {
                         onBlur={handleBlur('otp2')}
                         keyboardType="number-pad"
                         inputWrap={styles.otpInput}
+                        textStyle={styles.otpInputText}
                         error={touched.otp2 && errors.otp2}
+                        maxLength={1}
                       />
                       <TextField
                         placeholder=""
@@ -132,6 +132,8 @@ const EmailVerification = () => {
                         keyboardType="number-pad"
                         inputWrap={styles.otpInput}
                         error={touched.otp3 && errors.otp3}
+                        textStyle={styles.otpInputText}
+                        maxLength={1}
                       />
                       <TextField
                         placeholder=""
@@ -140,7 +142,9 @@ const EmailVerification = () => {
                         onBlur={handleBlur('otp4')}
                         keyboardType="number-pad"
                         inputWrap={styles.otpInput}
+                        textStyle={styles.otpInputText}
                         error={touched.otp4 && errors.otp4}
+                        maxLength={1}
                       />
                     </View>
 
@@ -148,14 +152,25 @@ const EmailVerification = () => {
                       <Text style={styles.didntReceiveText}>
                         Didn't receive code?
                       </Text>
-                      <TouchableOpacity onPress={() => setTime(60)}>
+                      <TouchableOpacity
+                        onPress={() => setTime(60)}
+                        disabled={time > 0}
+                        style={{opacity: time > 0 ? 0.5 : 1}}>
                         <Text style={styles.resendText}>Resend</Text>
                       </TouchableOpacity>
                     </View>
 
                     <View style={styles.timeWrap}>
                       <Image source={Time} style={styles.timeIcon} />
-                      <Text style={styles.timeText}>{time}</Text>
+                      <Text style={styles.timeText}>
+                        {Math.floor(time / 60)
+                          .toString()
+                          .padStart(2, '0')}
+                        :
+                        {time % 60 === 0
+                          ? '00'
+                          : (time % 60).toString().padStart(2, '0')}
+                      </Text>
                     </View>
 
                     <View style={styles.buttonContainer}>

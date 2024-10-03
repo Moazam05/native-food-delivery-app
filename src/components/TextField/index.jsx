@@ -22,6 +22,7 @@ const TextField = ({
   inputWrap,
   editable,
   textStyle,
+  maxLength,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -46,6 +47,7 @@ const TextField = ({
           textAlignVertical={multiline ? 'top' : 'center'}
           placeholderTextColor="#676767"
           editable={editable}
+          maxLength={maxLength}
         />
       </View>
       {secureTextEntry && (
