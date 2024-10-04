@@ -3,7 +3,7 @@ export const themeColors = {
   GRAY: '#878787',
   BLACK: '#101010',
   WHITE: '#fff',
-  ERROR: '#d32f2f',
+  ERROR: '#F14141',
   PRIMARY_BG: '#F9F9F9',
 
   // OLD

@@ -75,13 +75,7 @@ const HomeScreen = () => {
               />
 
               {selectedTab === 0 && (
-                <Text
-                  style={[
-                    styles.label,
-                    selectedTab === 0 && styles.activeLabel,
-                  ]}>
-                  Home
-                </Text>
+                <Text style={styles.activeLabel}>Home</Text>
               )}
             </TouchableOpacity>
 
@@ -96,13 +90,7 @@ const HomeScreen = () => {
                 ]}
               />
               {selectedTab === 1 && (
-                <Text
-                  style={[
-                    styles.label,
-                    selectedTab === 1 && styles.activeLabel,
-                  ]}>
-                  Cart
-                </Text>
+                <Text style={styles.activeLabel}>Cart</Text>
               )}
             </TouchableOpacity>
 
@@ -117,13 +105,7 @@ const HomeScreen = () => {
                 ]}
               />
               {selectedTab === 2 && (
-                <Text
-                  style={[
-                    styles.label,
-                    selectedTab === 2 && styles.activeLabel,
-                  ]}>
-                  Search
-                </Text>
+                <Text style={styles.activeLabel}>Search</Text>
               )}
             </TouchableOpacity>
 
@@ -139,13 +121,7 @@ const HomeScreen = () => {
               />
 
               {selectedTab === 3 && (
-                <Text
-                  style={[
-                    styles.label,
-                    selectedTab === 3 && styles.activeLabel,
-                  ]}>
-                  Profile
-                </Text>
+                <Text style={styles.activeLabel}>Profile</Text>
               )}
             </TouchableOpacity>
           </View>
@@ -188,11 +164,6 @@ const styles = StyleSheet.create({
   },
   activeBottomTabIcon: {
     tintColor: themeColors.PRIMARY,
-  },
-  label: {
-    fontSize: 12,
-    color: themeColors.GRAY,
-    fontFamily: Fonts.REGULAR,
   },
   activeLabel: {
     fontSize: 12,

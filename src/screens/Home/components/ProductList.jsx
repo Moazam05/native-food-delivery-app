@@ -1,7 +1,7 @@
 import {View, Text, Image, StyleSheet, FlatList} from 'react-native';
 import React from 'react';
 import {themeColors} from '../../../constants/colors';
-import {Location, Star} from '../../../assets/images';
+import {Location, Star, Wishlist} from '../../../assets/images';
 import {Fonts} from '../../../constants/fonts';
 import {ProductsData} from '../../../constants';
 
@@ -9,6 +9,9 @@ const ProductList = () => {
   const renderItem = ({item}) => (
     <View style={styles.productCard}>
       <Image source={item.image} style={styles.productImage} />
+      <View style={styles.wishlistWrap}>
+        <Image source={Wishlist} style={styles.wishlist} />
+      </View>
       <Text style={styles.productTitle}>{item.name}</Text>
 
       <View style={styles.row}>
@@ -61,6 +64,21 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 8,
     resizeMode: 'contain',
+    position: 'relative',
+  },
+  wishlistWrap: {
+    position: 'absolute',
+    top: 17,
+    right: 15,
+    backgroundColor: themeColors.WHITE,
+    padding: 5,
+    borderRadius: 50,
+  },
+  wishlist: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+    tintColor: themeColors.ERROR,
   },
   productTitle: {
     fontFamily: Fonts.MEDIUM,
