@@ -1,14 +1,16 @@
 import {View, Text, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {themeColors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
 import CustomButton from '../../components/CustomButton';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import {selectedProducts} from '../../redux/products/productsSlice';
 import {thousandSeparator} from '../../utils';
+import OrderConfirmModal from './components/OrderConfirmModal';
 
-const CartSummary = () => {
+const CartSummary = ({setSelectedTab}) => {
   const cartProducts = useTypedSelector(selectedProducts);
+  const [modalVisible, setModalVisible] = useState(true);
 
   const calculateTotal = () => {
     return cartProducts
@@ -67,6 +69,13 @@ const CartSummary = () => {
       <View style={styles.buttonContainer}>
         <CustomButton name="Order Now" />
       </View>
+
+      {/* Modal */}
+      <OrderConfirmModal
+        visible={modalVisible}
+        setModalVisible={setModalVisible}
+        setSelectedTab={setSelectedTab}
+      />
     </View>
   );
 };
