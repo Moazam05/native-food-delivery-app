@@ -72,14 +72,7 @@ const ProductDetail = () => {
         <Text style={styles.h}>Hide</Text>
       </View>
 
-      <View
-        style={{
-          height: 300,
-          justifyContent: 'center',
-          width: '100%',
-          position: 'relative',
-          marginTop: 10,
-        }}>
+      <View style={styles.imgWrap}>
         <Swiper
           ref={swiperRef}
           loop={false}
@@ -98,6 +91,20 @@ const ProductDetail = () => {
             style={styles.wishlistIcon}
           />
         </TouchableOpacity>
+
+        <View style={styles.paginationWrap}>
+          {productImages.map((_, index) => (
+            <View
+              key={index}
+              style={[
+                styles.paginationItem,
+                activeIndex === index
+                  ? styles.activePaginationItem
+                  : styles.inactivePaginationItem,
+              ]}
+            />
+          ))}
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -130,6 +137,13 @@ const styles = StyleSheet.create({
   h: {
     opacity: 0,
   },
+  imgWrap: {
+    height: 270,
+    justifyContent: 'center',
+    width: '100%',
+    position: 'relative',
+    marginTop: 10,
+  },
   banner: {
     marginHorizontal: 16,
     marginVertical: 16,
@@ -154,5 +168,35 @@ const styles = StyleSheet.create({
     height: 16,
     resizeMode: 'contain',
     tintColor: themeColors.ERROR,
+  },
+  paginationWrap: {
+    position: 'absolute',
+    bottom: 15,
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+
+  paginationItem: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginHorizontal: 4,
+  },
+
+  activePaginationItem: {
+    backgroundColor: themeColors.PRIMARY,
+    width: 32,
+    height: 5,
+    borderRadius: 2,
+  },
+
+  inactivePaginationItem: {
+    backgroundColor: themeColors.WHITE,
+    width: 32,
+    height: 5,
+    borderRadius: 2,
   },
 });
