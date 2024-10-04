@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
     color: themeColors.PRIMARY,
   },
   categoryItem: {
-    paddingVertical: 10,
-    paddingHorizontal: 16,
+    paddingVertical: 7,
+    paddingHorizontal: 14,
     borderRadius: 8,
     marginTop: 15,
     marginRight: 13,
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: themeColors.PRIMARY,
   },
   categoryImage: {
-    width: 31,
+    width: 41,
     height: 31,
     resizeMode: 'contain',
   },
