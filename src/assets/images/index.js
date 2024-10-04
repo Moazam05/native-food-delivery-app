@@ -38,6 +38,10 @@ import Drink1 from './Drink1.webp';
 import Drink2 from './Drink2.jpg';
 import Drink3 from './Drink3.jpg';
 import Drink4 from './Drink4.jpeg';
+import Pizza1 from './Pizza1.jpeg';
+import Pizza2 from './Pizza2.jpeg';
+import Pizza3 from './Pizza3.jpeg';
+import Pizza4 from './Pizza4.jpeg';
 
 export {
   Onboarding1,
@@ -80,4 +84,8 @@ export {
   Drink2,
   Drink3,
   Drink4,
+  Pizza1,
+  Pizza2,
+  Pizza3,
+  Pizza4,
 };
