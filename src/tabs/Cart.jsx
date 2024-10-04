@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
+  Alert,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Back, Delete, EmptyCart, Minus, Plus} from '../assets/images';
@@ -14,37 +15,75 @@ import {Fonts} from '../constants/fonts';
 import {themeColors} from '../constants/colors';
 import CustomButton from '../components/CustomButton';
 import useTypedSelector from '../hooks/useTypedSelector';
-import {selectedProducts} from '../redux/products/productsSlice';
+import {
+  decrementProductQuantity,
+  incrementProductQuantity,
+  removeProduct,
+  selectedProducts,
+} from '../redux/products/productsSlice';
+import {thousandSeparator} from '../utils';
+import {useDispatch} from 'react-redux';
 
 const Cart = ({setSelectedTab}) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const cartProducts = useTypedSelector(selectedProducts);
+
+  const calculateTotal = () => {
+    return cartProducts
+      .reduce((total, product) => total + product.price * product.quantity, 0)
+      .toFixed(2);
+  };
+
+  const handleRemoveProduct = id => {
+    dispatch(removeProduct(id));
+  };
 
   const renderProduct = ({item}) => (
     <View style={styles.productContainer}>
-      <View
-        style={{
-          width: '30%',
-          padding: 10,
-        }}>
-        <Image source={item.image} style={styles.productImage} />
+      <View style={styles.productImageContainer}>
+        <Image source={item?.image} style={styles.productImage} />
       </View>
       <View style={styles.productInfo}>
-        <Text style={styles.productName}>{item.name}</Text>
-        <Text style={styles.productPrice}>Rs. {item.price}</Text>
+        <Text style={styles.productName}>{item?.name}</Text>
+        <Text style={styles.productPrice}>
+          Rs. {thousandSeparator(item?.price)}
+        </Text>
 
         <View style={styles.counterContainer}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 15,
-            }}>
-            <Image source={Minus} style={styles.counterIcon} />
-            <Text style={styles.counterText}>1</Text>
-            <Image source={Plus} style={styles.counterIcon} />
+          <View style={styles.counterRow}>
+            <TouchableOpacity
+              onPress={() => dispatch(decrementProductQuantity(item.id))}>
+              <Image source={Minus} style={styles.counterIcon} />
+            </TouchableOpacity>
+
+            <Text style={styles.counterText}>{item?.quantity}</Text>
+
+            <TouchableOpacity
+              onPress={() => dispatch(incrementProductQuantity(item.id))}>
+              <Image source={Plus} style={styles.counterIcon} />
+            </TouchableOpacity>
           </View>
-          <Image source={Delete} style={styles.deleteIcon} />
+
+          <TouchableOpacity
+            onPress={() => {
+              Alert.alert(
+                'Confirm deletion',
+                'Are you sure you want to delete this product?',
+                [
+                  {
+                    text: 'Cancel',
+                    style: 'cancel',
+                  },
+                  {
+                    text: 'OK',
+                    onPress: () => handleRemoveProduct(item.id),
+                  },
+                ],
+              );
+            }}>
+            <Image source={Delete} style={styles.deleteIcon} />
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -157,18 +196,20 @@ const styles = StyleSheet.create({
     marginTop: 20,
     flexDirection: 'row',
   },
+  productImageContainer: {
+    width: '30%',
+    padding: 10,
+  },
   productImage: {
-    width: 100,
-    height: 90,
+    width: 90,
+    height: 85,
     resizeMode: 'cover',
     borderRadius: 12,
   },
   productInfo: {
-    width: '68%',
+    width: '70%',
     padding: 10,
-    marginLeft: 10,
     flexDirection: 'column',
-    alignItems: 'start',
     justifyContent: 'center',
   },
   productName: {
@@ -186,7 +227,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 10,
+    marginTop: 7,
+  },
+  counterRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 15,
   },
   counterIcon: {
     width: 25,
