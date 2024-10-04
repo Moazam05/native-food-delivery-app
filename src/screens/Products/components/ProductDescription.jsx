@@ -250,12 +250,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
     height: 100,
-    // flexDirection: 'row',
-    // justifyContent: 'space-between',
-    // alignItems: 'center',
     backgroundColor: themeColors.WHITE,
     paddingHorizontal: 24,
-    borderTopLeftRadius: 16,
   },
   counterContainer: {
     flexDirection: 'row',
