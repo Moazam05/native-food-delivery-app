@@ -72,41 +72,17 @@ const ProductDescription = ({item}) => {
         </View>
       </View>
       <View style={styles.bottomView}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 15,
-          }}>
-          <Image
-            source={Minus}
-            style={{
-              width: 35,
-              height: 35,
-              resizeMode: 'contain',
-            }}
-          />
-          <Text> {productQuantity}</Text>
-          <Image
-            source={Plus}
-            style={{
-              width: 35,
-              height: 35,
-              resizeMode: 'contain',
-            }}
-          />
+        <View style={styles.counterContainer}>
+          <Image source={Minus} style={styles.addIcon} />
+          <Text style={styles.quantityText}>{productQuantity}</Text>
+          <Image source={Plus} style={styles.addIcon} />
         </View>
-        <View>
-          <CustomButton
-            name="Add to Cart"
-            image={true}
-            imageSrc={CartTwo}
-            loginStyle={{
-              marginTop: 0,
-              paddingHorizontal: 25,
-            }}
-          />
-        </View>
+        <CustomButton
+          name="Add to Cart"
+          image={true}
+          imageSrc={CartTwo}
+          loginStyle={styles.buttonStyle}
+        />
       </View>
     </>
   );
@@ -198,5 +174,24 @@ const styles = StyleSheet.create({
     backgroundColor: themeColors.WHITE,
     paddingHorizontal: 24,
     borderTopLeftRadius: 16,
+  },
+  counterContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 15,
+  },
+  addIcon: {
+    width: 35,
+    height: 35,
+    resizeMode: 'contain',
+  },
+  quantityText: {
+    fontSize: 16,
+    fontFamily: Fonts.BOLD,
+    color: themeColors.BLACK,
+  },
+  buttonStyle: {
+    marginTop: 0,
+    paddingHorizontal: 25,
   },
 });
