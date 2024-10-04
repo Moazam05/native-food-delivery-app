@@ -1,62 +1,114 @@
 import {View, Text, StyleSheet, Image} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {Fonts} from '../../../constants/fonts';
 import {themeColors} from '../../../constants/colors';
 import {
   Burger,
+  CartTwo,
   CoolDrink,
+  Minus,
   Pizza,
+  Plus,
   Star,
   Taco,
   Time,
   TimeFill,
 } from '../../../assets/images';
 import {thousandSeparator} from '../../../utils';
+import {useDispatch} from 'react-redux';
+import {setCartProducts} from '../../../redux/products/productsSlice';
+import CustomButton from '../../../components/CustomButton';
 
 const ProductDescription = ({item}) => {
-  console.log('item', item);
+  const dispatch = useDispatch();
+
+  const [isInCart, setIsInCart] = useState(false);
+  const [productQuantity, setProductQuantity] = useState(0);
+
+  const addToCartHandler = () => {
+    dispatch(setCartProducts(item));
+  };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>{item?.name}</Text>
-        <Image
-          source={
-            item?.type === 'Burger'
-              ? Burger
-              : item?.type === 'Taco'
-              ? Taco
-              : item?.type === 'Drink'
-              ? CoolDrink
-              : Pizza
-          }
-          style={styles.icon}
-        />
-      </View>
-      <Text style={styles.price}>Rs. {thousandSeparator(item?.price)}</Text>
-
-      <View style={styles.infoCard}>
-        <View style={styles.infoRow}>
-          <Text style={styles.infoLabel}>Rs.</Text>
-          <Text>Free Delivery</Text>
+    <>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>{item?.name}</Text>
+          <Image
+            source={
+              item?.type === 'Burger'
+                ? Burger
+                : item?.type === 'Taco'
+                ? Taco
+                : item?.type === 'Drink'
+                ? CoolDrink
+                : Pizza
+            }
+            style={styles.icon}
+          />
         </View>
-        <View style={styles.infoRow}>
-          <Image source={TimeFill} style={styles.timeIcon} />
-          <Text>{item?.distance}</Text>
+        <Text style={styles.price}>Rs. {thousandSeparator(item?.price)}</Text>
+
+        <View style={styles.infoCard}>
+          <View style={styles.infoRow}>
+            <Text style={styles.infoLabel}>Rs.</Text>
+            <Text>Free Delivery</Text>
+          </View>
+          <View style={styles.infoRow}>
+            <Image source={TimeFill} style={styles.timeIcon} />
+            <Text>{item?.distance}</Text>
+          </View>
+          <View style={styles.infoRow}>
+            <Image source={Star} style={styles.timeIcon} />
+            <Text>{item?.rating}</Text>
+          </View>
         </View>
-        <View style={styles.infoRow}>
-          <Image source={Star} style={styles.timeIcon} />
-          <Text>{item?.rating}</Text>
+
+        <View style={styles.line} />
+
+        <View style={styles.descriptionContainer}>
+          <Text style={styles.descriptionTitle}>Description</Text>
+          <Text style={styles.descriptionText}>{item?.description}</Text>
         </View>
       </View>
-
-      <View style={styles.line} />
-
-      <View style={styles.descriptionContainer}>
-        <Text style={styles.descriptionTitle}>Description</Text>
-        <Text style={styles.descriptionText}>{item?.description}</Text>
+      <View style={styles.bottomView}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 15,
+          }}>
+          <Image
+            source={Minus}
+            style={{
+              width: 35,
+              height: 35,
+              resizeMode: 'contain',
+            }}
+          />
+          <Text> {productQuantity}</Text>
+          <Image
+            source={Plus}
+            style={{
+              width: 35,
+              height: 35,
+              resizeMode: 'contain',
+            }}
+          />
+        </View>
+        <View>
+          <CustomButton
+            name="Add to Cart"
+            image={true}
+            imageSrc={CartTwo}
+            loginStyle={{
+              marginTop: 0,
+              paddingHorizontal: 25,
+            }}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 };
 
@@ -133,5 +185,18 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.REGULAR,
     color: themeColors.GRAY,
     marginTop: 5,
+  },
+
+  bottomView: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: 75,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: themeColors.WHITE,
+    paddingHorizontal: 24,
+    borderTopLeftRadius: 16,
   },
 });

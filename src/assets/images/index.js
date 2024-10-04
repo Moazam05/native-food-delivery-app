@@ -43,6 +43,9 @@ import Pizza2 from './Pizza2.jpeg';
 import Pizza3 from './Pizza3.jpeg';
 import Pizza4 from './Pizza4.jpeg';
 import TimeFill from './TimeFill.png';
+import Plus from './Plus.png';
+import Minus from './Minus.png';
+import CartTwo from './CartTwo.png';
 
 export {
   Onboarding1,
@@ -90,4 +93,7 @@ export {
   Pizza3,
   Pizza4,
   TimeFill,
+  Plus,
+  Minus,
+  CartTwo,
 };
