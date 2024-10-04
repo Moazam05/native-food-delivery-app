@@ -1,3 +1,6 @@
+// React Import
+import React, {useEffect, useState} from 'react';
+// React Native
 import {
   View,
   Text,
@@ -8,13 +11,15 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+// Constants
 import {themeColors} from '../../constants/colors';
+// Custom Components
 import Home from '../../tabs/Home';
 import Cart from '../../tabs/Cart';
 import Search from '../../tabs/Search';
 import Profile from '../../tabs/Profile';
 import {Fonts} from '../../constants/fonts';
+// Assets
 import {CartIcon, HomeIcon, ProfileIcon, SearchIcon} from '../../assets/images';
 
 const HomeScreen = () => {
@@ -68,10 +73,16 @@ const HomeScreen = () => {
                   selectedTab === 0 && styles.activeBottomTabIcon,
                 ]}
               />
-              <Text
-                style={[styles.label, selectedTab === 0 && styles.activeLabel]}>
-                Home
-              </Text>
+
+              {selectedTab === 0 && (
+                <Text
+                  style={[
+                    styles.label,
+                    selectedTab === 0 && styles.activeLabel,
+                  ]}>
+                  Home
+                </Text>
+              )}
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -84,10 +95,15 @@ const HomeScreen = () => {
                   selectedTab === 1 && styles.activeBottomTabIcon,
                 ]}
               />
-              <Text
-                style={[styles.label, selectedTab === 1 && styles.activeLabel]}>
-                Cart
-              </Text>
+              {selectedTab === 1 && (
+                <Text
+                  style={[
+                    styles.label,
+                    selectedTab === 1 && styles.activeLabel,
+                  ]}>
+                  Cart
+                </Text>
+              )}
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -100,10 +116,15 @@ const HomeScreen = () => {
                   selectedTab === 2 && styles.activeBottomTabIcon,
                 ]}
               />
-              <Text
-                style={[styles.label, selectedTab === 2 && styles.activeLabel]}>
-                Search
-              </Text>
+              {selectedTab === 2 && (
+                <Text
+                  style={[
+                    styles.label,
+                    selectedTab === 2 && styles.activeLabel,
+                  ]}>
+                  Search
+                </Text>
+              )}
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -116,10 +137,16 @@ const HomeScreen = () => {
                   selectedTab === 3 && styles.activeBottomTabIcon,
                 ]}
               />
-              <Text
-                style={[styles.label, selectedTab === 3 && styles.activeLabel]}>
-                Profile
-              </Text>
+
+              {selectedTab === 3 && (
+                <Text
+                  style={[
+                    styles.label,
+                    selectedTab === 3 && styles.activeLabel,
+                  ]}>
+                  Profile
+                </Text>
+              )}
             </TouchableOpacity>
           </View>
         )}
@@ -143,12 +170,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    borderTopColor: '#DADADA',
-    borderTopWidth: 1,
-    borderBottomWidth: 0,
-    borderLeftWidth: 0,
-    borderRightWidth: 0,
+    backgroundColor: themeColors.WHITE,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   bottomTab: {
     flex: 1,
@@ -157,22 +181,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   bottomTabIcon: {
-    width: 19,
+    width: 24,
     height: 24,
     resizeMode: 'contain',
     tintColor: '#C2C2C2',
   },
   activeBottomTabIcon: {
-    tintColor: '#EB3030',
+    tintColor: themeColors.PRIMARY,
   },
   label: {
     fontSize: 12,
-    color: themeColors.BLACK,
+    color: themeColors.GRAY,
     fontFamily: Fonts.REGULAR,
   },
   activeLabel: {
     fontSize: 12,
-    color: '#EB3030',
+    color: themeColors.PRIMARY,
     fontFamily: Fonts.MEDIUM,
   },
 
