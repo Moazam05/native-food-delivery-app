@@ -18,6 +18,7 @@ import {categoriesData} from '../constants';
 
 const Home = () => {
   const [permissionGranted, setPermissionGranted] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('Burger');
   const [userAddress, setUserAddress] = useState('');
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
@@ -99,8 +100,11 @@ const Home = () => {
       ListHeaderComponent={
         <View>
           <HeroSection />
-          <Categories />
-          <ProductList />
+          <Categories
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
+          <ProductList selectedCategory={selectedCategory} />
         </View>
       }
       showsVerticalScrollIndicator={false}

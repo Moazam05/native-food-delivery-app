@@ -1,11 +1,13 @@
 import {View, Text, Image, StyleSheet, FlatList} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {themeColors} from '../../../constants/colors';
 import {Location, Star, Wishlist} from '../../../assets/images';
 import {Fonts} from '../../../constants/fonts';
 import {ProductsData} from '../../../constants';
 
-const ProductList = () => {
+const ProductList = ({selectedCategory}) => {
+  const [filteredProducts, setFilteredProducts] = useState(ProductsData);
+
   const renderItem = ({item}) => (
     <View style={styles.productCard}>
       <Image source={item.image} style={styles.productImage} />
@@ -29,10 +31,18 @@ const ProductList = () => {
     </View>
   );
 
+  useEffect(() => {
+    if (selectedCategory) {
+      setFilteredProducts(
+        ProductsData.filter(product => product.type === selectedCategory),
+      );
+    }
+  }, [selectedCategory]);
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={ProductsData}
+        data={filteredProducts}
         renderItem={renderItem}
         keyExtractor={item => item.id.toString()}
         numColumns={2} // Show 2 items per row
@@ -63,12 +73,12 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 120,
     borderRadius: 8,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     position: 'relative',
   },
   wishlistWrap: {
     position: 'absolute',
-    top: 17,
+    top: 15,
     right: 15,
     backgroundColor: themeColors.WHITE,
     padding: 5,

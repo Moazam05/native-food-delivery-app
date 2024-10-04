@@ -6,14 +6,12 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {Fonts} from '../../../constants/fonts';
 import {themeColors} from '../../../constants/colors';
 import {categoriesData} from '../../../constants';
 
-const Categories = () => {
-  const [selectedCategory, setSelectedCategory] = useState('Burger');
-
+const Categories = ({selectedCategory, setSelectedCategory}) => {
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
