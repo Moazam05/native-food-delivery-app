@@ -7,6 +7,10 @@ import {
   Product3,
   Product4,
   Taco,
+  Taco1,
+  Taco2,
+  Taco3,
+  Taco4,
 } from '../assets/images';
 
 export const onboarding = [
@@ -38,6 +42,7 @@ export const ProductsData = [
     rating: 4.5,
     price: 499,
     distance: '5-10',
+    type: 'Burger',
   },
   {
     id: 2,
@@ -46,6 +51,7 @@ export const ProductsData = [
     rating: 4.3,
     price: 650,
     distance: '15-120',
+    type: 'Burger',
   },
   {
     id: 3,
@@ -54,6 +60,7 @@ export const ProductsData = [
     rating: 4.8,
     price: 799,
     distance: '20-25',
+    type: 'Burger',
   },
   {
     id: 4,
@@ -62,6 +69,44 @@ export const ProductsData = [
     rating: 4.7,
     price: 999,
     distance: '10-15',
+    type: 'Burger',
+  },
+  // Taco
+  {
+    id: 5,
+    name: 'Beef Taco',
+    image: Taco1,
+    rating: 4.7,
+    price: 299,
+    distance: '10-15',
+    type: 'Taco',
+  },
+  {
+    id: 6,
+    name: 'Chicken Taco',
+    image: Taco2,
+    rating: 4.3,
+    price: 450,
+    distance: '15-20',
+    type: 'Taco',
+  },
+  {
+    id: 7,
+    name: 'Fish Taco',
+    image: Taco3,
+    rating: 4.8,
+    price: 699,
+    distance: '10-15',
+    type: 'Taco',
+  },
+  {
+    id: 8,
+    name: 'Veggie Taco',
+    image: Taco4,
+    rating: 4.1,
+    price: 199,
+    distance: '10-15',
+    type: 'Taco',
   },
 ];
 

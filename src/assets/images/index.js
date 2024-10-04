@@ -30,6 +30,10 @@ import HomeIcon from './HomeIcon.png';
 import CartIcon from './CartIcon.png';
 import SearchIcon from './bottomSearch.png';
 import ProfileIcon from './ProfileIcon.png';
+import Taco1 from './Taco1.jpeg';
+import Taco2 from './Taco2.jpeg';
+import Taco3 from './Taco3.jpeg';
+import Taco4 from './Taco4.jpeg';
 
 export {
   Onboarding1,
@@ -64,4 +68,8 @@ export {
   CartIcon,
   SearchIcon,
   ProfileIcon,
+  Taco1,
+  Taco2,
+  Taco3,
+  Taco4,
 };
