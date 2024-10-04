@@ -53,7 +53,7 @@ export const ProductsData = [
     type: 'Burger',
     linkId: 1,
     description:
-      'Savor our classic beef patty burger, topped with lettuce, tomato, and cheese.',
+      'Savor our classic beef patty burger, topped with crisp lettuce, juicy tomato, and melted cheese. Made with freshly baked buns and served hot. A timeless favorite for burger lovers. Perfect for a quick bite.',
   },
   {
     id: 2,
@@ -65,7 +65,7 @@ export const ProductsData = [
     type: 'Burger',
     linkId: 2,
     description:
-      'Indulge in our juicy beef burger with extra meat, bacon, and cheddar cheese.',
+      'Indulge in our juicy beef burger with extra meat, crispy bacon, and cheddar cheese. Topped with caramelized onions and served with a side of ketchup. A hearty meal for meat enthusiasts.',
   },
   {
     id: 3,
@@ -77,7 +77,7 @@ export const ProductsData = [
     type: 'Burger',
     linkId: 3,
     description:
-      'Enjoy our signature burger paired with crispy fries and a side of ketchup.',
+      'Enjoy our signature burger paired with crispy fries and a side of ketchup. Made with premium beef and topped with melted cheese. A satisfying combo for burger fans.',
   },
   {
     id: 4,
@@ -89,7 +89,7 @@ export const ProductsData = [
     type: 'Burger',
     linkId: 4,
     description:
-      'Stacked high with two beef patties, bacon, and cheese, this burger is a must-try.',
+      'Stacked high with two beef patties, crispy bacon, and melted cheese. Topped with lettuce, tomato, and mayo. A towering delight for burger enthusiasts.',
   },
   // Taco
   {
@@ -102,7 +102,7 @@ export const ProductsData = [
     type: 'Taco',
     linkId: 5,
     description:
-      'Soft shell taco filled with seasoned beef, lettuce, and tomatoes.',
+      'Soft shell taco filled with seasoned beef, crisp lettuce, and juicy tomatoes. Served with salsa and sour cream. A flavorful twist on traditional tacos.',
   },
   {
     id: 6,
@@ -114,7 +114,7 @@ export const ProductsData = [
     type: 'Taco',
     linkId: 6,
     description:
-      'Grilled chicken, salsa, and avocado come together in this flavorful taco.',
+      'Grilled chicken, fresh salsa, and creamy avocado come together in this flavorful taco. Topped with cilantro and served with lime wedges.',
   },
   {
     id: 7,
@@ -126,7 +126,7 @@ export const ProductsData = [
     type: 'Taco',
     linkId: 7,
     description:
-      "Crispy fish, cabbage, and tartar sauce make this taco a seafood lover's dream.",
+      "Crispy fish, shredded cabbage, and tangy tartar sauce make this taco a seafood lover's dream. Served with a side of fresh lime.",
   },
   {
     id: 8,
@@ -138,7 +138,7 @@ export const ProductsData = [
     type: 'Taco',
     linkId: 8,
     description:
-      'A vegetarian delight with sautéed veggies, guacamole, and salsa.',
+      'A vegetarian delight with sautéed veggies, creamy guacamole, and fresh salsa. Topped with cilantro and served with whole wheat tortillas.',
   },
   // Drink
   {
@@ -151,7 +151,7 @@ export const ProductsData = [
     type: 'Drink',
     linkId: 9,
     description:
-      'Refresh with a cold Fanta, available in various fruity flavors.',
+      'Refresh with a cold Fanta, available in various fruity flavors. Perfect for hot summer days or anytime you need a pick-me-up.',
   },
   {
     id: 10,
@@ -162,7 +162,8 @@ export const ProductsData = [
     distance: '10-15',
     type: 'Drink',
     linkId: 10,
-    description: 'Clean and crisp, 7up is the perfect companion to your meal.',
+    description:
+      "Clean and crisp, 7up is the perfect companion to your meal. With its refreshing lemon-lime taste, it's a classic choice.",
   },
   {
     id: 11,
@@ -173,7 +174,8 @@ export const ProductsData = [
     distance: '10-15',
     type: 'Drink',
     linkId: 11,
-    description: 'The classic cola taste of Pepsi, perfect for any occasion.',
+    description:
+      'The classic cola taste of Pepsi, perfect for any occasion. Enjoy with friends and family or pair with your favorite meal.',
   },
   {
     id: 12,
@@ -184,7 +186,8 @@ export const ProductsData = [
     distance: '10-15',
     type: 'Drink',
     linkId: 12,
-    description: 'Enjoy the iconic taste of Coca Cola, a timeless favorite.',
+    description:
+      "Experience the iconic taste of Coca Cola, a timeless favorite. Rich, smooth, and refreshing, it's perfect for any moment.",
   },
   // Pizza
   {
@@ -197,7 +200,7 @@ export const ProductsData = [
     type: 'Pizza',
     linkId: 13,
     description:
-      'Melted mozzarella and parmesan cheese on a crispy crust, perfect for cheese lovers.',
+      'Melted mozzarella and parmesan cheese on a crispy crust, perfect for cheese lovers. Freshly baked and served hot with a side of marinara sauce.',
   },
   {
     id: 14,
@@ -209,7 +212,7 @@ export const ProductsData = [
     type: 'Pizza',
     linkId: 14,
     description:
-      'Tangy BBQ sauce, grilled chicken, and red onion create a flavorful combination.',
+      'Tangy BBQ sauce, grilled chicken, and red onion create a flavorful combination. Topped with cilantro and served with a side of ranch dressing.',
   },
   {
     id: 15,
@@ -221,7 +224,7 @@ export const ProductsData = [
     type: 'Pizza',
     linkId: 15,
     description:
-      'A colorful mix of vegetables, including bell peppers, onions, and mushrooms.',
+      'A colorful mix of vegetables, including bell peppers, onions, and mushrooms. Freshly baked and served hot with a side of garlic bread.',
   },
   {
     id: 16,
@@ -233,7 +236,7 @@ export const ProductsData = [
     type: 'Pizza',
     linkId: 16,
     description:
-      'Grilled chicken, tomato sauce, and mozzarella cheese make for a satisfying pizza.',
+      'Grilled chicken, tomato sauce, and mozzarella cheese make for a satisfying pizza. Topped with fresh basil and served with a side of marinara sauce.',
   },
 ];
 
