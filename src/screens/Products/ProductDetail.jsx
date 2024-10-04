@@ -10,16 +10,16 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {themeColors} from '../../../constants/colors';
-import {Back, Wishlist, WishlistFill} from '../../../assets/images';
-import {Fonts} from '../../../constants/fonts';
+import {themeColors} from '../../constants/colors';
+import {Back, Wishlist, WishlistFill} from '../../assets/images';
+import {Fonts} from '../../constants/fonts';
 import Swiper from 'react-native-swiper';
-import {imagesData} from '../../../constants';
-import useTypedSelector from '../../../hooks/useTypedSelector';
+import {imagesData} from '../../constants';
+import useTypedSelector from '../../hooks/useTypedSelector';
 import {
   selectWishlistProducts,
   setWishListProducts,
-} from '../../../redux/wishlist/wishlistsSlice';
+} from '../../redux/wishlist/wishlistsSlice';
 
 const ProductDetail = () => {
   const navigation = useNavigation();
@@ -164,8 +164,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   wishlistIcon: {
-    width: 16,
-    height: 16,
+    width: 15,
+    height: 15,
     resizeMode: 'contain',
     tintColor: themeColors.ERROR,
   },
