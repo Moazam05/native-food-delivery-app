@@ -23,6 +23,7 @@ import {
 } from '../redux/products/productsSlice';
 import {thousandSeparator} from '../utils';
 import {useDispatch} from 'react-redux';
+import CartSummary from '../screens/Cart/CartSummary';
 
 const Cart = ({setSelectedTab}) => {
   const navigation = useNavigation();
@@ -127,12 +128,7 @@ const Cart = ({setSelectedTab}) => {
               </View>
             </View>
           }
-          ListFooterComponent={
-            <>
-              <View style={styles.line} />
-              <Text>Payment Summary</Text>
-            </>
-          }
+          ListFooterComponent={<CartSummary />}
         />
       </View>
     </SafeAreaView>
@@ -264,10 +260,5 @@ const styles = StyleSheet.create({
   },
   flatListContainer: {
     paddingBottom: 140,
-  },
-  line: {
-    height: 2,
-    backgroundColor: '#EDEDED',
-    marginVertical: 20,
   },
 });
