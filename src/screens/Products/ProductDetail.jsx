@@ -5,6 +5,7 @@ import {
   StatusBar,
   TouchableOpacity,
   Image,
+  ScrollView,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -58,54 +59,58 @@ const ProductDetail = () => {
         translucent
         backgroundColor={themeColors.PRIMARY_BG}
       />
-      {/* Top Bar */}
-      <View style={styles.topBar}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}>
-          <Image source={Back} style={styles.backIcon} />
-        </TouchableOpacity>
-        <Text style={styles.title}>About This Menu</Text>
-        <Text style={styles.h}>Hide</Text>
-      </View>
-
-      <View style={styles.imgWrap}>
-        <Swiper
-          ref={swiperRef}
-          loop={false}
-          onIndexChanged={index => setActiveIndex(index)}
-          showsPagination={false}>
-          {productImages.map((image, index) => (
-            <View key={index} style={styles.banner}>
-              <Image source={image} style={styles.bannerImg} />
-            </View>
-          ))}
-        </Swiper>
-
-        <TouchableOpacity style={styles.wishWrap} onPress={toggleFavorite}>
-          <Image
-            source={isFavorite ? WishlistFill : Wishlist}
-            style={styles.wishlistIcon}
-          />
-        </TouchableOpacity>
-
-        <View style={styles.paginationWrap}>
-          {productImages.map((_, index) => (
-            <View
-              key={index}
-              style={[
-                styles.paginationItem,
-                activeIndex === index
-                  ? styles.activePaginationItem
-                  : styles.inactivePaginationItem,
-              ]}
-            />
-          ))}
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}>
+        {/* Top Bar */}
+        <View style={styles.topBar}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack();
+            }}>
+            <Image source={Back} style={styles.backIcon} />
+          </TouchableOpacity>
+          <Text style={styles.title}>About This Menu</Text>
+          <Text style={styles.h}>Hide</Text>
         </View>
-      </View>
 
-      <ProductDescription item={item} />
+        <View style={styles.imgWrap}>
+          <Swiper
+            ref={swiperRef}
+            loop={false}
+            onIndexChanged={index => setActiveIndex(index)}
+            showsPagination={false}>
+            {productImages.map((image, index) => (
+              <View key={index} style={styles.banner}>
+                <Image source={image} style={styles.bannerImg} />
+              </View>
+            ))}
+          </Swiper>
+
+          <TouchableOpacity style={styles.wishWrap} onPress={toggleFavorite}>
+            <Image
+              source={isFavorite ? WishlistFill : Wishlist}
+              style={styles.wishlistIcon}
+            />
+          </TouchableOpacity>
+
+          <View style={styles.paginationWrap}>
+            {productImages.map((_, index) => (
+              <View
+                key={index}
+                style={[
+                  styles.paginationItem,
+                  activeIndex === index
+                    ? styles.activePaginationItem
+                    : styles.inactivePaginationItem,
+                ]}
+              />
+            ))}
+          </View>
+        </View>
+
+        <ProductDescription item={item} />
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -116,6 +121,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: themeColors.PRIMARY_BG,
+  },
+  scrollContainer: {
+    paddingBottom: 20,
   },
   topBar: {
     flexDirection: 'row',
