@@ -164,10 +164,6 @@ const styles = StyleSheet.create({
   headingWrap: {
     marginTop: 20,
   },
-  errorText: {
-    color: themeColors.PRIMARY,
-    fontSize: 12,
-  },
   heading: {
     fontSize: 32,
     fontFamily: Fonts.SEMIBOLD,
@@ -184,25 +180,11 @@ const styles = StyleSheet.create({
   fieldContainer: {
     marginBottom: 15,
   },
-  agreeContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   label: {
     fontSize: 14,
     fontFamily: Fonts.MEDIUM,
     color: themeColors.BLACK,
     marginBottom: 8,
-  },
-  agreeText: {
-    color: themeColors.BLACK,
-    fontSize: 12,
-    fontFamily: Fonts.REGULAR,
-    marginLeft: 3,
-  },
-  linkText: {
-    color: themeColors.PRIMARY,
-    fontFamily: Fonts.SEMIBOLD,
   },
   buttonContainer: {
     marginTop: 160,

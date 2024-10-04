@@ -133,32 +133,4 @@ const styles = StyleSheet.create({
     color: themeColors.GRAY,
     marginTop: 5,
   },
-
-  bottomView: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    height: 100,
-    backgroundColor: themeColors.WHITE,
-    paddingHorizontal: 24,
-  },
-  counterContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 15,
-  },
-  addIcon: {
-    width: 35,
-    height: 35,
-    resizeMode: 'contain',
-  },
-  quantityText: {
-    fontSize: 16,
-    fontFamily: Fonts.BOLD,
-    color: themeColors.BLACK,
-  },
-  buttonStyle: {
-    marginTop: 0,
-    paddingHorizontal: 25,
-  },
 });

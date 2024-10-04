@@ -121,13 +121,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
   },
-  trackWrap: {
-    borderRadius: 4,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    marginTop: 0,
-  },
-  trackText: {
-    fontSize: 12,
-  },
 });

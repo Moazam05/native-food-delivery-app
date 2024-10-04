@@ -225,10 +225,6 @@ const styles = StyleSheet.create({
   headingWrap: {
     marginTop: 20,
   },
-  errorText: {
-    color: themeColors.PRIMARY,
-    fontSize: 12,
-  },
   heading: {
     fontSize: 32,
     fontFamily: Fonts.SEMIBOLD,
