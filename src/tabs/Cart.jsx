@@ -8,14 +8,19 @@ import {
   Image,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Back, EmptyCart} from '../assets/images';
+import {Back, Delete, EmptyCart, Minus, Plus} from '../assets/images';
 import {useNavigation} from '@react-navigation/native';
 import {Fonts} from '../constants/fonts';
 import {themeColors} from '../constants/colors';
 import CustomButton from '../components/CustomButton';
+import useTypedSelector from '../hooks/useTypedSelector';
+import {selectedProducts} from '../redux/products/productsSlice';
 
 const Cart = ({setSelectedTab}) => {
   const navigation = useNavigation();
+  const cartProducts = useTypedSelector(selectedProducts);
+
+  console.log('cartProducts', cartProducts);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -31,6 +36,102 @@ const Cart = ({setSelectedTab}) => {
           <Text style={styles.hideText}>Hide</Text>
         </View>
 
+        <View
+          style={{
+            backgroundColor: themeColors.WHITE,
+            borderRadius: 12,
+            marginHorizontal: 20,
+            marginTop: 20,
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 10,
+            }}>
+            <Image
+              source={cartProducts[0]?.image}
+              style={{
+                width: '30%',
+                height: 100,
+                resizeMode: 'contain',
+                borderTopLeftRadius: 12,
+                borderTopRightRadius: 12,
+              }}
+            />
+            <View
+              style={{
+                width: '65%',
+              }}>
+              <Text
+                style={{
+                  fontFamily: Fonts.SEMIBOLD,
+                  fontSize: 16,
+                  color: themeColors.BLACK,
+                }}>
+                Burger
+              </Text>
+              <Text
+                style={{
+                  fontFamily: Fonts.BOLD,
+                  fontSize: 14,
+                  color: themeColors.PRIMARY,
+                  marginTop: 3,
+                }}>
+                Rs. 200
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginTop: 10,
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 13,
+                  }}>
+                  <Image
+                    source={Minus}
+                    style={{
+                      width: 25,
+                      height: 25,
+                      resizeMode: 'contain',
+                    }}
+                  />
+                  <Text
+                    style={{
+                      fontFamily: Fonts.BOLD,
+                      fontSize: 16,
+                      color: themeColors.BLACK,
+                    }}>
+                    1
+                  </Text>
+                  <Image
+                    source={Plus}
+                    style={{
+                      width: 25,
+                      height: 25,
+                      resizeMode: 'contain',
+                    }}
+                  />
+                </View>
+                <Image
+                  source={Delete}
+                  style={{
+                    width: 20,
+                    height: 20,
+                    resizeMode: 'contain',
+                  }}
+                />
+              </View>
+            </View>
+          </View>
+        </View>
+
+        {/* Empty Cart Code */}
         <View style={styles.emptyCartContainer}>
           <Image source={EmptyCart} style={styles.emptyCartIcon} />
 
@@ -39,7 +140,9 @@ const Cart = ({setSelectedTab}) => {
             <Text style={styles.cartDescription}>
               Seems like you have not ordered
             </Text>
-            <Text style={styles.cartDescription}>any food yet</Text>
+            <Text style={[styles.cartDescription, styles.cartDescriptionTwo]}>
+              any food yet
+            </Text>
           </View>
 
           <View style={styles.buttonContainer}>
@@ -107,8 +210,11 @@ const styles = StyleSheet.create({
     color: themeColors.GRAY,
     marginTop: 15,
   },
+  cartDescriptionTwo: {
+    marginTop: 3,
+  },
   buttonContainer: {
-    marginTop: 40,
+    marginTop: 50,
     width: '80%',
   },
 });
