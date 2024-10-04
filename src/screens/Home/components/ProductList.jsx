@@ -17,6 +17,7 @@ import {
   selectWishlistProducts,
   setWishListProducts,
 } from '../../../redux/wishlist/wishlistsSlice';
+import {thousandSeparator} from '../../../utils';
 
 const ProductList = ({selectedCategory}) => {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ const ProductList = ({selectedCategory}) => {
           </View>
         </View>
 
-        <Text style={styles.price}>Rs. {item.price}</Text>
+        <Text style={styles.price}>Rs. {thousandSeparator(item.price)}</Text>
       </View>
     );
   };
