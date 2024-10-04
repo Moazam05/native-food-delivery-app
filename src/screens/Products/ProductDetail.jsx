@@ -22,6 +22,7 @@ import {
   setWishListProducts,
 } from '../../redux/wishlist/wishlistsSlice';
 import ProductDescription from './components/ProductDescription';
+import ProductTotal from './components/ProductTotal';
 
 const ProductDetail = () => {
   const navigation = useNavigation();
@@ -111,6 +112,9 @@ const ProductDetail = () => {
 
         <ProductDescription item={item} />
       </ScrollView>
+      <View>
+        <ProductTotal item={item} />
+      </View>
     </SafeAreaView>
   );
 };

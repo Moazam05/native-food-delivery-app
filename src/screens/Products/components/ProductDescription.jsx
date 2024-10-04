@@ -1,61 +1,18 @@
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {Fonts} from '../../../constants/fonts';
-import {themeColors} from '../../../constants/colors';
+import React from 'react';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {
   Burger,
-  CartTwo,
   CoolDrink,
-  Minus,
   Pizza,
-  Plus,
   Star,
   Taco,
   TimeFill,
 } from '../../../assets/images';
+import {themeColors} from '../../../constants/colors';
+import {Fonts} from '../../../constants/fonts';
 import {thousandSeparator} from '../../../utils';
-import {useDispatch} from 'react-redux';
-import {
-  decrementProductQuantity,
-  incrementProductQuantity,
-  selectedProducts,
-  setCartProducts,
-} from '../../../redux/products/productsSlice';
-import CustomButton from '../../../components/CustomButton';
-import useTypedSelector from '../../../hooks/useTypedSelector';
-import {useNavigation} from '@react-navigation/native';
 
 const ProductDescription = ({item}) => {
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const cartProducts = useTypedSelector(selectedProducts);
-
-  console.log('cartProducts', cartProducts);
-
-  const [isInCart, setIsInCart] = useState(false);
-  const [productQuantity, setProductQuantity] = useState(0);
-
-  useEffect(() => {
-    const productInCart = cartProducts.find(product => product.id === item.id);
-    if (productInCart) {
-      setIsInCart(true);
-      setProductQuantity(productInCart.quantity);
-    } else {
-      setIsInCart(false);
-      setProductQuantity(0);
-    }
-  }, [cartProducts, item.id]);
-
-  const addToCartHandler = () => {
-    dispatch(setCartProducts(item));
-  };
-
-  const calculateTotal = () => {
-    return cartProducts
-      .reduce((total, product) => total + product.price * product.quantity, 0)
-      .toFixed(2);
-  };
-
   return (
     <>
       <View style={styles.container}>
@@ -96,74 +53,6 @@ const ProductDescription = ({item}) => {
         <View style={styles.descriptionContainer}>
           <Text style={styles.descriptionTitle}>Description</Text>
           <Text style={styles.descriptionText}>{item?.description}</Text>
-        </View>
-      </View>
-      <View style={styles.bottomView}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginVertical: 10,
-          }}>
-          <Text
-            style={{
-              fontSize: 16,
-              fontFamily: Fonts.BOLD,
-              color: themeColors.BLACK,
-              marginLeft: 10,
-            }}>
-            Total
-          </Text>
-          <Text
-            style={{
-              fontSize: 16,
-              fontFamily: Fonts.BOLD,
-              color: themeColors.PRIMARY,
-              marginRight: 10,
-            }}>
-            Rs. {thousandSeparator(calculateTotal())}
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          {!isInCart && <View />}
-          {isInCart && (
-            <View style={styles.counterContainer}>
-              <TouchableOpacity
-                onPress={() => {
-                  dispatch(decrementProductQuantity(item.id));
-                }}>
-                <Image source={Minus} style={styles.addIcon} />
-              </TouchableOpacity>
-
-              <Text style={styles.quantityText}>{productQuantity}</Text>
-
-              <TouchableOpacity
-                onPress={() => {
-                  dispatch(incrementProductQuantity(item.id));
-                }}>
-                <Image source={Plus} style={styles.addIcon} />
-              </TouchableOpacity>
-            </View>
-          )}
-          <CustomButton
-            name={isInCart ? 'Buy Now' : 'Add to Cart'}
-            image={true}
-            imageSrc={CartTwo}
-            loginStyle={styles.buttonStyle}
-            onPress={
-              isInCart
-                ? () => {
-                    navigation.replace('HomeScreen', {screen: 'Cart'});
-                  }
-                : addToCartHandler
-            }
-          />
         </View>
       </View>
     </>
