@@ -74,9 +74,10 @@ const HomeScreen = () => {
                 ]}
               />
 
-              {selectedTab === 0 && (
-                <Text style={styles.activeLabel}>Home</Text>
-              )}
+              <Text
+                style={[styles.label, selectedTab === 0 && styles.activeLabel]}>
+                Home
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -89,9 +90,10 @@ const HomeScreen = () => {
                   selectedTab === 1 && styles.activeBottomTabIcon,
                 ]}
               />
-              {selectedTab === 1 && (
-                <Text style={styles.activeLabel}>Cart</Text>
-              )}
+              <Text
+                style={[styles.label, selectedTab === 1 && styles.activeLabel]}>
+                Cart
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -104,9 +106,10 @@ const HomeScreen = () => {
                   selectedTab === 2 && styles.activeBottomTabIcon,
                 ]}
               />
-              {selectedTab === 2 && (
-                <Text style={styles.activeLabel}>Search</Text>
-              )}
+              <Text
+                style={[styles.label, selectedTab === 2 && styles.activeLabel]}>
+                Search
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -120,9 +123,10 @@ const HomeScreen = () => {
                 ]}
               />
 
-              {selectedTab === 3 && (
-                <Text style={styles.activeLabel}>Profile</Text>
-              )}
+              <Text
+                style={[styles.label, selectedTab === 3 && styles.activeLabel]}>
+                Account
+              </Text>
             </TouchableOpacity>
           </View>
         )}
@@ -165,10 +169,16 @@ const styles = StyleSheet.create({
   activeBottomTabIcon: {
     tintColor: themeColors.PRIMARY,
   },
-  activeLabel: {
-    fontSize: 12,
-    color: themeColors.PRIMARY,
+
+  label: {
+    fontSize: 11,
     fontFamily: Fonts.MEDIUM,
+    color: themeColors.GRAY,
+    marginTop: 2,
+  },
+
+  activeLabel: {
+    color: themeColors.PRIMARY,
   },
 
   cartContainer: {
