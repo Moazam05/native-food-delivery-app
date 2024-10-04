@@ -22,10 +22,16 @@ const wishlistsSlice = createSlice({
         state.data.push(product);
       }
     },
+
+    // Clear the wishlist
+    clearWishListProducts(state) {
+      state.data = [];
+    },
   },
 });
 
-export const {setWishListProducts} = wishlistsSlice.actions;
+export const {setWishListProducts, clearWishListProducts} =
+  wishlistsSlice.actions;
 export default wishlistsSlice.reducer;
 
 export const selectWishlistProducts = state => state.wishListProducts.data;

@@ -1,35 +1,60 @@
-import {View, Text, Image, StyleSheet, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {themeColors} from '../../../constants/colors';
-import {Location, Star, Wishlist} from '../../../assets/images';
+import {Location, Star, Wishlist, WishlistFill} from '../../../assets/images';
 import {Fonts} from '../../../constants/fonts';
 import {ProductsData} from '../../../constants';
+import {useDispatch} from 'react-redux';
+import useTypedSelector from '../../../hooks/useTypedSelector';
+import {
+  selectWishlistProducts,
+  setWishListProducts,
+} from '../../../redux/wishlist/wishlistsSlice';
 
 const ProductList = ({selectedCategory}) => {
+  const dispatch = useDispatch();
+  const wishListProducts = useTypedSelector(selectWishlistProducts);
+
   const [filteredProducts, setFilteredProducts] = useState(ProductsData);
 
-  const renderItem = ({item}) => (
-    <View style={styles.productCard}>
-      <Image source={item.image} style={styles.productImage} />
-      <View style={styles.wishlistWrap}>
-        <Image source={Wishlist} style={styles.wishlist} />
-      </View>
-      <Text style={styles.productTitle}>{item.name}</Text>
+  const renderItem = ({item}) => {
+    const isFavorite = wishListProducts.some(product => product.id === item.id);
 
-      <View style={styles.row}>
-        <View style={styles.row}>
-          <Image source={Star} style={styles.icon} />
-          <Text style={styles.ratingText}>{item.rating}</Text>
-        </View>
-        <View style={styles.row}>
-          <Image source={Location} style={styles.locationIcon} />
-          <Text style={styles.distanceText}>{item.distance} m</Text>
-        </View>
-      </View>
+    return (
+      <View style={styles.productCard}>
+        <Image source={item.image} style={styles.productImage} />
+        <TouchableOpacity
+          style={styles.wishlistWrap}
+          onPress={() => dispatch(setWishListProducts(item))}>
+          <Image
+            source={isFavorite ? WishlistFill : Wishlist}
+            style={styles.wishlist}
+          />
+        </TouchableOpacity>
+        <Text style={styles.productTitle}>{item.name}</Text>
 
-      <Text style={styles.price}>Rs. {item.price}</Text>
-    </View>
-  );
+        <View style={styles.row}>
+          <View style={styles.row}>
+            <Image source={Star} style={styles.icon} />
+            <Text style={styles.ratingText}>{item.rating}</Text>
+          </View>
+          <View style={styles.row}>
+            <Image source={Location} style={styles.locationIcon} />
+            <Text style={styles.distanceText}>{item.distance} m</Text>
+          </View>
+        </View>
+
+        <Text style={styles.price}>Rs. {item.price}</Text>
+      </View>
+    );
+  };
 
   useEffect(() => {
     if (selectedCategory) {
