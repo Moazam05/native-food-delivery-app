@@ -46,6 +46,8 @@ import TimeFill from './TimeFill.png';
 import Plus from './Plus.png';
 import Minus from './Minus.png';
 import CartTwo from './CartTwo.png';
+import Delete from './Delete.png';
+import EmptyCart from './EmptyCart.png';
 
 export {
   Onboarding1,
@@ -96,4 +98,6 @@ export {
   Plus,
   Minus,
   CartTwo,
+  Delete,
+  EmptyCart,
 };
