@@ -99,32 +99,42 @@ const Cart = ({setSelectedTab}) => {
         <Text style={styles.hideText}>Hide</Text>
       </View>
 
-      <FlatList
-        data={cartProducts}
-        renderItem={renderProduct}
-        keyExtractor={item => item.id.toString()}
-        contentContainerStyle={styles.flatListContainer}
-        ListEmptyComponent={
-          <View style={styles.emptyCartContainer}>
-            <Image source={EmptyCart} style={styles.emptyCartIcon} />
-            <View style={styles.cartTextContainer}>
-              <Text style={styles.cartTitle}>Ouch! Hungry</Text>
-              <Text style={styles.cartDescription}>
-                Seems like you have not ordered
-              </Text>
-              <Text style={[styles.cartDescription, styles.cartDescriptionTwo]}>
-                any food yet
-              </Text>
+      <View style={styles.flatWrap}>
+        <FlatList
+          data={cartProducts}
+          renderItem={renderProduct}
+          keyExtractor={item => item.id.toString()}
+          contentContainerStyle={styles.flatListContainer}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={
+            <View style={styles.emptyCartContainer}>
+              <Image source={EmptyCart} style={styles.emptyCartIcon} />
+              <View style={styles.cartTextContainer}>
+                <Text style={styles.cartTitle}>Ouch! Hungry</Text>
+                <Text style={styles.cartDescription}>
+                  Seems like you have not ordered
+                </Text>
+                <Text
+                  style={[styles.cartDescription, styles.cartDescriptionTwo]}>
+                  any food yet
+                </Text>
+              </View>
+              <View style={styles.buttonContainer}>
+                <CustomButton
+                  name="Find Food"
+                  onPress={() => setSelectedTab(0)}
+                />
+              </View>
             </View>
-            <View style={styles.buttonContainer}>
-              <CustomButton
-                name="Find Food"
-                onPress={() => setSelectedTab(0)}
-              />
-            </View>
-          </View>
-        }
-      />
+          }
+          ListFooterComponent={
+            <>
+              <View style={styles.line} />
+              <Text>Payment Summary</Text>
+            </>
+          }
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -193,7 +203,7 @@ const styles = StyleSheet.create({
     backgroundColor: themeColors.WHITE,
     borderRadius: 12,
     marginHorizontal: 20,
-    marginTop: 20,
+    marginBottom: 15,
     flexDirection: 'row',
   },
   productImageContainer: {
@@ -223,6 +233,9 @@ const styles = StyleSheet.create({
     color: themeColors.PRIMARY,
     marginTop: 3,
   },
+  flatWrap: {
+    marginTop: 20,
+  },
   counterContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -250,6 +263,11 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   flatListContainer: {
-    paddingBottom: 20,
+    paddingBottom: 140,
+  },
+  line: {
+    height: 2,
+    backgroundColor: '#EDEDED',
+    marginVertical: 20,
   },
 });
