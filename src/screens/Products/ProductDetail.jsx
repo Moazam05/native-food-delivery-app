@@ -20,6 +20,7 @@ import {
   selectWishlistProducts,
   setWishListProducts,
 } from '../../redux/wishlist/wishlistsSlice';
+import ProductDescription from './components/ProductDescription';
 
 const ProductDetail = () => {
   const navigation = useNavigation();
@@ -32,9 +33,6 @@ const ProductDetail = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [productImages, setProductImages] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
-
-  console.log('item', item);
-  console.log('productImages', productImages);
 
   useEffect(() => {
     const findImages = imagesData.find(pr => pr.linkId === item.linkId);
@@ -106,6 +104,8 @@ const ProductDetail = () => {
           ))}
         </View>
       </View>
+
+      <ProductDescription product={item} />
     </SafeAreaView>
   );
 };
