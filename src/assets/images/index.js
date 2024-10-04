@@ -34,6 +34,10 @@ import Taco1 from './Taco1.jpeg';
 import Taco2 from './Taco2.jpeg';
 import Taco3 from './Taco3.jpeg';
 import Taco4 from './Taco4.jpeg';
+import Drink1 from './Drink1.webp';
+import Drink2 from './Drink2.jpg';
+import Drink3 from './Drink3.jpg';
+import Drink4 from './Drink4.jpeg';
 
 export {
   Onboarding1,
@@ -72,4 +76,8 @@ export {
   Taco2,
   Taco3,
   Taco4,
+  Drink1,
+  Drink2,
+  Drink3,
+  Drink4,
 };
