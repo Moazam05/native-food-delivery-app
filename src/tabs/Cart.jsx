@@ -1,19 +1,19 @@
 import React from 'react';
 import {
+  Alert,
+  FlatList,
+  Image,
   StyleSheet,
   Text,
-  View,
   TouchableOpacity,
-  Image,
-  FlatList,
-  Alert,
+  View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useDispatch} from 'react-redux';
 import {Back, Delete, EmptyCart, Minus, Plus} from '../assets/images';
-import {useNavigation} from '@react-navigation/native';
-import {Fonts} from '../constants/fonts';
-import {themeColors} from '../constants/colors';
 import CustomButton from '../components/CustomButton';
+import {themeColors} from '../constants/colors';
+import {Fonts} from '../constants/fonts';
 import useTypedSelector from '../hooks/useTypedSelector';
 import {
   decrementProductQuantity,
@@ -21,20 +21,12 @@ import {
   removeProduct,
   selectedProducts,
 } from '../redux/products/productsSlice';
-import {thousandSeparator} from '../utils';
-import {useDispatch} from 'react-redux';
 import CartSummary from '../screens/Cart/CartSummary';
+import {thousandSeparator} from '../utils';
 
 const Cart = ({setSelectedTab}) => {
-  const navigation = useNavigation();
   const dispatch = useDispatch();
   const cartProducts = useTypedSelector(selectedProducts);
-
-  const calculateTotal = () => {
-    return cartProducts
-      .reduce((total, product) => total + product.price * product.quantity, 0)
-      .toFixed(2);
-  };
 
   const handleRemoveProduct = id => {
     dispatch(removeProduct(id));
