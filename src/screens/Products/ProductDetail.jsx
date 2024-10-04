@@ -105,7 +105,7 @@ const ProductDetail = () => {
         </View>
       </View>
 
-      <ProductDescription product={item} />
+      <ProductDescription item={item} />
     </SafeAreaView>
   );
 };
