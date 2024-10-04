@@ -93,23 +93,26 @@ const ProductDescription = ({item}) => {
         </View>
       </View>
       <View style={styles.bottomView}>
-        <View style={styles.counterContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(decrementProductQuantity(item.id));
-            }}>
-            <Image source={Minus} style={styles.addIcon} />
-          </TouchableOpacity>
+        {!isInCart && <View />}
+        {isInCart && (
+          <View style={styles.counterContainer}>
+            <TouchableOpacity
+              onPress={() => {
+                dispatch(decrementProductQuantity(item.id));
+              }}>
+              <Image source={Minus} style={styles.addIcon} />
+            </TouchableOpacity>
 
-          <Text style={styles.quantityText}>{productQuantity}</Text>
+            <Text style={styles.quantityText}>{productQuantity}</Text>
 
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(incrementProductQuantity(item.id));
-            }}>
-            <Image source={Plus} style={styles.addIcon} />
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity
+              onPress={() => {
+                dispatch(incrementProductQuantity(item.id));
+              }}>
+              <Image source={Plus} style={styles.addIcon} />
+            </TouchableOpacity>
+          </View>
+        )}
         <CustomButton
           name={isInCart ? 'Buy Now' : 'Add to Cart'}
           image={true}
