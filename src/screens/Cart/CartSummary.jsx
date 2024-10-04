@@ -16,129 +16,55 @@ const CartSummary = () => {
       .toFixed(2);
   };
 
+  const calculateDiscount = () => {
+    const total = parseFloat(calculateTotal());
+    return (total * 0.1).toFixed(2);
+  };
+
+  const calculateTotalAfterDiscount = () => {
+    return (
+      parseFloat(calculateTotal()) - parseFloat(calculateDiscount())
+    ).toFixed(2);
+  };
+
+  const calculateTotalItems = () => {
+    return cartProducts.reduce((total, product) => total + product.quantity, 0);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.line} />
-      <View
-        style={{
-          border: 1,
-          borderColor: '#EDEDED',
-          borderRadius: 10,
-          padding: 10,
-          borderWidth: 2,
-        }}>
-        <Text
-          style={{
-            fontSize: 16,
-            fontFamily: Fonts.SEMIBOLD,
-            color: themeColors.BLACK,
-          }}>
-          Payment Summary
-        </Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginTop: 10,
-          }}>
-          <Text
-            style={{
-              fontSize: 14,
-              fontFamily: Fonts.MEDIUM,
-              color: themeColors.GRAY,
-            }}>
-            Total Items
+      <View style={styles.summaryContainer}>
+        <Text style={styles.summaryTitle}>Payment Summary</Text>
+        <View style={styles.summaryRow}>
+          <Text style={styles.label}>
+            Total Items ({calculateTotalItems()})
           </Text>
-          <Text
-            style={{
-              fontSize: 14,
-              fontFamily: Fonts.BOLD,
-              color: themeColors.BLACK,
-            }}>
+          <Text style={styles.value}>
             Rs. {thousandSeparator(calculateTotal())}
           </Text>
         </View>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginTop: 10,
-          }}>
-          <Text
-            style={{
-              fontSize: 14,
-              fontFamily: Fonts.MEDIUM,
-              color: themeColors.GRAY,
-            }}>
-            Delivery Fee
-          </Text>
-          <Text
-            style={{
-              fontSize: 14,
-              fontFamily: Fonts.BOLD,
-              color: themeColors.BLACK,
-            }}>
-            Free
+        <View style={styles.summaryRow}>
+          <Text style={styles.label}>Delivery Fee</Text>
+          <Text style={styles.value}>Free</Text>
+        </View>
+
+        <View style={styles.summaryRow}>
+          <Text style={styles.label}>Discount (10%)</Text>
+          <Text style={styles.discountValue}>
+            Rs. {thousandSeparator(calculateDiscount())}
           </Text>
         </View>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginTop: 10,
-          }}>
-          <Text
-            style={{
-              fontSize: 14,
-              fontFamily: Fonts.MEDIUM,
-              color: themeColors.GRAY,
-            }}>
-            Discount
-          </Text>
-          <Text
-            style={{
-              fontSize: 14,
-              fontFamily: Fonts.BOLD,
-              color: themeColors.PRIMARY,
-            }}>
-            10% (Rs. 450)
-          </Text>
-        </View>
-
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginTop: 10,
-          }}>
-          <Text
-            style={{
-              fontSize: 14,
-              fontFamily: Fonts.MEDIUM,
-              color: themeColors.GRAY,
-            }}>
-            Total
-          </Text>
-          <Text
-            style={{
-              fontSize: 14,
-              fontFamily: Fonts.BOLD,
-              color: themeColors.BLACK,
-            }}>
-            Rs. {thousandSeparator(calculateTotal())}
+        <View style={styles.summaryRow}>
+          <Text style={styles.label}>Total</Text>
+          <Text style={styles.value}>
+            Rs. {thousandSeparator(calculateTotalAfterDiscount())}
           </Text>
         </View>
       </View>
-      <View
-        style={{
-          marginTop: 15,
-        }}>
+      <View style={styles.buttonContainer}>
         <CustomButton name="Order Now" />
       </View>
     </View>
@@ -156,5 +82,41 @@ const styles = StyleSheet.create({
     backgroundColor: '#EDEDED',
     marginBottom: 25,
     marginTop: 10,
+  },
+  summaryContainer: {
+    border: 1,
+    borderColor: '#EDEDED',
+    borderRadius: 10,
+    padding: 10,
+    borderWidth: 2,
+  },
+  summaryTitle: {
+    fontSize: 16,
+    fontFamily: Fonts.SEMIBOLD,
+    color: themeColors.BLACK,
+  },
+  summaryRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  label: {
+    fontSize: 14,
+    fontFamily: Fonts.MEDIUM,
+    color: themeColors.GRAY,
+  },
+  value: {
+    fontSize: 14,
+    fontFamily: Fonts.BOLD,
+    color: themeColors.BLACK,
+  },
+  discountValue: {
+    fontSize: 14,
+    fontFamily: Fonts.BOLD,
+    color: themeColors.PRIMARY,
+  },
+  buttonContainer: {
+    marginTop: 15,
   },
 });
