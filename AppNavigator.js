@@ -22,6 +22,8 @@ const AppNavigator = () => {
   const dispatch = useDispatch();
   const loginUser = useTypedSelector(selectedUser);
 
+  console.log('loginUser', loginUser);
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

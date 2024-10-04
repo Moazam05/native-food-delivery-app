@@ -128,7 +128,15 @@ const Cart = ({setSelectedTab}) => {
               </View>
             </View>
           }
-          ListFooterComponent={<CartSummary setSelectedTab={setSelectedTab} />}
+          ListFooterComponent={
+            <View>
+              {cartProducts.length === 0 ? (
+                <View />
+              ) : (
+                <CartSummary setSelectedTab={setSelectedTab} />
+              )}
+            </View>
+          }
         />
       </View>
     </SafeAreaView>
