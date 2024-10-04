@@ -19,8 +19,10 @@ import {
 } from '../../../redux/wishlist/wishlistsSlice';
 import {thousandSeparator} from '../../../utils';
 import Toast from 'react-native-toast-message';
+import {useNavigation} from '@react-navigation/native';
 
 const ProductList = ({selectedCategory}) => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const wishListProducts = useTypedSelector(selectWishlistProducts);
 
@@ -30,7 +32,11 @@ const ProductList = ({selectedCategory}) => {
     const isFavorite = wishListProducts.some(product => product.id === item.id);
 
     return (
-      <View style={styles.productCard}>
+      <TouchableOpacity
+        style={styles.productCard}
+        onPress={() => {
+          navigation.navigate('ProductDetail', {item});
+        }}>
         <Image source={item.image} style={styles.productImage} />
         <TouchableOpacity
           style={styles.wishlistWrap}
@@ -63,7 +69,7 @@ const ProductList = ({selectedCategory}) => {
         </View>
 
         <Text style={styles.price}>Rs. {thousandSeparator(item.price)}</Text>
-      </View>
+      </TouchableOpacity>
     );
   };
 

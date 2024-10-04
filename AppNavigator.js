@@ -14,6 +14,7 @@ import {Image, StatusBar, StyleSheet, View} from 'react-native';
 import {Onboarding2} from './src/assets/images';
 import useTypedSelector from './src/hooks/useTypedSelector';
 import HomeScreen from './src/screens/Home/HomeScreen';
+import ProductDetail from './src/screens/Home/components/ProductDetail';
 
 const Stack = createNativeStackNavigator();
 
@@ -67,10 +68,16 @@ const AppNavigator = () => {
                 headerShown: false,
               }}
             />
+            <Stack.Screen
+              name="ProductDetail"
+              component={ProductDetail}
+              options={{
+                headerShown: false,
+              }}
+            />
           </>
         ) : (
           <>
-            {' '}
             <Stack.Screen
               name="Onboarding"
               component={Onboarding}
