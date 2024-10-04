@@ -50,6 +50,12 @@ const ProductDescription = ({item}) => {
     dispatch(setCartProducts(item));
   };
 
+  const calculateTotal = () => {
+    return cartProducts
+      .reduce((total, product) => total + product.price * product.quantity, 0)
+      .toFixed(2);
+  };
+
   return (
     <>
       <View style={styles.container}>
@@ -93,39 +99,72 @@ const ProductDescription = ({item}) => {
         </View>
       </View>
       <View style={styles.bottomView}>
-        {!isInCart && <View />}
-        {isInCart && (
-          <View style={styles.counterContainer}>
-            <TouchableOpacity
-              onPress={() => {
-                dispatch(decrementProductQuantity(item.id));
-              }}>
-              <Image source={Minus} style={styles.addIcon} />
-            </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginVertical: 10,
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              fontFamily: Fonts.BOLD,
+              color: themeColors.BLACK,
+              marginLeft: 10,
+            }}>
+            Total
+          </Text>
+          <Text
+            style={{
+              fontSize: 16,
+              fontFamily: Fonts.BOLD,
+              color: themeColors.PRIMARY,
+              marginRight: 10,
+            }}>
+            Rs. {thousandSeparator(calculateTotal())}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          {!isInCart && <View />}
+          {isInCart && (
+            <View style={styles.counterContainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  dispatch(decrementProductQuantity(item.id));
+                }}>
+                <Image source={Minus} style={styles.addIcon} />
+              </TouchableOpacity>
 
-            <Text style={styles.quantityText}>{productQuantity}</Text>
+              <Text style={styles.quantityText}>{productQuantity}</Text>
 
-            <TouchableOpacity
-              onPress={() => {
-                dispatch(incrementProductQuantity(item.id));
-              }}>
-              <Image source={Plus} style={styles.addIcon} />
-            </TouchableOpacity>
-          </View>
-        )}
-        <CustomButton
-          name={isInCart ? 'Buy Now' : 'Add to Cart'}
-          image={true}
-          imageSrc={CartTwo}
-          loginStyle={styles.buttonStyle}
-          onPress={
-            isInCart
-              ? () => {
-                  navigation.replace('HomeScreen', {screen: 'Cart'});
-                }
-              : addToCartHandler
-          }
-        />
+              <TouchableOpacity
+                onPress={() => {
+                  dispatch(incrementProductQuantity(item.id));
+                }}>
+                <Image source={Plus} style={styles.addIcon} />
+              </TouchableOpacity>
+            </View>
+          )}
+          <CustomButton
+            name={isInCart ? 'Buy Now' : 'Add to Cart'}
+            image={true}
+            imageSrc={CartTwo}
+            loginStyle={styles.buttonStyle}
+            onPress={
+              isInCart
+                ? () => {
+                    navigation.replace('HomeScreen', {screen: 'Cart'});
+                  }
+                : addToCartHandler
+            }
+          />
+        </View>
       </View>
     </>
   );
@@ -210,10 +249,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    height: 75,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    height: 100,
+    // flexDirection: 'row',
+    // justifyContent: 'space-between',
+    // alignItems: 'center',
     backgroundColor: themeColors.WHITE,
     paddingHorizontal: 24,
     borderTopLeftRadius: 16,
