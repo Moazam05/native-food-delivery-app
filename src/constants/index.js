@@ -49,7 +49,7 @@ export const ProductsData = [
     image: Product1,
     rating: 4.5,
     price: 499,
-    distance: '5-10',
+    distance: '05-10',
     type: 'Burger',
     linkId: 1,
     description:

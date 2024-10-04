@@ -1,5 +1,5 @@
-import {View, Text, StyleSheet, Image} from 'react-native';
-import React, {useState} from 'react';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {Fonts} from '../../../constants/fonts';
 import {themeColors} from '../../../constants/colors';
 import {
@@ -11,19 +11,40 @@ import {
   Plus,
   Star,
   Taco,
-  Time,
   TimeFill,
 } from '../../../assets/images';
 import {thousandSeparator} from '../../../utils';
 import {useDispatch} from 'react-redux';
-import {setCartProducts} from '../../../redux/products/productsSlice';
+import {
+  decrementProductQuantity,
+  incrementProductQuantity,
+  selectedProducts,
+  setCartProducts,
+} from '../../../redux/products/productsSlice';
 import CustomButton from '../../../components/CustomButton';
+import useTypedSelector from '../../../hooks/useTypedSelector';
+import {useNavigation} from '@react-navigation/native';
 
 const ProductDescription = ({item}) => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
+  const cartProducts = useTypedSelector(selectedProducts);
+
+  console.log('cartProducts', cartProducts);
 
   const [isInCart, setIsInCart] = useState(false);
   const [productQuantity, setProductQuantity] = useState(0);
+
+  useEffect(() => {
+    const productInCart = cartProducts.find(product => product.id === item.id);
+    if (productInCart) {
+      setIsInCart(true);
+      setProductQuantity(productInCart.quantity);
+    } else {
+      setIsInCart(false);
+      setProductQuantity(0);
+    }
+  }, [cartProducts, item.id]);
 
   const addToCartHandler = () => {
     dispatch(setCartProducts(item));
@@ -73,15 +94,37 @@ const ProductDescription = ({item}) => {
       </View>
       <View style={styles.bottomView}>
         <View style={styles.counterContainer}>
-          <Image source={Minus} style={styles.addIcon} />
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(decrementProductQuantity(item.id));
+            }}>
+            <Image source={Minus} style={styles.addIcon} />
+          </TouchableOpacity>
+
           <Text style={styles.quantityText}>{productQuantity}</Text>
-          <Image source={Plus} style={styles.addIcon} />
+
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(incrementProductQuantity(item.id));
+            }}>
+            <Image source={Plus} style={styles.addIcon} />
+          </TouchableOpacity>
         </View>
         <CustomButton
-          name="Add to Cart"
+          name={isInCart ? 'Buy Now' : 'Add to Cart'}
           image={true}
           imageSrc={CartTwo}
           loginStyle={styles.buttonStyle}
+          onPress={
+            isInCart
+              ? () => {
+                  navigation.reset({
+                    index: 2,
+                    routes: [{name: 'HomeScreen'}],
+                  });
+                }
+              : addToCartHandler
+          }
         />
       </View>
     </>
