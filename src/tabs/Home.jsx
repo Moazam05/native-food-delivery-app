@@ -1,20 +1,11 @@
 import {GOOGLE_MAPS_API_KEY} from '@env';
 import React, {useEffect, useState} from 'react';
-import {
-  FlatList,
-  PermissionsAndroid,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {FlatList, PermissionsAndroid, StyleSheet, View} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {themeColors} from '../constants/colors';
-import HeroSection from '../screens/Home/components/HeroSection';
-import Categories from '../screens/Home/components/Categories';
-import ProductList from '../screens/Home/components/ProductList';
 import {categoriesData} from '../constants';
+import Categories from '../screens/Home/components/Categories';
+import HeroSection from '../screens/Home/components/HeroSection';
+import ProductList from '../screens/Home/components/ProductList';
 
 const Home = () => {
   const [permissionGranted, setPermissionGranted] = useState(false);

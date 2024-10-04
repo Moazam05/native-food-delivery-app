@@ -45,61 +45,23 @@ const ProductTotal = ({item}) => {
   };
 
   return (
-    <View
-      style={{
-        width: '100%',
-        height: 100,
-        backgroundColor: themeColors.WHITE,
-        paddingHorizontal: 24,
-      }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginVertical: 10,
-        }}>
-        <Text
-          style={{
-            fontSize: 16,
-            fontFamily: Fonts.BOLD,
-            color: themeColors.BLACK,
-            marginLeft: 10,
-          }}>
-          Total
-        </Text>
-        <Text
-          style={{
-            fontSize: 16,
-            fontFamily: Fonts.BOLD,
-            color: themeColors.PRIMARY,
-            marginRight: 10,
-          }}>
+    <View style={styles.container}>
+      <View style={styles.totalContainer}>
+        <Text style={styles.totalText}>Total</Text>
+        <Text style={styles.totalPrice}>
           Rs. {thousandSeparator(calculateTotal())}
         </Text>
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}>
-        {!isInCart && <View />}
+      <View style={styles.actionContainer}>
         {isInCart && (
           <View style={styles.counterContainer}>
             <TouchableOpacity
-              onPress={() => {
-                dispatch(decrementProductQuantity(item.id));
-              }}>
+              onPress={() => dispatch(decrementProductQuantity(item.id))}>
               <Image source={Minus} style={styles.addIcon} />
             </TouchableOpacity>
-
             <Text style={styles.quantityText}>{productQuantity}</Text>
-
             <TouchableOpacity
-              onPress={() => {
-                dispatch(incrementProductQuantity(item.id));
-              }}>
+              onPress={() => dispatch(incrementProductQuantity(item.id))}>
               <Image source={Plus} style={styles.addIcon} />
             </TouchableOpacity>
           </View>
@@ -111,9 +73,7 @@ const ProductTotal = ({item}) => {
           loginStyle={styles.buttonStyle}
           onPress={
             isInCart
-              ? () => {
-                  navigation.replace('HomeScreen', {screen: 'Cart'});
-                }
+              ? () => navigation.replace('HomeScreen', {screen: 'Cart'})
               : addToCartHandler
           }
         />
@@ -125,6 +85,35 @@ const ProductTotal = ({item}) => {
 export default ProductTotal;
 
 const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: 100,
+    backgroundColor: themeColors.WHITE,
+    paddingHorizontal: 24,
+  },
+  totalContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  totalText: {
+    fontSize: 16,
+    fontFamily: Fonts.BOLD,
+    color: themeColors.BLACK,
+    marginLeft: 10,
+  },
+  totalPrice: {
+    fontSize: 16,
+    fontFamily: Fonts.BOLD,
+    color: themeColors.PRIMARY,
+    marginRight: 10,
+  },
+  actionContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   counterContainer: {
     flexDirection: 'row',
     alignItems: 'center',
