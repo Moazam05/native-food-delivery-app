@@ -52,6 +52,8 @@ export const ProductsData = [
     distance: '5-10',
     type: 'Burger',
     linkId: 1,
+    description:
+      'Savor our classic beef patty burger, topped with lettuce, tomato, and cheese.',
   },
   {
     id: 2,
@@ -62,16 +64,20 @@ export const ProductsData = [
     distance: '15-120',
     type: 'Burger',
     linkId: 2,
+    description:
+      'Indulge in our juicy beef burger with extra meat, bacon, and cheddar cheese.',
   },
   {
     id: 3,
-    name: 'Burger Witt Fries',
+    name: 'Burger With Fries',
     image: Product3,
     rating: 4.8,
     price: 799,
     distance: '20-25',
     type: 'Burger',
     linkId: 3,
+    description:
+      'Enjoy our signature burger paired with crispy fries and a side of ketchup.',
   },
   {
     id: 4,
@@ -82,6 +88,8 @@ export const ProductsData = [
     distance: '10-15',
     type: 'Burger',
     linkId: 4,
+    description:
+      'Stacked high with two beef patties, bacon, and cheese, this burger is a must-try.',
   },
   // Taco
   {
@@ -93,6 +101,8 @@ export const ProductsData = [
     distance: '10-15',
     type: 'Taco',
     linkId: 5,
+    description:
+      'Soft shell taco filled with seasoned beef, lettuce, and tomatoes.',
   },
   {
     id: 6,
@@ -103,6 +113,8 @@ export const ProductsData = [
     distance: '15-20',
     type: 'Taco',
     linkId: 6,
+    description:
+      'Grilled chicken, salsa, and avocado come together in this flavorful taco.',
   },
   {
     id: 7,
@@ -113,6 +125,8 @@ export const ProductsData = [
     distance: '10-15',
     type: 'Taco',
     linkId: 7,
+    description:
+      "Crispy fish, cabbage, and tartar sauce make this taco a seafood lover's dream.",
   },
   {
     id: 8,
@@ -123,6 +137,8 @@ export const ProductsData = [
     distance: '10-15',
     type: 'Taco',
     linkId: 8,
+    description:
+      'A vegetarian delight with sautéed veggies, guacamole, and salsa.',
   },
   // Drink
   {
@@ -134,6 +150,8 @@ export const ProductsData = [
     distance: '10-15',
     type: 'Drink',
     linkId: 9,
+    description:
+      'Refresh with a cold Fanta, available in various fruity flavors.',
   },
   {
     id: 10,
@@ -144,6 +162,7 @@ export const ProductsData = [
     distance: '10-15',
     type: 'Drink',
     linkId: 10,
+    description: 'Clean and crisp, 7up is the perfect companion to your meal.',
   },
   {
     id: 11,
@@ -154,6 +173,7 @@ export const ProductsData = [
     distance: '10-15',
     type: 'Drink',
     linkId: 11,
+    description: 'The classic cola taste of Pepsi, perfect for any occasion.',
   },
   {
     id: 12,
@@ -164,6 +184,7 @@ export const ProductsData = [
     distance: '10-15',
     type: 'Drink',
     linkId: 12,
+    description: 'Enjoy the iconic taste of Coca Cola, a timeless favorite.',
   },
   // Pizza
   {
@@ -175,6 +196,8 @@ export const ProductsData = [
     distance: '10-15',
     type: 'Pizza',
     linkId: 13,
+    description:
+      'Melted mozzarella and parmesan cheese on a crispy crust, perfect for cheese lovers.',
   },
   {
     id: 14,
@@ -185,6 +208,8 @@ export const ProductsData = [
     distance: '10-15',
     type: 'Pizza',
     linkId: 14,
+    description:
+      'Tangy BBQ sauce, grilled chicken, and red onion create a flavorful combination.',
   },
   {
     id: 15,
@@ -195,6 +220,8 @@ export const ProductsData = [
     distance: '10-15',
     type: 'Pizza',
     linkId: 15,
+    description:
+      'A colorful mix of vegetables, including bell peppers, onions, and mushrooms.',
   },
   {
     id: 16,
@@ -205,6 +232,8 @@ export const ProductsData = [
     distance: '10-15',
     type: 'Pizza',
     linkId: 16,
+    description:
+      'Grilled chicken, tomato sauce, and mozzarella cheese make for a satisfying pizza.',
   },
 ];
 

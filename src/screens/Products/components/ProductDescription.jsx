@@ -49,6 +49,13 @@ const ProductDescription = ({item}) => {
           <Text>{item?.rating}</Text>
         </View>
       </View>
+
+      <View style={styles.line} />
+
+      <View style={styles.descriptionContainer}>
+        <Text style={styles.descriptionTitle}>Description</Text>
+        <Text style={styles.descriptionText}>{item?.description}</Text>
+      </View>
     </View>
   );
 };
@@ -106,5 +113,25 @@ const styles = StyleSheet.create({
     height: 17,
     resizeMode: 'contain',
     tintColor: themeColors.PRIMARY,
+  },
+
+  line: {
+    height: 2,
+    backgroundColor: '#EDEDED',
+    marginVertical: 20,
+  },
+  descriptionContainer: {
+    marginBottom: 16,
+  },
+  descriptionTitle: {
+    fontSize: 16,
+    fontFamily: Fonts.SEMIBOLD,
+    color: themeColors.BLACK,
+  },
+  descriptionText: {
+    fontSize: 14,
+    fontFamily: Fonts.REGULAR,
+    color: themeColors.GRAY,
+    marginTop: 5,
   },
 });
