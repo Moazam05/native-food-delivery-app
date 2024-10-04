@@ -51,6 +51,7 @@ export const ProductsData = [
     price: 499,
     distance: '5-10',
     type: 'Burger',
+    linkId: 1,
   },
   {
     id: 2,
@@ -60,6 +61,7 @@ export const ProductsData = [
     price: 650,
     distance: '15-120',
     type: 'Burger',
+    linkId: 2,
   },
   {
     id: 3,
@@ -69,6 +71,7 @@ export const ProductsData = [
     price: 799,
     distance: '20-25',
     type: 'Burger',
+    linkId: 3,
   },
   {
     id: 4,
@@ -78,6 +81,7 @@ export const ProductsData = [
     price: 999,
     distance: '10-15',
     type: 'Burger',
+    linkId: 4,
   },
   // Taco
   {
@@ -88,6 +92,7 @@ export const ProductsData = [
     price: 299,
     distance: '10-15',
     type: 'Taco',
+    linkId: 5,
   },
   {
     id: 6,
@@ -97,6 +102,7 @@ export const ProductsData = [
     price: 450,
     distance: '15-20',
     type: 'Taco',
+    linkId: 6,
   },
   {
     id: 7,
@@ -106,6 +112,7 @@ export const ProductsData = [
     price: 699,
     distance: '10-15',
     type: 'Taco',
+    linkId: 7,
   },
   {
     id: 8,
@@ -115,6 +122,7 @@ export const ProductsData = [
     price: 199,
     distance: '10-15',
     type: 'Taco',
+    linkId: 8,
   },
   // Drink
   {
@@ -125,6 +133,7 @@ export const ProductsData = [
     price: 99,
     distance: '10-15',
     type: 'Drink',
+    linkId: 9,
   },
   {
     id: 10,
@@ -134,6 +143,7 @@ export const ProductsData = [
     price: 99,
     distance: '10-15',
     type: 'Drink',
+    linkId: 10,
   },
   {
     id: 11,
@@ -143,6 +153,7 @@ export const ProductsData = [
     price: 99,
     distance: '10-15',
     type: 'Drink',
+    linkId: 11,
   },
   {
     id: 12,
@@ -152,6 +163,7 @@ export const ProductsData = [
     price: 99,
     distance: '10-15',
     type: 'Drink',
+    linkId: 12,
   },
   // Pizza
   {
@@ -162,6 +174,7 @@ export const ProductsData = [
     price: 1299,
     distance: '10-15',
     type: 'Pizza',
+    linkId: 13,
   },
   {
     id: 14,
@@ -171,6 +184,7 @@ export const ProductsData = [
     price: 1499,
     distance: '10-15',
     type: 'Pizza',
+    linkId: 14,
   },
   {
     id: 15,
@@ -180,6 +194,7 @@ export const ProductsData = [
     price: 1199,
     distance: '10-15',
     type: 'Pizza',
+    linkId: 15,
   },
   {
     id: 16,
@@ -189,6 +204,7 @@ export const ProductsData = [
     price: 1599,
     distance: '10-15',
     type: 'Pizza',
+    linkId: 16,
   },
 ];
 
@@ -212,5 +228,88 @@ export const categoriesData = [
     id: 4,
     name: 'Pizza',
     image: Pizza,
+  },
+];
+
+export const imagesData = [
+  {
+    id: 1,
+    linkId: 1,
+    images: [Product1, Product1],
+  },
+  {
+    id: 2,
+    linkId: 2,
+    images: [Product2, Product2],
+  },
+  {
+    id: 3,
+    linkId: 3,
+    images: [Product3, Product3],
+  },
+  {
+    id: 4,
+    linkId: 4,
+    images: [Product4, Product4],
+  },
+  {
+    id: 5,
+    linkId: 5,
+    images: [Taco1, Taco1],
+  },
+  {
+    id: 6,
+    linkId: 6,
+    images: [Taco2, Taco2],
+  },
+  {
+    id: 7,
+    linkId: 7,
+    images: [Taco3, Taco3],
+  },
+  {
+    id: 8,
+    linkId: 8,
+    images: [Taco4, Taco4],
+  },
+  {
+    id: 9,
+    linkId: 9,
+    images: [Drink1, Drink1],
+  },
+  {
+    id: 10,
+    linkId: 10,
+    images: [Drink2, Drink2],
+  },
+  {
+    id: 11,
+    linkId: 11,
+    images: [Drink3, Drink3],
+  },
+  {
+    id: 12,
+    linkId: 12,
+    images: [Drink4, Drink4],
+  },
+  {
+    id: 13,
+    linkId: 13,
+    images: [Pizza1, Pizza1],
+  },
+  {
+    id: 14,
+    linkId: 14,
+    images: [Pizza2, Pizza2],
+  },
+  {
+    id: 15,
+    linkId: 15,
+    images: [Pizza3, Pizza3],
+  },
+  {
+    id: 16,
+    linkId: 16,
+    images: [Pizza4, Pizza4],
   },
 ];
