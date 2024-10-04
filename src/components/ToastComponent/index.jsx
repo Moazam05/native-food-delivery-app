@@ -14,6 +14,11 @@ const toastConfig = {
       <Text style={styles.toastText}>{text1}</Text>
     </View>
   ),
+  favorites: ({text1}) => (
+    <View style={styles.transparentToast}>
+      <Text style={styles.toastText}>{text1}</Text>
+    </View>
+  ),
 };
 
 const ToastComponent = () => {
@@ -26,15 +31,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5,
+    marginBottom: 30,
   },
   errorToast: {
+    backgroundColor: themeColors.ERROR,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 5,
+    marginBottom: 30,
+  },
+  toastText: {
+    color: themeColors.WHITE,
+  },
+  transparentToast: {
     backgroundColor: themeColors.PRIMARY,
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5,
-  },
-  toastText: {
-    color: themeColors.WHITE,
+    marginBottom: 30,
   },
 });
 

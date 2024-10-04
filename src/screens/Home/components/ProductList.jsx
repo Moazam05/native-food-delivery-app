@@ -18,6 +18,7 @@ import {
   setWishListProducts,
 } from '../../../redux/wishlist/wishlistsSlice';
 import {thousandSeparator} from '../../../utils';
+import Toast from 'react-native-toast-message';
 
 const ProductList = ({selectedCategory}) => {
   const dispatch = useDispatch();
@@ -33,7 +34,16 @@ const ProductList = ({selectedCategory}) => {
         <Image source={item.image} style={styles.productImage} />
         <TouchableOpacity
           style={styles.wishlistWrap}
-          onPress={() => dispatch(setWishListProducts(item))}>
+          onPress={() => {
+            dispatch(setWishListProducts(item));
+            Toast.show({
+              type: 'favorites',
+              text1: isFavorite
+                ? 'Removed from Favorites'
+                : 'Added to Favorites',
+              position: 'bottom',
+            });
+          }}>
           <Image
             source={isFavorite ? WishlistFill : Wishlist}
             style={styles.wishlist}
