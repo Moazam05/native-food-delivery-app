@@ -21,8 +21,10 @@ import Profile from '../../tabs/Profile';
 import {Fonts} from '../../constants/fonts';
 // Assets
 import {CartIcon, HomeIcon, ProfileIcon, SearchIcon} from '../../assets/images';
+import {useRoute} from '@react-navigation/native';
 
 const HomeScreen = () => {
+  const route = useRoute();
   const [selectedTab, setSelectedTab] = useState(0);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
 
@@ -42,6 +44,12 @@ const HomeScreen = () => {
       keyboardDidHideListener.remove();
     };
   }, []);
+
+  useEffect(() => {
+    if (route.params?.screen === 'Cart') {
+      setSelectedTab(1);
+    }
+  }, [route.params]);
 
   return (
     <>

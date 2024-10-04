@@ -121,10 +121,7 @@ const ProductDescription = ({item}) => {
           onPress={
             isInCart
               ? () => {
-                  navigation.reset({
-                    index: 2,
-                    routes: [{name: 'HomeScreen'}],
-                  });
+                  navigation.replace('HomeScreen', {screen: 'Cart'});
                 }
               : addToCartHandler
           }
