@@ -53,6 +53,7 @@ const ProductTotal = ({item}) => {
         </Text>
       </View>
       <View style={styles.actionContainer}>
+        {!isInCart && <View />}
         {isInCart && (
           <View style={styles.counterContainer}>
             <TouchableOpacity
