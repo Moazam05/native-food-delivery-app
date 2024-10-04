@@ -12,11 +12,16 @@ import {Success} from '../../../assets/images';
 import CustomButton from '../../../components/CustomButton';
 import {Fonts} from '../../../constants/fonts';
 import {themeColors} from '../../../constants/colors';
+import {useDispatch} from 'react-redux';
+import {clearCart} from '../../../redux/products/productsSlice';
 
 const OrderConfirmModal = ({visible, setModalVisible, setSelectedTab}) => {
+  const dispatch = useDispatch();
+
   const homeHandler = () => {
     setModalVisible(false);
     setSelectedTab(0);
+    dispatch(clearCart());
   };
 
   return (
@@ -31,9 +36,10 @@ const OrderConfirmModal = ({visible, setModalVisible, setSelectedTab}) => {
           <View style={styles.wrap}>
             <Image source={Success} style={styles.thank} />
 
-            <Text style={styles.payment}>Your order has been confirmed</Text>
+            <Text style={styles.payment}>Order Received!</Text>
             <Text style={styles.changeText}>
-              Riders will contact you soon with in 30 minutes
+              Our riders will pick up your order and deliver it to your doorstep
+              within 30 minutes.
             </Text>
 
             <View style={styles.buttonContainer}>

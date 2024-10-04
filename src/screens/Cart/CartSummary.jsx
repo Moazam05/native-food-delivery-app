@@ -10,7 +10,7 @@ import OrderConfirmModal from './components/OrderConfirmModal';
 
 const CartSummary = ({setSelectedTab}) => {
   const cartProducts = useTypedSelector(selectedProducts);
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const calculateTotal = () => {
     return cartProducts
@@ -67,7 +67,7 @@ const CartSummary = ({setSelectedTab}) => {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <CustomButton name="Order Now" />
+        <CustomButton name="Order Now" onPress={() => setModalVisible(true)} />
       </View>
 
       {/* Modal */}
