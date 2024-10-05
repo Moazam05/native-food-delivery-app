@@ -13,11 +13,14 @@ const SignOutModal = ({visible, setVisible}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setVisible(false);
     dispatch(setUser(null));
-    AsyncStorage.removeItem('user');
-    navigation.navigate('Login');
+    await AsyncStorage.removeItem('user');
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Login'}],
+    });
   };
   return (
     <>
