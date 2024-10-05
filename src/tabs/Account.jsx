@@ -18,6 +18,7 @@ import useTypedSelector from '../hooks/useTypedSelector';
 import {selectedUser} from '../redux/auth/authSlice';
 import SignOutModal from '../screens/Account/SignOutModal';
 import {useNavigation} from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 const CardsData = [
   {
@@ -62,6 +63,16 @@ const Account = () => {
             onPress={() => {
               if (card.title === 'Favorites') {
                 navigation.navigate('Favorites');
+              } else if (card.title === 'Orders') {
+                Toast.show({
+                  type: 'favorites',
+                  text1: 'Coming Soon...',
+                });
+              } else if (card.title === 'Address') {
+                Toast.show({
+                  type: 'favorites',
+                  text1: 'Coming Soon...',
+                });
               }
             }}>
             <Image source={card.icon} style={styles.cardIcon} />
