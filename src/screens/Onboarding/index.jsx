@@ -19,7 +19,6 @@ import {themeColors} from '../../constants/colors';
 import {onboarding} from '../../constants';
 import {Fonts} from '../../constants/fonts';
 import {useNavigation} from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 
 const images = [Onboarding1, Onboarding2, Onboarding3];
 
@@ -42,16 +41,6 @@ const Onboarding = () => {
     }
   };
 
-  const completeOnboarding = async () => {
-    await AsyncStorage.setItem('hasSeenOnboarding', 'true'); // Store completion in AsyncStorage
-    navigation.navigate('Login'); // Navigate to the Login screen
-  };
-
-  const skipOnboarding = async () => {
-    await AsyncStorage.setItem('hasSeenOnboarding', 'true'); // Store completion on skip
-    navigation.navigate('Login'); // Navigate to the Login screen
-  };
-
   return (
     <>
       <StatusBar
@@ -63,7 +52,7 @@ const Onboarding = () => {
         <Swiper
           ref={swiperRef}
           showsPagination={false}
-          scrollEnabled={false}
+          // scrollEnabled={false}
           loop={false}
           onIndexChanged={setActiveIndex}>
           {images.map((image, index) => (
@@ -94,7 +83,7 @@ const Onboarding = () => {
                 {isLastSlide ? (
                   <TouchableOpacity
                     style={styles.lastWrap}
-                    onPress={completeOnboarding}>
+                    onPress={() => navigation.navigate('Login')}>
                     <Image source={OnboardArrow} style={styles.OnboardArrow} />
                   </TouchableOpacity>
                 ) : (
@@ -103,7 +92,8 @@ const Onboarding = () => {
                       <TouchableOpacity
                         onPress={handlePrev}
                         disabled={isFirstSlide}>
-                        <TouchableOpacity onPress={skipOnboarding}>
+                        <TouchableOpacity
+                          onPress={() => navigation.navigate('Login')}>
                           <Text style={styles.navButton}>Skip</Text>
                         </TouchableOpacity>
                       </TouchableOpacity>
@@ -181,6 +171,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   lastPagination: {
     marginBottom: 25,
   },
