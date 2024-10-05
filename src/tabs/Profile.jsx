@@ -16,6 +16,7 @@ import {themeColors} from '../constants/colors';
 import {
   HelpIcon,
   Location,
+  LogoutIcon,
   Orders,
   ProfileIconTwo,
   ProfileImg,
@@ -24,6 +25,7 @@ import {
 } from '../assets/images';
 import useTypedSelector from '../hooks/useTypedSelector';
 import {Fonts} from '../constants/fonts';
+import CustomButton from '../components/CustomButton';
 
 const CardsData = [
   {
@@ -93,110 +95,41 @@ const Profile = () => {
       </View>
 
       <View style={styles.detailWrap}>
-        <Text
-          style={{
-            fontSize: 12,
-            fontFamily: Fonts.MEDIUM,
-            color: themeColors.GRAY,
-          }}>
-          Profile
-        </Text>
+        <Text style={styles.detailTitle}>Profile</Text>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 12,
-              marginTop: 10,
-            }}>
-            <Image
-              source={ProfileIconTwo}
-              style={{
-                width: 27,
-                height: 27,
-                resizeMode: 'contain',
-              }}
-            />
-            <Text
-              style={{
-                fontSize: 14,
-                fontFamily: Fonts.MEDIUM,
-                color: themeColors.BLACK,
-              }}>
-              Personal Data
-            </Text>
+        <View style={styles.detailItem}>
+          <View style={styles.detailItemLeft}>
+            <Image source={ProfileIconTwo} style={styles.detailItemIcon} />
+            <Text style={styles.detailItemText}>Personal Data</Text>
           </View>
 
-          <View>
-            <Image
-              source={RightArrow}
-              style={{
-                width: 20,
-                height: 20,
-                resizeMode: 'contain',
-              }}
-            />
+          <View style={styles.detailItemRight}>
+            <Image source={RightArrow} style={styles.detailItemArrow} />
           </View>
         </View>
 
-        <Text
-          style={{
-            fontSize: 12,
-            fontFamily: Fonts.MEDIUM,
-            color: themeColors.GRAY,
-            marginTop: 20,
-          }}>
-          Support
-        </Text>
+        <Text style={[styles.detailTitle, styles.detailTitleTwo]}>Support</Text>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 12,
-              marginTop: 10,
-            }}>
-            <Image
-              source={HelpIcon}
-              style={{
-                width: 27,
-                height: 27,
-                resizeMode: 'contain',
-              }}
-            />
-            <Text
-              style={{
-                fontSize: 14,
-                fontFamily: Fonts.MEDIUM,
-                color: themeColors.BLACK,
-              }}>
-              Help Center
-            </Text>
+        <View style={styles.detailItem}>
+          <View style={styles.detailItemLeft}>
+            <Image source={HelpIcon} style={styles.detailItemIcon} />
+            <Text style={styles.detailItemText}>Help Center</Text>
           </View>
 
-          <View>
-            <Image
-              source={RightArrow}
-              style={{
-                width: 20,
-                height: 20,
-                resizeMode: 'contain',
-              }}
-            />
+          <View style={styles.detailItemRight}>
+            <Image source={RightArrow} style={styles.detailItemArrow} />
           </View>
         </View>
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <CustomButton
+          name="Sign Out"
+          image={true}
+          imageSrc={LogoutIcon}
+          loginStyle={styles.loginStyle}
+          buttonStyle={styles.buttonStyle}
+        />
       </View>
     </SafeAreaView>
   );
@@ -271,7 +204,55 @@ const styles = StyleSheet.create({
   },
   detailWrap: {
     marginTop: 30,
-    backgroundColor: themeColors.WHITE,
-    padding: 20,
+    paddingHorizontal: 20,
+  },
+  detailTitle: {
+    fontSize: 12,
+    fontFamily: Fonts.MEDIUM,
+    color: themeColors.GRAY,
+  },
+  detailTitleTwo: {
+    marginTop: 15,
+  },
+  detailItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  detailItemLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  detailItemRight: {},
+  detailItemIcon: {
+    width: 27,
+    height: 27,
+    resizeMode: 'contain',
+  },
+  detailItemText: {
+    fontSize: 14,
+    fontFamily: Fonts.MEDIUM,
+    color: themeColors.BLACK,
+  },
+  detailItemArrow: {
+    width: 20,
+    height: 20,
+    resizeMode: 'contain',
+  },
+  buttonContainer: {
+    marginHorizontal: 30,
+    marginTop: 50,
+  },
+  loginStyle: {
+    backgroundColor: 'transparent',
+    borderColor: '#E5E5E5',
+    borderWidth: 1,
+  },
+  buttonStyle: {
+    color: themeColors.ERROR,
+    fontSize: 14,
+    fontFamily: Fonts.SEMIBOLD,
   },
 });
