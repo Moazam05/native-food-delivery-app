@@ -15,6 +15,7 @@ import {Onboarding2} from './src/assets/images';
 import useTypedSelector from './src/hooks/useTypedSelector';
 import HomeScreen from './src/screens/Home/HomeScreen';
 import ProductDetail from './src/screens/Products/ProductDetail';
+import ProfileDetail from './src/screens/Account/ProfileDetail';
 
 const Stack = createNativeStackNavigator();
 
@@ -69,6 +70,14 @@ const AppNavigator = () => {
             <Stack.Screen
               name="ProductDetail"
               component={ProductDetail}
+              options={{
+                headerShown: false,
+              }}
+            />
+
+            <Stack.Screen
+              name="ProfileDetail"
+              component={ProfileDetail}
               options={{
                 headerShown: false,
               }}

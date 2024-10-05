@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   HelpIcon,
@@ -17,6 +17,7 @@ import {Fonts} from '../constants/fonts';
 import useTypedSelector from '../hooks/useTypedSelector';
 import {selectedUser} from '../redux/auth/authSlice';
 import SignOutModal from '../screens/Account/SignOutModal';
+import {useNavigation} from '@react-navigation/native';
 
 const CardsData = [
   {
@@ -37,6 +38,7 @@ const CardsData = [
 ];
 
 const Account = () => {
+  const navigation = useNavigation();
   const loginUser = useTypedSelector(selectedUser);
 
   const [visible, setVisible] = useState(false);
@@ -70,9 +72,11 @@ const Account = () => {
             <Text style={styles.detailItemText}>Personal Data</Text>
           </View>
 
-          <View style={styles.detailItemRight}>
+          <TouchableOpacity
+            style={styles.detailItemRight}
+            onPress={() => navigation.navigate('ProfileDetail')}>
             <Image source={RightArrow} style={styles.detailItemArrow} />
-          </View>
+          </TouchableOpacity>
         </View>
 
         <Text style={[styles.detailTitle, styles.detailTitleTwo]}>Support</Text>
