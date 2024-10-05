@@ -89,6 +89,8 @@ const ProductList = ({selectedCategory}) => {
         keyExtractor={item => item.id.toString()}
         numColumns={2} // Show 2 items per row
         columnWrapperStyle={styles.rowWrap} // Style to add space between items in a row
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.containerStyle}
       />
     </View>
   );
@@ -100,6 +102,9 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 24,
     marginTop: 16,
+  },
+  containerStyle: {
+    paddingBottom: 280,
   },
   rowWrap: {
     justifyContent: 'space-between',
