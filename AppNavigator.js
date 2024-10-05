@@ -16,6 +16,7 @@ import useTypedSelector from './src/hooks/useTypedSelector';
 import HomeScreen from './src/screens/Home/HomeScreen';
 import ProductDetail from './src/screens/Products/ProductDetail';
 import ProfileDetail from './src/screens/Account/ProfileDetail';
+import Favorites from './src/screens/Favorites';
 
 const Stack = createNativeStackNavigator();
 
@@ -78,6 +79,14 @@ const AppNavigator = () => {
             <Stack.Screen
               name="ProfileDetail"
               component={ProfileDetail}
+              options={{
+                headerShown: false,
+              }}
+            />
+
+            <Stack.Screen
+              name="Favorites"
+              component={Favorites}
               options={{
                 headerShown: false,
               }}

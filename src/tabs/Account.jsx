@@ -56,10 +56,17 @@ const Account = () => {
 
       <View style={styles.cardsContainer}>
         {CardsData.map(card => (
-          <View key={card.id} style={styles.card}>
+          <TouchableOpacity
+            key={card.id}
+            style={styles.card}
+            onPress={() => {
+              if (card.title === 'Favorites') {
+                navigation.navigate('Favorites');
+              }
+            }}>
             <Image source={card.icon} style={styles.cardIcon} />
             <Text style={styles.cardTitle}>{card.title}</Text>
-          </View>
+          </TouchableOpacity>
         ))}
       </View>
 
