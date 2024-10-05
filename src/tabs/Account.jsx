@@ -1,18 +1,6 @@
-import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {
-  Alert,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, {useState} from 'react';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useDispatch} from 'react-redux';
-import {selectedUser, setUser} from '../redux/auth/authSlice';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {themeColors} from '../constants/colors';
 import {
   HelpIcon,
   Location,
@@ -23,9 +11,11 @@ import {
   RightArrow,
   Wishlist,
 } from '../assets/images';
-import useTypedSelector from '../hooks/useTypedSelector';
-import {Fonts} from '../constants/fonts';
 import CustomButton from '../components/CustomButton';
+import {themeColors} from '../constants/colors';
+import {Fonts} from '../constants/fonts';
+import useTypedSelector from '../hooks/useTypedSelector';
+import {selectedUser} from '../redux/auth/authSlice';
 import SignOutModal from '../screens/Account/SignOutModal';
 
 const CardsData = [
@@ -47,33 +37,9 @@ const CardsData = [
 ];
 
 const Account = () => {
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
   const loginUser = useTypedSelector(selectedUser);
 
-  console.log('loginUser', loginUser);
-
-  const handleLogout = () => {
-    Alert.alert(
-      'Confirm Logout',
-      'Are you sure you want to log out?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Logout',
-          onPress: () => {
-            dispatch(setUser(null));
-            AsyncStorage.removeItem('user');
-            navigation.navigate('Login');
-          },
-        },
-      ],
-      {cancelable: false},
-    );
-  };
+  const [visible, setVisible] = useState(false);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -130,11 +96,12 @@ const Account = () => {
           imageSrc={LogoutIcon}
           loginStyle={styles.loginStyle}
           buttonStyle={styles.buttonStyle}
+          onPress={() => setVisible(true)}
         />
       </View>
 
       {/* Modal */}
-      <SignOutModal />
+      <SignOutModal visible={visible} setVisible={setVisible} />
     </SafeAreaView>
   );
 };

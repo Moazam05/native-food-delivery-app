@@ -1,68 +1,43 @@
-import {View, Text} from 'react-native';
-import React, {useState} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import React from 'react';
 import CustomModal from '../../components/CustomModal';
 import {themeColors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
 import CustomButton from '../../components/CustomButton';
+import {useDispatch} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {setUser} from '../../redux/auth/authSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SignOutModal = () => {
-  const [visible, setVisible] = useState(true);
+const SignOutModal = ({visible, setVisible}) => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
 
+  const handleLogout = () => {
+    setVisible(false);
+    dispatch(setUser(null));
+    AsyncStorage.removeItem('user');
+    navigation.navigate('Login');
+  };
   return (
     <>
       <CustomModal visible={visible}>
-        <View
-          style={{
-            padding: 16,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text
-            style={{
-              fontSize: 20,
-              color: themeColors.BLACK,
-              fontFamily: Fonts.SEMIBOLD,
-            }}>
-            Sign Out
-          </Text>
+        <View style={styles.modalContent}>
+          <Text style={styles.title}>Sign Out</Text>
 
-          <Text
-            style={{
-              fontSize: 14,
-              color: themeColors.GRAY,
-              fontFamily: Fonts.MEDIUM,
-              marginTop: 16,
-            }}>
-            Do you want to log out?
-          </Text>
+          <Text style={styles.description}>Do you want to log out?</Text>
 
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: 25,
-              width: '100%',
-              marginBottom: 8,
-            }}>
+          <View style={styles.buttonContainer}>
             <CustomButton
               name="Cancel"
-              loginStyle={{
-                backgroundColor: 'transparent',
-                borderWidth: 1,
-                borderColor: '#E0E0E0',
-                width: '47%',
-                padding: 10,
-              }}
-              buttonStyle={{
-                color: themeColors.BLACK,
-              }}
+              loginStyle={styles.cancelButton}
+              buttonStyle={styles.cancelButtonText}
+              onPress={() => setVisible(false)}
             />
             <CustomButton
               name="Log Out"
-              loginStyle={{
-                width: '47%',
-                padding: 10,
-              }}
+              loginStyle={styles.logOutButton}
+              onPress={handleLogout}
             />
           </View>
         </View>
@@ -72,3 +47,43 @@ const SignOutModal = () => {
 };
 
 export default SignOutModal;
+
+const styles = StyleSheet.create({
+  modalContent: {
+    padding: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 20,
+    color: themeColors.BLACK,
+    fontFamily: Fonts.SEMIBOLD,
+  },
+  description: {
+    fontSize: 14,
+    color: themeColors.GRAY,
+    fontFamily: Fonts.MEDIUM,
+    marginTop: 16,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 25,
+    width: '100%',
+    marginBottom: 8,
+  },
+  cancelButton: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+    width: '47%',
+    padding: 10,
+  },
+  cancelButtonText: {
+    color: themeColors.BLACK,
+  },
+  logOutButton: {
+    width: '47%',
+    padding: 10,
+  },
+});
