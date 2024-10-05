@@ -11,7 +11,7 @@ import {Fonts} from '../../../constants/fonts';
 import {themeColors} from '../../../constants/colors';
 import {categoriesData} from '../../../constants';
 
-const Categories = ({selectedCategory, setSelectedCategory}) => {
+const Categories = ({selectedCategory, setSelectedCategory, showTitle}) => {
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
@@ -33,11 +33,15 @@ const Categories = ({selectedCategory, setSelectedCategory}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Find by Category</Text>
-        <Text style={styles.seeAllText}>See All</Text>
-      </View>
+    <View style={[styles.container, !showTitle && styles.containerTwo]}>
+      {showTitle === false ? (
+        ''
+      ) : (
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Find by Category</Text>
+          <Text style={styles.seeAllText}>See All</Text>
+        </View>
+      )}
 
       <View>
         <FlatList
@@ -58,6 +62,9 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 24,
     marginTop: 24,
+  },
+  containerTwo: {
+    marginTop: 9,
   },
   header: {
     flexDirection: 'row',

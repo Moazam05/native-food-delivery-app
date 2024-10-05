@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -11,37 +12,51 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {Back, ClearIcon, SearchIcon} from '../assets/images';
 import {Fonts} from '../constants/fonts';
 import {themeColors} from '../constants/colors';
+import Categories from '../screens/Home/components/Categories';
 
 const Search = ({setSelectedTab}) => {
   const [searchText, setSearchText] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Top Bar */}
-      <View style={styles.topBar}>
-        <TouchableOpacity onPress={() => setSelectedTab(0)}>
-          <Image source={Back} style={styles.backIcon} />
-        </TouchableOpacity>
-        <Text style={styles.title}>Search Food</Text>
-        <Text style={styles.hideText}>Hide</Text>
-      </View>
-
-      {/* Search Bar */}
-      <View style={styles.searchBar}>
-        <Image source={SearchIcon} style={styles.search} />
-        <TextInput
-          placeholder="Search Food"
-          style={styles.searchInput}
-          value={searchText}
-          onChangeText={text => setSearchText(text)}
-          placeholderTextColor="#BBBBBB"
-        />
-        {searchText.length > 0 && (
-          <TouchableOpacity onPress={() => setSearchText('')}>
-            <Image source={ClearIcon} style={styles.icon} />
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}>
+        {/* Top Bar */}
+        <View style={styles.topBar}>
+          <TouchableOpacity onPress={() => setSelectedTab(0)}>
+            <Image source={Back} style={styles.backIcon} />
           </TouchableOpacity>
-        )}
-      </View>
+          <Text style={styles.title}>Search Food</Text>
+          <Text style={styles.hideText}>Hide</Text>
+        </View>
+
+        {/* Search Bar */}
+        <View style={styles.searchBar}>
+          <Image source={SearchIcon} style={styles.search} />
+          <TextInput
+            placeholder="Search Food"
+            style={styles.searchInput}
+            value={searchText}
+            onChangeText={text => setSearchText(text)}
+            placeholderTextColor="#BBBBBB"
+          />
+          {searchText.length > 0 && (
+            <TouchableOpacity onPress={() => setSearchText('')}>
+              <Image source={ClearIcon} style={styles.icon} />
+            </TouchableOpacity>
+          )}
+        </View>
+
+        <View>
+          <Categories
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            showTitle={false}
+          />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
