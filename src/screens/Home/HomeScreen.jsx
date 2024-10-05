@@ -17,7 +17,7 @@ import {themeColors} from '../../constants/colors';
 import Home from '../../tabs/Home';
 import Cart from '../../tabs/Cart';
 import Search from '../../tabs/Search';
-import Profile from '../../tabs/Profile';
+import Account from '../../tabs/Account';
 import {Fonts} from '../../constants/fonts';
 // Assets
 import {CartIcon, HomeIcon, ProfileIcon, SearchIcon} from '../../assets/images';
@@ -66,7 +66,7 @@ const HomeScreen = () => {
         ) : selectedTab === 2 ? (
           <Search setSelectedTab={setSelectedTab} />
         ) : (
-          <Profile />
+          <Account />
         )}
 
         {!isKeyboardVisible && (

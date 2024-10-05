@@ -45,7 +45,7 @@ const CardsData = [
   },
 ];
 
-const Profile = () => {
+const Account = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const loginUser = useTypedSelector(selectedUser);
@@ -135,7 +135,7 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Account;
 
 const styles = StyleSheet.create({
   container: {
