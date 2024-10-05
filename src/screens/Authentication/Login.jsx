@@ -77,7 +77,7 @@ const Login = () => {
         await AsyncStorage.setItem('user', JSON.stringify(findUser));
         dispatch(setUser(findUser));
         // Navigate to home screen
-        navigation.navigate('Home');
+        navigation.navigate('HomeScreen');
 
         Toast.show({
           type: 'success',
