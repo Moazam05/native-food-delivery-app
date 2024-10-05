@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {
   Image,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -55,7 +54,10 @@ const Search = ({setSelectedTab}) => {
         />
       </View>
       <View>
-        <ProductList />
+        <ProductList
+          selectedCategory={selectedCategory}
+          searchText={searchText}
+        />
       </View>
     </SafeAreaView>
   );

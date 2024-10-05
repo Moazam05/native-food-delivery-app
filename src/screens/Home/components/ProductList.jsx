@@ -21,7 +21,7 @@ import {thousandSeparator} from '../../../utils';
 import Toast from 'react-native-toast-message';
 import {useNavigation} from '@react-navigation/native';
 
-const ProductList = ({selectedCategory}) => {
+const ProductList = ({selectedCategory, searchText}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const wishListProducts = useTypedSelector(selectWishlistProducts);
@@ -74,12 +74,28 @@ const ProductList = ({selectedCategory}) => {
   };
 
   useEffect(() => {
-    if (selectedCategory) {
+    if (selectedCategory && searchText) {
+      setFilteredProducts(
+        ProductsData.filter(
+          product =>
+            product.type === selectedCategory &&
+            product.name.toLowerCase().includes(searchText.toLowerCase()),
+        ),
+      );
+    } else if (selectedCategory) {
       setFilteredProducts(
         ProductsData.filter(product => product.type === selectedCategory),
       );
+    } else if (searchText) {
+      setFilteredProducts(
+        ProductsData.filter(product =>
+          product.name.toLowerCase().includes(searchText.toLowerCase()),
+        ),
+      );
+    } else {
+      setFilteredProducts(ProductsData);
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, searchText]);
 
   return (
     <View style={styles.container}>
