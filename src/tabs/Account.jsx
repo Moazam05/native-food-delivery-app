@@ -170,11 +170,12 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: themeColors.WHITE,
-    padding: 10,
     borderRadius: 8,
     flexDirection: 'column',
     alignItems: 'center',
-    width: 105,
+    width: 95,
+    paddingHorizontal: 10,
+    paddingVertical: 12,
     shadowColor: themeColors.BLACK,
     shadowOffset: {
       width: 0,
@@ -188,6 +189,7 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     tintColor: themeColors.GRAY,
+    resizeMode: 'contain',
   },
   cardTitle: {
     fontSize: 13,

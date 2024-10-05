@@ -60,7 +60,7 @@ const HomeScreen = () => {
       />
       <SafeAreaView style={styles.container}>
         {selectedTab === 0 ? (
-          <Home />
+          <Home setSelectedTab={setSelectedTab} />
         ) : selectedTab === 1 ? (
           <Cart setSelectedTab={setSelectedTab} />
         ) : selectedTab === 2 ? (

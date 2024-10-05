@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 8,
     width: '48%',
+    margin: '2%',
   },
   productImage: {
     width: '100%',

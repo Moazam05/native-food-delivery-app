@@ -7,7 +7,7 @@ import Categories from '../screens/Home/components/Categories';
 import HeroSection from '../screens/Home/components/HeroSection';
 import ProductList from '../screens/Home/components/ProductList';
 
-const Home = () => {
+const Home = ({setSelectedTab}) => {
   const [permissionGranted, setPermissionGranted] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('Burger');
   const [userAddress, setUserAddress] = useState('');
@@ -90,7 +90,7 @@ const Home = () => {
       keyExtractor={item => item.id.toString()}
       ListHeaderComponent={
         <View>
-          <HeroSection />
+          <HeroSection setSelectedTab={setSelectedTab} />
           <Categories
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}

@@ -1,4 +1,11 @@
-import {View, Text, StyleSheet, ImageBackground, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import {themeColors} from '../../../constants/colors';
 import {Fonts} from '../../../constants/fonts';
@@ -10,7 +17,7 @@ import {
   Search,
 } from '../../../assets/images';
 
-const HeroSection = () => {
+const HeroSection = ({setSelectedTab}) => {
   return (
     <ImageBackground source={HomeBG} style={styles.home}>
       <View style={styles.overlayContent}>
@@ -28,7 +35,12 @@ const HeroSection = () => {
               </View>
             </View>
             <View style={styles.imgWrap}>
-              <Image source={Search} style={styles.searchIcon} />
+              <TouchableOpacity
+                onPress={() => {
+                  setSelectedTab(2);
+                }}>
+                <Image source={Search} style={styles.searchIcon} />
+              </TouchableOpacity>
               <Image source={Notification} style={styles.searchIcon} />
             </View>
           </View>
