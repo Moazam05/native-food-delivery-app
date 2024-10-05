@@ -1,19 +1,46 @@
-import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Back} from '../assets/images';
+import {Back, ClearIcon, SearchIcon} from '../assets/images';
 import {Fonts} from '../constants/fonts';
 import {themeColors} from '../constants/colors';
 
 const Search = ({setSelectedTab}) => {
+  const [searchText, setSearchText] = useState('');
+
   return (
     <SafeAreaView style={styles.container}>
+      {/* Top Bar */}
       <View style={styles.topBar}>
         <TouchableOpacity onPress={() => setSelectedTab(0)}>
           <Image source={Back} style={styles.backIcon} />
         </TouchableOpacity>
         <Text style={styles.title}>Search Food</Text>
         <Text style={styles.hideText}>Hide</Text>
+      </View>
+
+      {/* Search Bar */}
+      <View style={styles.searchBar}>
+        <Image source={SearchIcon} style={styles.search} />
+        <TextInput
+          placeholder="Search Food"
+          style={styles.searchInput}
+          value={searchText}
+          onChangeText={text => setSearchText(text)}
+          placeholderTextColor="#BBBBBB"
+        />
+        {searchText.length > 0 && (
+          <TouchableOpacity onPress={() => setSearchText('')}>
+            <Image source={ClearIcon} style={styles.icon} />
+          </TouchableOpacity>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -44,5 +71,37 @@ const styles = StyleSheet.create({
   },
   hideText: {
     opacity: 0,
+  },
+
+  searchBar: {
+    paddingHorizontal: 15,
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 4,
+    elevation: 3,
+    height: 45,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    marginTop: 16,
+    marginHorizontal: 20,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
+    color: '#333',
+    paddingLeft: 15,
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    tintColor: themeColors.GRAY,
+  },
+  search: {
+    width: 20,
+    height: 20,
+    tintColor: themeColors.GRAY,
   },
 });

@@ -48,6 +48,7 @@ import Minus from './Minus.png';
 import CartTwo from './CartTwo.png';
 import Delete from './Delete.png';
 import EmptyCart from './EmptyCart.png';
+import ClearIcon from './clear.png';
 
 export {
   Onboarding1,
@@ -100,4 +101,5 @@ export {
   CartTwo,
   Delete,
   EmptyCart,
+  ClearIcon,
 };
