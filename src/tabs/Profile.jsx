@@ -83,6 +83,17 @@ const Profile = () => {
           </View>
         ))}
       </View>
+
+      <View style={styles.detailWrap}>
+        <Text
+          style={{
+            fontSize: 12,
+            fontFamily: Fonts.MEDIUM,
+            color: themeColors.GRAY,
+          }}>
+          Profile
+        </Text>
+      </View>
     </SafeAreaView>
   );
 };
@@ -153,5 +164,10 @@ const styles = StyleSheet.create({
     color: themeColors.BLACK,
     fontFamily: Fonts.REGULAR,
     marginTop: 5,
+  },
+  detailWrap: {
+    marginTop: 30,
+    backgroundColor: themeColors.WHITE,
+    padding: 20,
   },
 });
