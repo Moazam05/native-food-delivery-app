@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   StyleSheet,
@@ -17,6 +17,12 @@ import ProductList from '../screens/Home/components/ProductList';
 const Search = ({setSelectedTab}) => {
   const [searchText, setSearchText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+
+  useEffect(() => {
+    if (searchText.length === 0) {
+      setSelectedCategory('');
+    }
+  }, [searchText]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -53,6 +59,7 @@ const Search = ({setSelectedTab}) => {
           showTitle={false}
         />
       </View>
+
       <View>
         <ProductList
           selectedCategory={selectedCategory}
