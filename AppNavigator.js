@@ -22,13 +22,10 @@ const AppNavigator = () => {
   const dispatch = useDispatch();
   const loginUser = useTypedSelector(selectedUser);
 
-  console.log('loginUser', loginUser);
-
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch user from AsyncStorage on app load
-    const checkUser = async () => {
+    const loadUser = async () => {
       try {
         const user = await AsyncStorage.getItem('user');
         if (user) {
@@ -40,8 +37,7 @@ const AppNavigator = () => {
         setIsLoading(false);
       }
     };
-
-    checkUser();
+    loadUser();
   }, [dispatch]);
 
   // Show loading screen while checking AsyncStorage
