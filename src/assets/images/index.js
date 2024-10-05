@@ -50,6 +50,7 @@ import Delete from './Delete.png';
 import EmptyCart from './EmptyCart.png';
 import ClearIcon from './clear.png';
 import ProfileImg from './Profile.png';
+import Orders from './Orders.png';
 
 export {
   Onboarding1,
@@ -104,4 +105,5 @@ export {
   EmptyCart,
   ClearIcon,
   ProfileImg,
+  Orders,
 };

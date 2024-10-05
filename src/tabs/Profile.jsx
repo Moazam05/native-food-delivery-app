@@ -13,9 +13,27 @@ import {useDispatch} from 'react-redux';
 import {selectedUser, setUser} from '../redux/auth/authSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {themeColors} from '../constants/colors';
-import {ProfileImg} from '../assets/images';
+import {Location, Orders, ProfileImg, Wishlist} from '../assets/images';
 import useTypedSelector from '../hooks/useTypedSelector';
 import {Fonts} from '../constants/fonts';
+
+const CardsData = [
+  {
+    id: 1,
+    title: 'Orders',
+    icon: Orders,
+  },
+  {
+    id: 2,
+    title: 'Favorites',
+    icon: Wishlist,
+  },
+  {
+    id: 3,
+    title: 'Address',
+    icon: Location,
+  },
+];
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -56,6 +74,15 @@ const Profile = () => {
         <Text style={styles.profileName}>{loginUser?.name}</Text>
         <Text style={styles.profileEmail}>{loginUser?.email}</Text>
       </View>
+
+      <View style={styles.cardsContainer}>
+        {CardsData.map(card => (
+          <View key={card.id} style={styles.card}>
+            <Image source={card.icon} style={styles.cardIcon} />
+            <Text style={styles.cardTitle}>{card.title}</Text>
+          </View>
+        ))}
+      </View>
     </SafeAreaView>
   );
 };
@@ -92,5 +119,39 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: themeColors.BLACK,
     fontFamily: Fonts.REGULAR,
+  },
+  cardsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 20,
+    marginTop: 30,
+    alignItems: 'center',
+  },
+  card: {
+    backgroundColor: themeColors.WHITE,
+    padding: 10,
+    borderRadius: 8,
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: 105,
+    shadowColor: themeColors.BLACK,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  cardIcon: {
+    width: 25,
+    height: 25,
+    tintColor: themeColors.GRAY,
+  },
+  cardTitle: {
+    fontSize: 13,
+    color: themeColors.BLACK,
+    fontFamily: Fonts.REGULAR,
+    marginTop: 5,
   },
 });
