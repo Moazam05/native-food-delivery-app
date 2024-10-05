@@ -45,56 +45,16 @@ const Profile = () => {
       {cancelable: false},
     );
   };
+
   return (
     <SafeAreaView style={styles.container}>
-      <Text
-        style={{
-          textAlign: 'center',
-          fontSize: 16,
-          color: themeColors.BLACK,
-          marginTop: 18,
-        }}>
-        Profile Settings
-      </Text>
+      <Text style={styles.title}>Profile Settings</Text>
 
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Image
-          source={ProfileImg}
-          style={{
-            width: 100,
-            height: 100,
-            alignSelf: 'center',
-            marginTop: 40,
-          }}
-        />
+      <View style={styles.profileInfo}>
+        <Image source={ProfileImg} style={styles.profileImage} />
 
-        <Text
-          style={{
-            fontSize: 16,
-            marginTop: 16,
-            color: themeColors.BLACK,
-            fontFamily: Fonts.SEMIBOLD,
-          }}>
-          {loginUser?.name}
-        </Text>
-        <Text
-          style={{
-            fontSize: 14,
-            color: themeColors.BLACK,
-            fontFamily: Fonts.REGULAR,
-          }}>
-          {loginUser?.email}
-        </Text>
-      </View>
-
-      <View>
-        <View>
-          <Image />
-        </View>
+        <Text style={styles.profileName}>{loginUser?.name}</Text>
+        <Text style={styles.profileEmail}>{loginUser?.email}</Text>
       </View>
     </SafeAreaView>
   );
@@ -105,5 +65,32 @@ export default Profile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: themeColors.BLACK,
+    marginTop: 18,
+  },
+  profileInfo: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  profileImage: {
+    width: 100,
+    height: 100,
+    alignSelf: 'center',
+    marginTop: 40,
+  },
+  profileName: {
+    fontSize: 16,
+    marginTop: 16,
+    color: themeColors.BLACK,
+    fontFamily: Fonts.SEMIBOLD,
+  },
+  profileEmail: {
+    fontSize: 14,
+    color: themeColors.BLACK,
+    fontFamily: Fonts.REGULAR,
   },
 });
