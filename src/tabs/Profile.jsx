@@ -13,7 +13,15 @@ import {useDispatch} from 'react-redux';
 import {selectedUser, setUser} from '../redux/auth/authSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {themeColors} from '../constants/colors';
-import {Location, Orders, ProfileImg, Wishlist} from '../assets/images';
+import {
+  HelpIcon,
+  Location,
+  Orders,
+  ProfileIconTwo,
+  ProfileImg,
+  RightArrow,
+  Wishlist,
+} from '../assets/images';
 import useTypedSelector from '../hooks/useTypedSelector';
 import {Fonts} from '../constants/fonts';
 
@@ -93,6 +101,102 @@ const Profile = () => {
           }}>
           Profile
         </Text>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 12,
+              marginTop: 10,
+            }}>
+            <Image
+              source={ProfileIconTwo}
+              style={{
+                width: 27,
+                height: 27,
+                resizeMode: 'contain',
+              }}
+            />
+            <Text
+              style={{
+                fontSize: 14,
+                fontFamily: Fonts.MEDIUM,
+                color: themeColors.BLACK,
+              }}>
+              Personal Data
+            </Text>
+          </View>
+
+          <View>
+            <Image
+              source={RightArrow}
+              style={{
+                width: 20,
+                height: 20,
+                resizeMode: 'contain',
+              }}
+            />
+          </View>
+        </View>
+
+        <Text
+          style={{
+            fontSize: 12,
+            fontFamily: Fonts.MEDIUM,
+            color: themeColors.GRAY,
+            marginTop: 20,
+          }}>
+          Support
+        </Text>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 12,
+              marginTop: 10,
+            }}>
+            <Image
+              source={HelpIcon}
+              style={{
+                width: 27,
+                height: 27,
+                resizeMode: 'contain',
+              }}
+            />
+            <Text
+              style={{
+                fontSize: 14,
+                fontFamily: Fonts.MEDIUM,
+                color: themeColors.BLACK,
+              }}>
+              Help Center
+            </Text>
+          </View>
+
+          <View>
+            <Image
+              source={RightArrow}
+              style={{
+                width: 20,
+                height: 20,
+                resizeMode: 'contain',
+              }}
+            />
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );

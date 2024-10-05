@@ -51,7 +51,7 @@ import EmptyCart from './EmptyCart.png';
 import ClearIcon from './clear.png';
 import ProfileImg from './Profile.png';
 import Orders from './Orders.png';
-import ProfileIconTwo from './ProfileIcon.png';
+import ProfileIconTwo from './ProfileIconTwo.png';
 import HelpIcon from './Help.png';
 import LogoutIcon from './Logout.png';
 import RightArrow from './RightArrow.png';
