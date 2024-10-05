@@ -64,7 +64,7 @@ const HomeScreen = () => {
         ) : selectedTab === 1 ? (
           <Cart setSelectedTab={setSelectedTab} />
         ) : selectedTab === 2 ? (
-          <Search />
+          <Search setSelectedTab={setSelectedTab} />
         ) : (
           <Profile />
         )}
