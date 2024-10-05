@@ -26,6 +26,7 @@ import {
 import useTypedSelector from '../hooks/useTypedSelector';
 import {Fonts} from '../constants/fonts';
 import CustomButton from '../components/CustomButton';
+import SignOutModal from '../screens/Account/SignOutModal';
 
 const CardsData = [
   {
@@ -131,6 +132,9 @@ const Account = () => {
           buttonStyle={styles.buttonStyle}
         />
       </View>
+
+      {/* Modal */}
+      <SignOutModal />
     </SafeAreaView>
   );
 };
