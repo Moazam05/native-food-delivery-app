@@ -25,16 +25,26 @@ const AppNavigator = () => {
   const loginUser = useTypedSelector(selectedUser);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [hasSeenOnboarding, setHasSeenOnboarding] = useState(false);
 
   useEffect(() => {
     const loadUser = async () => {
       try {
+        setIsLoading(true);
         const user = await AsyncStorage.getItem('user');
+        const onboardingStatus = await AsyncStorage.getItem(
+          'hasSeenOnboarding',
+        );
+
+        if (onboardingStatus) {
+          setHasSeenOnboarding(true);
+        }
+
         if (user) {
           dispatch(setUser(JSON.parse(user)));
         }
       } catch (error) {
-        console.error('Error retrieving user from AsyncStorage:', error);
+        console.error('Error retrieving data from AsyncStorage:', error);
       } finally {
         setIsLoading(false);
       }
@@ -42,7 +52,6 @@ const AppNavigator = () => {
     loadUser();
   }, [dispatch]);
 
-  // Show loading screen while checking AsyncStorage
   if (isLoading) {
     return (
       <View>
@@ -61,6 +70,7 @@ const AppNavigator = () => {
       <Stack.Navigator>
         {loginUser ? (
           <>
+            {/* If user is logged in, show Home and other screens */}
             <Stack.Screen
               name="HomeScreen"
               component={HomeScreen}
@@ -75,7 +85,6 @@ const AppNavigator = () => {
                 headerShown: false,
               }}
             />
-
             <Stack.Screen
               name="ProfileDetail"
               component={ProfileDetail}
@@ -83,7 +92,6 @@ const AppNavigator = () => {
                 headerShown: false,
               }}
             />
-
             <Stack.Screen
               name="Favorites"
               component={Favorites}
@@ -94,48 +102,55 @@ const AppNavigator = () => {
           </>
         ) : (
           <>
-            <Stack.Screen
-              name="Onboarding"
-              component={Onboarding}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="SignUp"
-              component={SignUp}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="ForgotPassword"
-              component={ForgotPassword}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="EmailVerification"
-              component={EmailVerification}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="ResetPassword"
-              component={ResetPassword}
-              options={{
-                headerShown: false,
-              }}
-            />
+            {!hasSeenOnboarding ? (
+              // Show onboarding only if the user hasn't seen it
+              <Stack.Screen
+                name="Onboarding"
+                component={Onboarding}
+                options={{
+                  headerShown: false,
+                }}
+              />
+            ) : (
+              <>
+                {/* If user has seen onboarding, show login-related screens */}
+                <Stack.Screen
+                  name="Login"
+                  component={Login}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="SignUp"
+                  component={SignUp}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="ForgotPassword"
+                  component={ForgotPassword}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="EmailVerification"
+                  component={EmailVerification}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="ResetPassword"
+                  component={ResetPassword}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+              </>
+            )}
           </>
         )}
       </Stack.Navigator>

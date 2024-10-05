@@ -19,6 +19,7 @@ import {themeColors} from '../../constants/colors';
 import {onboarding} from '../../constants';
 import {Fonts} from '../../constants/fonts';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 
 const images = [Onboarding1, Onboarding2, Onboarding3];
 
@@ -39,6 +40,16 @@ const Onboarding = () => {
     if (swiperRef.current && !isFirstSlide) {
       swiperRef.current.scrollBy(-1);
     }
+  };
+
+  const completeOnboarding = async () => {
+    await AsyncStorage.setItem('hasSeenOnboarding', 'true'); // Store completion in AsyncStorage
+    navigation.navigate('Login'); // Navigate to the Login screen
+  };
+
+  const skipOnboarding = async () => {
+    await AsyncStorage.setItem('hasSeenOnboarding', 'true'); // Store completion on skip
+    navigation.navigate('Login'); // Navigate to the Login screen
   };
 
   return (
@@ -83,7 +94,7 @@ const Onboarding = () => {
                 {isLastSlide ? (
                   <TouchableOpacity
                     style={styles.lastWrap}
-                    onPress={() => navigation.navigate('Login')}>
+                    onPress={completeOnboarding}>
                     <Image source={OnboardArrow} style={styles.OnboardArrow} />
                   </TouchableOpacity>
                 ) : (
@@ -92,8 +103,7 @@ const Onboarding = () => {
                       <TouchableOpacity
                         onPress={handlePrev}
                         disabled={isFirstSlide}>
-                        <TouchableOpacity
-                          onPress={() => navigation.navigate('Login')}>
+                        <TouchableOpacity onPress={skipOnboarding}>
                           <Text style={styles.navButton}>Skip</Text>
                         </TouchableOpacity>
                       </TouchableOpacity>
@@ -171,7 +181,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   lastPagination: {
     marginBottom: 25,
   },
