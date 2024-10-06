@@ -28,6 +28,7 @@ const Home = ({setSelectedTab}) => {
           buttonPositive: 'OK',
         },
       );
+      console.log('granted:', JSON.stringify(granted, null, 2));
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         setPermissionGranted(true);
         console.log('You can use the location');
@@ -39,41 +40,61 @@ const Home = ({setSelectedTab}) => {
     }
   };
 
-  const getCurrentLocation = () => {
+  const getCurrentLocation = async () => {
     if (permissionGranted) {
-      Geolocation.getCurrentPosition(
-        position => {
-          setLatitude(position.coords.latitude);
-          setLongitude(position.coords.longitude);
-          fetchAddress(position.coords.latitude, position.coords.longitude);
-        },
-        error => {
-          console.log(error.code, error.message);
-        },
-        {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-      );
+      try {
+        await Geolocation.getCurrentPosition(
+          posit => {
+            // console.log('position inside:', posit);
+            setLatitude(posit.coords.latitude);
+            setLongitude(posit.coords.longitude);
+            fetchAddress();
+          },
+          error => {
+            console.log('Error getting current location:', error);
+            return null;
+          },
+          {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+        );
+      } catch (error) {
+        console.error('Error getting current location:', error);
+      }
     }
   };
 
-  // console.log('latitude', latitude);
-  // console.log('longitude', longitude);
-  // console.log('API KEY', GOOGLE_MAPS_API_KEY);
+  const fetchAddress = async () => {
+    const apiEndpoint = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_MAPS_API_KEY}`;
+    const timeout = 10000; // 10 seconds
+    const maxRetries = 3;
+    let retries = 0;
 
-  const fetchAddress = async (lat, lng) => {
-    const apiEndpoint = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_MAPS_API_KEY}`;
-    try {
-      const response = await fetch(apiEndpoint);
-      const data = await response.json();
-      console.log('data', data);
-      if (data.results.length > 0) {
-        const address = data.results[0].formatted_address;
-        setUserAddress(address);
-      } else {
-        console.log('No address found');
+    const fetchData = async () => {
+      try {
+        const response = await fetch(apiEndpoint, {timeout});
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log('data', JSON.stringify(data));
+        if (data.results.length > 0) {
+          const address = data.results[0].formatted_address;
+          setUserAddress(address);
+        } else {
+          console.log('No address found');
+        }
+      } catch (error) {
+        if (retries < maxRetries) {
+          retries++;
+          console.log(`Retry ${retries}...`);
+          await new Promise(resolve => setTimeout(resolve, 2000)); // wait 2 seconds
+          await fetchData();
+        } else {
+          console.error('Error fetching address:', error);
+        }
       }
-    } catch (error) {
-      console.error(error);
-    }
+    };
+
+    await fetchData();
   };
 
   useEffect(() => {
@@ -81,7 +102,9 @@ const Home = ({setSelectedTab}) => {
   }, [permissionGranted]);
 
   useEffect(() => {
-    requestLocationPermission();
+    requestLocationPermission()
+      .then(() => console.log('Permission requested'))
+      .catch(error => console.error('Error requesting permission:', error));
   }, []);
 
   return (
@@ -99,7 +122,7 @@ const Home = ({setSelectedTab}) => {
         </View>
       }
       showsVerticalScrollIndicator={false}
-      renderItem={null} // Since categories are part of ListHeaderComponent
+      renderItem={null}
       ListFooterComponent={<View style={styles.footer} />}
       contentContainerStyle={styles.contentContainer}
     />
@@ -107,11 +130,12 @@ const Home = ({setSelectedTab}) => {
 };
 
 export default Home;
+
 const styles = StyleSheet.create({
   footer: {
     marginBottom: 80,
   },
   contentContainer: {
-    paddingTop: 20, // Adjust this value for more or less spacing
+    paddingTop: 20,
   },
 });
