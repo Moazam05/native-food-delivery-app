@@ -6,6 +6,7 @@ import {categoriesData} from '../constants';
 import Categories from '../screens/Home/components/Categories';
 import HeroSection from '../screens/Home/components/HeroSection';
 import ProductList from '../screens/Home/components/ProductList';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({setSelectedTab}) => {
   const [permissionGranted, setPermissionGranted] = useState(false);
@@ -13,6 +14,7 @@ const Home = ({setSelectedTab}) => {
   const [userAddress, setUserAddress] = useState('');
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
+  const [alreadyFetched, setAlreadyFetched] = useState(false);
 
   const requestLocationPermission = async () => {
     try {
@@ -75,9 +77,10 @@ const Home = ({setSelectedTab}) => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.log('data', JSON.stringify(data));
+        // console.log('data', JSON.stringify(data));
         if (data.results.length > 0) {
           const address = data.results[0].formatted_address;
+          await AsyncStorage.setItem('user_address', address);
           setUserAddress(address);
         } else {
           console.log('No address found');
@@ -107,8 +110,19 @@ const Home = ({setSelectedTab}) => {
       .catch(error => console.error('Error requesting permission:', error));
   }, []);
 
+  AsyncStorage.getItem('user_address')
+    .then(value => {
+      if (value) {
+        setAlreadyFetched(true);
+      }
+      setUserAddress(value);
+
+      console.log('user_address:', value);
+    })
+    .then(res => {});
+
   useEffect(() => {
-    if (latitude && longitude) {
+    if (latitude && longitude && !alreadyFetched) {
       fetchAddress();
     }
   }, [latitude, longitude]);
