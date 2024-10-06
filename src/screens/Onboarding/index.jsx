@@ -42,71 +42,61 @@ const Onboarding = () => {
       />
       <View style={styles.container}>
         <Image source={Onboarding2} style={styles.backgroundImage} />
-        <Swiper
-          ref={swiperRef}
-          showsPagination={false}
-          loop={false}
-          onIndexChanged={setActiveIndex}>
-          {onboarding.map((item, index) => (
-            <View key={index} style={styles.slide}>
-              <View style={styles.content}>
+        <View style={styles.card}>
+          <Swiper
+            ref={swiperRef}
+            showsPagination={false}
+            loop={false}
+            onIndexChanged={setActiveIndex}
+            scrollEnabled={false}>
+            {onboarding.map((item, index) => (
+              <View key={index} style={styles.slide}>
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.description}>{item.description}</Text>
-                {/* Pagination */}
+              </View>
+            ))}
+          </Swiper>
+          {/* Pagination */}
+          <View style={[styles.pagination, styles.lastPagination]}>
+            {onboarding.map((_, i) => (
+              <View key={i} style={styles.dotWrapper}>
                 <View
-                  style={[
-                    styles.pagination,
-                    isLastSlide && styles.lastPagination,
-                  ]}>
-                  {onboarding.map((_, i) => (
-                    <View key={i} style={styles.dotWrapper}>
-                      <View
-                        style={
-                          i === activeIndex ? styles.activeDot : styles.dot
-                        }
-                      />
-                    </View>
-                  ))}
-                </View>
-                {/* bottom */}
-                {isLastSlide ? (
+                  style={i === activeIndex ? styles.activeDot : styles.dot}
+                />
+              </View>
+            ))}
+          </View>
+          {/* bottom */}
+          {isLastSlide ? (
+            <TouchableOpacity
+              style={styles.lastWrap}
+              onPress={() => navigation.navigate('Login')}>
+              <Image source={OnboardArrow} style={styles.OnboardArrow} />
+            </TouchableOpacity>
+          ) : (
+            <View style={styles.navigationWrap}>
+              <View style={styles.navigationButtons}>
+                <TouchableOpacity onPress={handlePrev} disabled={isFirstSlide}>
                   <TouchableOpacity
-                    style={styles.lastWrap}
                     onPress={() => navigation.navigate('Login')}>
-                    <Image source={OnboardArrow} style={styles.OnboardArrow} />
+                    <Text style={styles.navButton}>Skip</Text>
                   </TouchableOpacity>
+                </TouchableOpacity>
+                {isLastSlide ? (
+                  ''
                 ) : (
-                  <View style={styles.navigationWrap}>
-                    <View style={styles.navigationButtons}>
-                      <TouchableOpacity
-                        onPress={handlePrev}
-                        disabled={isFirstSlide}>
-                        <TouchableOpacity
-                          onPress={() => navigation.navigate('Login')}>
-                          <Text style={styles.navButton}>Skip</Text>
-                        </TouchableOpacity>
-                      </TouchableOpacity>
-                      {isLastSlide ? (
-                        ''
-                      ) : (
-                        <TouchableOpacity
-                          onPress={handleNext}
-                          disabled={isLastSlide}
-                          style={styles.nextWrap}>
-                          <Text style={styles.navButton}>Next</Text>
-                          <Image
-                            source={RightWhiteArrow}
-                            style={styles.whiteArrow}
-                          />
-                        </TouchableOpacity>
-                      )}
-                    </View>
-                  </View>
+                  <TouchableOpacity
+                    onPress={handleNext}
+                    disabled={isLastSlide}
+                    style={styles.nextWrap}>
+                    <Text style={styles.navButton}>Next</Text>
+                    <Image source={RightWhiteArrow} style={styles.whiteArrow} />
+                  </TouchableOpacity>
                 )}
               </View>
             </View>
-          ))}
-        </Swiper>
+          )}
+        </View>
       </View>
     </>
   );
@@ -126,10 +116,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     position: 'absolute',
   },
-  slide: {
-    flex: 1,
-  },
-  content: {
+  card: {
     position: 'absolute',
     bottom: 0,
     left: 0,
@@ -140,6 +127,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 32,
     borderRadius: 48,
     height: 365,
+  },
+  slide: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
     fontSize: 32,
@@ -164,7 +156,6 @@ const styles = StyleSheet.create({
   lastPagination: {
     marginBottom: 25,
   },
-
   dotWrapper: {
     marginHorizontal: 4,
   },
