@@ -116,8 +116,6 @@ const Home = ({setSelectedTab}) => {
         setAlreadyFetched(true);
       }
       setUserAddress(value);
-
-      console.log('user_address:', value);
     })
     .then(res => {});
 
