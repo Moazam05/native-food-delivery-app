@@ -153,7 +153,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 100,
+    marginBottom: 90,
+    marginTop: 10,
   },
   lastPagination: {
     marginBottom: 25,
