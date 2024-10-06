@@ -57,7 +57,8 @@ const Onboarding = () => {
             ))}
           </Swiper>
           {/* Pagination */}
-          <View style={[styles.pagination, styles.lastPagination]}>
+          <View
+            style={[styles.pagination, isLastSlide && styles.lastPagination]}>
             {onboarding.map((_, i) => (
               <View key={i} style={styles.dotWrapper}>
                 <View
@@ -152,6 +153,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 100,
   },
   lastPagination: {
     marginBottom: 25,
@@ -172,7 +174,6 @@ const styles = StyleSheet.create({
     backgroundColor: themeColors.WHITE,
   },
   navigationWrap: {
-    flex: 1,
     justifyContent: 'flex-end',
   },
   navigationButtons: {
