@@ -7,25 +7,17 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {
-  OnboardArrow,
-  Onboarding1,
-  Onboarding2,
-  Onboarding3,
-  RightWhiteArrow,
-} from '../../assets/images';
+import {OnboardArrow, Onboarding2, RightWhiteArrow} from '../../assets/images';
 import Swiper from 'react-native-swiper';
 import {themeColors} from '../../constants/colors';
 import {onboarding} from '../../constants';
 import {Fonts} from '../../constants/fonts';
 import {useNavigation} from '@react-navigation/native';
 
-const images = [Onboarding1, Onboarding2, Onboarding3];
-
 const Onboarding = () => {
   const swiperRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const isLastSlide = activeIndex === images.length - 1;
+  const isLastSlide = activeIndex === onboarding.length - 1;
   const isFirstSlide = activeIndex === 0;
   const navigation = useNavigation();
 
@@ -49,27 +41,24 @@ const Onboarding = () => {
         backgroundColor="transparent"
       />
       <View style={styles.container}>
+        <Image source={Onboarding2} style={styles.backgroundImage} />
         <Swiper
           ref={swiperRef}
           showsPagination={false}
-          // scrollEnabled={false}
           loop={false}
           onIndexChanged={setActiveIndex}>
-          {images.map((image, index) => (
+          {onboarding.map((item, index) => (
             <View key={index} style={styles.slide}>
-              <Image source={image} style={styles.imgWrap} />
               <View style={styles.content}>
-                <Text style={styles.title}>{onboarding[index]?.title}</Text>
-                <Text style={styles.description}>
-                  {onboarding[index]?.description}
-                </Text>
+                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.description}>{item.description}</Text>
                 {/* Pagination */}
                 <View
                   style={[
                     styles.pagination,
                     isLastSlide && styles.lastPagination,
                   ]}>
-                  {images.map((_, i) => (
+                  {onboarding.map((_, i) => (
                     <View key={i} style={styles.dotWrapper}>
                       <View
                         style={
@@ -131,13 +120,14 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     backgroundColor: '#000',
   },
-  slide: {
-    flex: 1,
-  },
-  imgWrap: {
+  backgroundImage: {
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
+    position: 'absolute',
+  },
+  slide: {
+    flex: 1,
   },
   content: {
     position: 'absolute',
@@ -171,10 +161,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   lastPagination: {
     marginBottom: 25,
   },
+
   dotWrapper: {
     marginHorizontal: 4,
   },
@@ -194,7 +184,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
   },
-
   navigationButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
