@@ -107,13 +107,19 @@ const Home = ({setSelectedTab}) => {
       .catch(error => console.error('Error requesting permission:', error));
   }, []);
 
+  useEffect(() => {
+    if (latitude && longitude) {
+      fetchAddress();
+    }
+  }, [latitude, longitude]);
+
   return (
     <FlatList
       data={categoriesData}
       keyExtractor={item => item.id.toString()}
       ListHeaderComponent={
         <View>
-          <HeroSection setSelectedTab={setSelectedTab} />
+          <HeroSection setSelectedTab={setSelectedTab} address={userAddress} />
           <Categories
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}

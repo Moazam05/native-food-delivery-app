@@ -17,7 +17,7 @@ import {
   Search,
 } from '../../../assets/images';
 
-const HeroSection = ({setSelectedTab}) => {
+const HeroSection = ({setSelectedTab, address}) => {
   return (
     <ImageBackground source={HomeBG} style={styles.home}>
       <View style={styles.overlayContent}>
@@ -31,7 +31,7 @@ const HeroSection = ({setSelectedTab}) => {
               <View style={styles.locationDetails}>
                 <Image source={Location} style={styles.locationIcon} />
 
-                <Text style={styles.locationName}>Ichhra Lahore</Text>
+                <Text style={styles.locationName}>{address}</Text>
               </View>
             </View>
             <View style={styles.imgWrap}>
@@ -96,8 +96,10 @@ const styles = StyleSheet.create({
   },
   locationName: {
     color: themeColors.WHITE,
-    fontSize: 14,
+    fontSize: 11,
     fontFamily: Fonts.SEMIBOLD,
+    flexWrap: 'wrap',
+    width: 180,
   },
   arrowDown: {
     width: 16,
@@ -121,7 +123,7 @@ const styles = StyleSheet.create({
   taglineContainer: {},
   tagline: {
     color: themeColors.WHITE,
-    fontSize: 32,
+    fontSize: 30,
     fontFamily: Fonts.SEMIBOLD,
   },
 });
