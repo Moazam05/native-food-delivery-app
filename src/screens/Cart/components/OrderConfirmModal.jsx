@@ -14,14 +14,17 @@ import {Fonts} from '../../../constants/fonts';
 import {themeColors} from '../../../constants/colors';
 import {useDispatch} from 'react-redux';
 import {clearCart} from '../../../redux/products/productsSlice';
+import {useNavigation} from '@react-navigation/native';
 
 const OrderConfirmModal = ({visible, setModalVisible, setSelectedTab}) => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const homeHandler = () => {
     setModalVisible(false);
-    setSelectedTab(0);
-    dispatch(clearCart());
+    // setSelectedTab(0);
+    navigation.navigate('OrderTracking');
+    // dispatch(clearCart());
   };
 
   return (
@@ -44,7 +47,7 @@ const OrderConfirmModal = ({visible, setModalVisible, setSelectedTab}) => {
 
             <View style={styles.buttonContainer}>
               <CustomButton
-                name="Home"
+                name="Order Tracking"
                 loginStyle={styles.homeWrap}
                 onPress={() => {
                   homeHandler();

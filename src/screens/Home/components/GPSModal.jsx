@@ -34,7 +34,7 @@ const GPSModal = ({visible, loading}) => {
         <Text style={styles.title}>GPS PERMISSION</Text>
 
         <Text style={styles.description}>
-          We need your location to show you the best places around you.
+          We need your location to deliver your order.
         </Text>
 
         <View style={styles.buttonContainer}>
