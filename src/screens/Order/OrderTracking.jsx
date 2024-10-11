@@ -45,19 +45,10 @@ const OrderTracking = () => {
         setUserLocation(newUserLocation);
 
         if (mapRef.current) {
-          const coordinates = [
-            {
-              latitude: newUserLocation.latitude + 0.0025, // 225m north
-              longitude: newUserLocation.longitude,
-            },
-            {
-              latitude: newUserLocation.latitude - 0.0041, // 400m south
-              longitude: newUserLocation.longitude,
-            },
-          ];
+          const coordinates = [newUserLocation, destination];
 
           mapRef.current.fitToCoordinates(coordinates, {
-            edgePadding: {top: 50, right: 50, bottom: 50, left: 50},
+            edgePadding: {top: 50, right: 50, bottom: 250, left: 50},
             animated: true,
           });
         }
@@ -65,7 +56,7 @@ const OrderTracking = () => {
     } catch (error) {
       console.error('Error getting location:', error);
     }
-  }, []);
+  }, [destination]);
 
   // Bottom Sheet content
   const renderContent = () => (
@@ -91,23 +82,20 @@ const OrderTracking = () => {
             longitudeDelta: 0.135,
           }}>
           <Marker coordinate={userLocation} title="Current Location" />
-
           <Marker coordinate={destination} icon={RestaurantIcon} />
 
-          {destination &&
-            userLocation.latitude !== 0 &&
-            userLocation.longitude !== 0 && (
-              <MapViewDirections
-                origin={userLocation}
-                destination={destination}
-                apikey={GOOGLE_MAPS_API_KEY}
-                strokeWidth={3}
-                strokeColor={themeColors.PRIMARY}
-                onError={error =>
-                  console.error('MapViewDirections error:', error)
-                } // Log error details
-              />
-            )}
+          {userLocation.latitude !== 0 && userLocation.longitude !== 0 && (
+            <MapViewDirections
+              origin={userLocation}
+              destination={destination}
+              apikey={GOOGLE_MAPS_API_KEY}
+              strokeWidth={3}
+              strokeColor={themeColors.PRIMARY}
+              onError={error =>
+                console.error('MapViewDirections error:', error)
+              }
+            />
+          )}
         </MapView>
         <View style={styles.currentLocation}>
           <FontAwesome6
@@ -130,9 +118,7 @@ const OrderTracking = () => {
       <BottomSheet
         ref={bottomSheetRef}
         index={0} // Start collapsed
-        snapPoints={['38%', '90%']} // Snap points for the bottom sheet
-        // enablePanDownToClose={true}
-      >
+        snapPoints={['38%', '90%']}>
         {renderContent()}
       </BottomSheet>
     </GestureHandlerRootView>
