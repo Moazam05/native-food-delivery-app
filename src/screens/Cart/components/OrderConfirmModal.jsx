@@ -13,18 +13,30 @@ import CustomButton from '../../../components/CustomButton';
 import {Fonts} from '../../../constants/fonts';
 import {themeColors} from '../../../constants/colors';
 import {useDispatch} from 'react-redux';
-import {clearCart} from '../../../redux/products/productsSlice';
+import {
+  clearCart,
+  selectedProducts,
+} from '../../../redux/products/productsSlice';
 import {useNavigation} from '@react-navigation/native';
+import useTypedSelector from '../../../hooks/useTypedSelector';
 
 const OrderConfirmModal = ({visible, setModalVisible, setSelectedTab}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const cartProducts = useTypedSelector(selectedProducts);
+
+  const calculateTotal = () => {
+    return cartProducts
+      .reduce((total, product) => total + product.price * product.quantity, 0)
+      .toFixed(2);
+  };
 
   const homeHandler = () => {
     setModalVisible(false);
-    // setSelectedTab(0);
-    navigation.navigate('OrderTracking');
-    // dispatch(clearCart());
+    navigation.navigate('OrderTracking', {
+      total: calculateTotal(),
+    });
+    dispatch(clearCart());
   };
 
   return (

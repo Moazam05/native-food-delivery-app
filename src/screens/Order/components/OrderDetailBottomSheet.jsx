@@ -11,6 +11,7 @@ import {themeColors} from '../../../constants/colors';
 import {Bike, Cooking, Orders, Phone, TickTwo} from '../../../assets/images';
 import {Fonts} from '../../../constants/fonts';
 import {faker} from '@faker-js/faker';
+import {thousandSeparator} from '../../../utils';
 
 const personDetails = {
   name: faker.person.fullName(),
@@ -19,7 +20,7 @@ const personDetails = {
   image: faker.image.avatar(),
 };
 
-const OrderDetailBottomSheet = () => {
+const OrderDetailBottomSheet = ({total}) => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [deliveryTime, setDeliveryTime] = useState(new Date());
   const [step, setStep] = useState(0);
@@ -130,7 +131,7 @@ const OrderDetailBottomSheet = () => {
 
         <View style={styles.orderTotalContainer}>
           <Text style={styles.label}>Order Total</Text>
-          <Text style={styles.value}>Rs. 999</Text>
+          <Text style={styles.value}>Rs. {thousandSeparator(total)}</Text>
         </View>
       </View>
     </View>

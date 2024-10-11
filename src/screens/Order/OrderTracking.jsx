@@ -10,10 +10,13 @@ import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import {RestaurantIcon} from '../../assets/images';
 import {themeColors} from '../../constants/colors';
 import OrderDetailBottomSheet from './components/OrderDetailBottomSheet';
+import {useRoute} from '@react-navigation/native';
 
 const OrderTracking = () => {
   const mapRef = useRef();
   const bottomSheetRef = useRef(null);
+  const route = useRoute();
+  const {total} = route.params || {};
 
   const [userLocation, setUserLocation] = useState({
     latitude: 0,
@@ -116,7 +119,7 @@ const OrderTracking = () => {
         handleComponent={() => null}
         handleIndicatorStyle={styles.handleIndicator}
         style={styles.bottomSheetStyle}>
-        <OrderDetailBottomSheet />
+        <OrderDetailBottomSheet total={total} />
       </BottomSheet>
     </GestureHandlerRootView>
   );

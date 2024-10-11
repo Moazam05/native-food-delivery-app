@@ -25,6 +25,7 @@ import ProductDetail from './src/screens/Products/ProductDetail';
 import ProfileDetail from './src/screens/Account/ProfileDetail';
 import Favorites from './src/screens/Favorites';
 import OrderTracking from './src/screens/Order/OrderTracking';
+import {setAddress} from './src/redux/address/addressSlice';
 
 const Stack = createNativeStackNavigator();
 
@@ -63,7 +64,14 @@ const AppNavigator = () => {
           'Are you sure you want to exit?',
           [
             {text: 'Cancel', onPress: () => null, style: 'cancel'},
-            {text: 'Yes', onPress: () => BackHandler.exitApp()},
+            {
+              text: 'Yes',
+              onPress: () => {
+                AsyncStorage.removeItem('userLocation');
+                dispatch(setAddress(''));
+                BackHandler.exitApp();
+              },
+            },
           ],
           {cancelable: false},
         );
