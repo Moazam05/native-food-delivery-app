@@ -1,10 +1,13 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import React, {useRef, useEffect, useState, useCallback} from 'react';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import GetLocation from 'react-native-get-location';
+import BottomSheet from '@gorhom/bottom-sheet';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const OrderTracking = () => {
   const mapRef = useRef();
+  const bottomSheetRef = useRef(null);
 
   const [userLocation, setUserLocation] = useState({
     latitude: 0,
@@ -34,11 +37,11 @@ const OrderTracking = () => {
         if (mapRef.current) {
           const coordinates = [
             {
-              latitude: newUserLocation.latitude + 0.0025, // 500m north
+              latitude: newUserLocation.latitude + 0.0025, // 225m north
               longitude: newUserLocation.longitude,
             },
             {
-              latitude: newUserLocation.latitude - 0.0025, // 500m south
+              latitude: newUserLocation.latitude - 0.0025, // 225m south
               longitude: newUserLocation.longitude,
             },
           ];
@@ -54,8 +57,19 @@ const OrderTracking = () => {
     }
   }, []);
 
+  // Bottom Sheet content
+  const renderContent = () => (
+    <View style={styles.bottomSheet}>
+      <Text style={styles.sheetTitle}>Order Tracking Information</Text>
+      <Text>Your current order is on the way!</Text>
+      <TouchableOpacity onPress={() => bottomSheetRef.current?.collapse()}>
+        <Text style={styles.closeButton}>Close</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
   return (
-    <View style={styles.container}>
+    <GestureHandlerRootView style={styles.container}>
       <MapView
         ref={mapRef}
         style={styles.map}
@@ -67,7 +81,15 @@ const OrderTracking = () => {
         }}>
         <Marker coordinate={userLocation} title="Current Location" />
       </MapView>
-    </View>
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={0} // Start collapsed
+        snapPoints={['40%', '90%']} // Snap points for the bottom sheet
+        // enablePanDownToClose={true}
+      >
+        {renderContent()}
+      </BottomSheet>
+    </GestureHandlerRootView>
   );
 };
 
@@ -81,5 +103,19 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
+  },
+  bottomSheet: {
+    padding: 16,
+    backgroundColor: 'white',
+    height: '100%',
+  },
+  sheetTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  closeButton: {
+    marginTop: 16,
+    color: 'blue',
+    textAlign: 'center',
   },
 });
