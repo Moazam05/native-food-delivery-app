@@ -55,6 +55,7 @@ import ProfileIconTwo from './ProfileIconTwo.png';
 import HelpIcon from './Help.png';
 import LogoutIcon from './Logout.png';
 import RightArrow from './RightArrow.png';
+import RestaurantIcon from './Destination.png';
 
 export {
   Onboarding1,
@@ -114,4 +115,5 @@ export {
   HelpIcon,
   LogoutIcon,
   RightArrow,
+  RestaurantIcon,
 };

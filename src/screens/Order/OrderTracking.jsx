@@ -6,6 +6,8 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {themeColors} from '../../constants/colors';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import MapViewDirections from 'react-native-maps-directions';
+import {GOOGLE_MAPS_API_KEY} from '@env';
 
 const OrderTracking = () => {
   const mapRef = useRef();
@@ -15,6 +17,11 @@ const OrderTracking = () => {
     latitude: 0,
     longitude: 0,
   });
+
+  const destination = {
+    latitude: 31.523465385574074,
+    longitude: 74.28969049388652,
+  };
 
   useEffect(() => {
     checkLocationServices();
@@ -43,7 +50,7 @@ const OrderTracking = () => {
               longitude: newUserLocation.longitude,
             },
             {
-              latitude: newUserLocation.latitude - 0.004, // 400m south
+              latitude: newUserLocation.latitude - 0.0041, // 400m south
               longitude: newUserLocation.longitude,
             },
           ];
@@ -83,6 +90,18 @@ const OrderTracking = () => {
             longitudeDelta: 0.135,
           }}>
           <Marker coordinate={userLocation} title="Current Location" />
+
+          <Marker coordinate={destination} pinColor={themeColors.PRIMARY} />
+
+          {destination && (
+            <MapViewDirections
+              origin={userLocation}
+              destination={destination}
+              apikey={GOOGLE_MAPS_API_KEY}
+              strokeWidth={3}
+              strokeColor={themeColors.PRIMARY}
+            />
+          )}
         </MapView>
         <View style={styles.currentLocation}>
           <FontAwesome6
