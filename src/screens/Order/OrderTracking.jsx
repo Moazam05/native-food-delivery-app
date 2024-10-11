@@ -9,6 +9,7 @@ import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import MapViewDirections from 'react-native-maps-directions';
 import {GOOGLE_MAPS_API_KEY} from '@env';
 import {RestaurantIcon} from '../../assets/images';
+import OrderDetailBottomSheet from './components/OrderDetailBottomSheet';
 
 const OrderTracking = () => {
   const mapRef = useRef();
@@ -58,17 +59,6 @@ const OrderTracking = () => {
     }
   }, [destination]);
 
-  // Bottom Sheet content
-  const renderContent = () => (
-    <View style={styles.bottomSheet}>
-      <Text style={styles.sheetTitle}>Order Tracking Information</Text>
-      <Text>Your current order is on the way!</Text>
-      <TouchableOpacity onPress={() => bottomSheetRef.current?.collapse()}>
-        <Text style={styles.closeButton}>Close</Text>
-      </TouchableOpacity>
-    </View>
-  );
-
   return (
     <GestureHandlerRootView style={styles.container}>
       <View style={styles.mapWrap}>
@@ -82,7 +72,11 @@ const OrderTracking = () => {
             longitudeDelta: 0.135,
           }}>
           <Marker coordinate={userLocation} title="Current Location" />
-          <Marker coordinate={destination} icon={RestaurantIcon} />
+          <Marker
+            coordinate={destination}
+            icon={RestaurantIcon}
+            title="Restaurant"
+          />
 
           {userLocation.latitude !== 0 && userLocation.longitude !== 0 && (
             <MapViewDirections
@@ -126,7 +120,8 @@ const OrderTracking = () => {
           borderTopLeftRadius: 24,
           borderTopRightRadius: 24,
         }}>
-        {renderContent()}
+        {/* {renderContent()} */}
+        <OrderDetailBottomSheet />
       </BottomSheet>
     </GestureHandlerRootView>
   );
@@ -148,22 +143,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     position: 'relative',
-  },
-  bottomSheet: {
-    padding: 16,
-    backgroundColor: 'orange',
-    height: '100%',
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-  },
-  sheetTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  closeButton: {
-    marginTop: 16,
-    color: 'blue',
-    textAlign: 'center',
   },
   currentLocation: {
     position: 'absolute',
