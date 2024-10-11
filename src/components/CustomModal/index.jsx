@@ -1,14 +1,9 @@
-import {View, Modal, StatusBar, StyleSheet, Dimensions} from 'react-native';
+import {View, Modal, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 
 const CustomModal = ({visible, children}) => {
   return (
     <Modal visible={visible} transparent={true} animationType="slide">
-      <StatusBar
-        barStyle="light-content"
-        translucent
-        backgroundColor="rgba(0, 0, 0, 0.5)"
-      />
       <View style={styles.modalView}>
         <View style={styles.mainView}>{children}</View>
       </View>
