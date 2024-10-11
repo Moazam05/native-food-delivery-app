@@ -1,15 +1,61 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {themeColors} from '../../../constants/colors';
 import {
+  Bike,
+  Cooking,
+  Orders,
   Phone,
   ProfileIcon,
   ProfileIconTwo,
   ProfileImg,
+  TickTwo,
 } from '../../../assets/images';
 import {Fonts} from '../../../constants/fonts';
 
 const OrderDetailBottomSheet = () => {
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [deliveryTime, setDeliveryTime] = useState(new Date());
+  const [step, setStep] = useState(0);
+  const [iconColors, setIconColors] = useState([
+    '#808080', // gray
+    '#808080',
+    '#808080',
+    '#808080',
+  ]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setStep(prevStep => {
+        if (prevStep < 3) {
+          return prevStep + 1;
+        }
+        return 0;
+      });
+    }, 5000); // 5 seconds
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
+    const newDeliveryTime = new Date(currentTime.getTime() + 45 * 60 * 1000);
+    setDeliveryTime(newDeliveryTime);
+  }, [currentTime]);
+
+  useEffect(() => {
+    const updatedIconColors = [];
+    for (let i = 0; i < 4; i++) {
+      if (i <= step) {
+        updatedIconColors.push('#FFA07A'); // orange
+      } else {
+        updatedIconColors.push('#808080'); // gray
+      }
+    }
+    setIconColors(updatedIconColors);
+  }, [step]);
+
+  const images = [Orders, Cooking, Bike, TickTwo];
+
   return (
     <View style={styles.container}>
       <View style={styles.separator} />
@@ -30,7 +76,56 @@ const OrderDetailBottomSheet = () => {
       </View>
 
       <View style={styles.bottomContent}>
-        <Text>Hye</Text>
+        <Text>Your Delivery Time</Text>
+        <Text>
+          {currentTime.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true,
+          })}{' '}
+          -{' '}
+          {deliveryTime.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true,
+          })}
+        </Text>
+
+        <View
+          style={{
+            marginVertical: 20,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+          {images.map((image, index) => (
+            <View
+              key={index}
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+                gap: 10,
+              }}>
+              <Image
+                source={image}
+                style={{
+                  width: 24,
+                  height: 24,
+                  resizeMode: 'contain',
+                  tintColor: iconColors[index],
+                }}
+              />
+              {/* last index don't showing */}
+              <Text
+                style={{
+                  color: iconColors[index],
+                  display: index === 3 ? 'none' : 'flex',
+                }}>
+                &#8212;&#8212;&#8212;&#8212;&#8212;
+              </Text>
+            </View>
+          ))}
+        </View>
       </View>
     </View>
   );
@@ -95,5 +190,7 @@ const styles = StyleSheet.create({
   bottomContent: {
     backgroundColor: themeColors.WHITE,
     height: '100%',
+    paddingHorizontal: 24,
+    paddingVertical: 16,
   },
 });
