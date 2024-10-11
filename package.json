@@ -12,6 +12,7 @@
     "ios-clean": "cd ios && rm -rf build && xcodebuild clean && pod update && cd .. && npm run ios"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.0.3",
     "@gorhom/bottom-sheet": "^4.6.4",
     "@react-native-async-storage/async-storage": "^2.0.0",
     "@react-native-community/checkbox": "^0.5.17",

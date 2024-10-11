@@ -1,17 +1,23 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Linking,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {themeColors} from '../../../constants/colors';
-import {
-  Bike,
-  Cooking,
-  Orders,
-  Phone,
-  ProfileIcon,
-  ProfileIconTwo,
-  ProfileImg,
-  TickTwo,
-} from '../../../assets/images';
+import {Bike, Cooking, Orders, Phone, TickTwo} from '../../../assets/images';
 import {Fonts} from '../../../constants/fonts';
+import {faker} from '@faker-js/faker';
+
+const personDetails = {
+  name: faker.person.fullName(),
+  phone: faker.phone.number({style: 'international'}),
+  orderID: faker.finance.accountNumber(5),
+  image: faker.image.avatar(),
+};
 
 const OrderDetailBottomSheet = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -63,15 +69,24 @@ const OrderDetailBottomSheet = () => {
       <View style={styles.infoCard}>
         <View style={styles.infoRow}>
           <View style={styles.profileInfo}>
-            <Image source={ProfileImg} style={styles.profileImage} />
+            <Image
+              source={{uri: personDetails?.image}}
+              style={styles.profileImage}
+            />
             <View>
-              <Text style={styles.nameText}>Salman Muazam</Text>
-              <Text style={styles.orderIdText}>Order ID: 123456</Text>
+              <Text style={styles.nameText}>{personDetails?.name}</Text>
+              <Text style={styles.orderIdText}>
+                Order ID: {personDetails?.orderID}
+              </Text>
             </View>
           </View>
-          <View style={styles.phoneIcon}>
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL(`tel:${personDetails?.phone}`);
+            }}
+            style={styles.phoneIcon}>
             <Image source={Phone} style={styles.phoneImage} />
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
 
