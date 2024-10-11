@@ -19,8 +19,8 @@ const OrderTracking = () => {
   });
 
   const destination = {
-    latitude: 31.523465385574074,
-    longitude: 74.28969049388652,
+    latitude: 31.52354,
+    longitude: 74.28956,
   };
 
   useEffect(() => {
@@ -93,15 +93,20 @@ const OrderTracking = () => {
 
           <Marker coordinate={destination} pinColor={themeColors.PRIMARY} />
 
-          {destination && (
-            <MapViewDirections
-              origin={userLocation}
-              destination={destination}
-              apikey={GOOGLE_MAPS_API_KEY}
-              strokeWidth={3}
-              strokeColor={themeColors.PRIMARY}
-            />
-          )}
+          {destination &&
+            userLocation.latitude !== 0 &&
+            userLocation.longitude !== 0 && (
+              <MapViewDirections
+                origin={userLocation}
+                destination={destination}
+                apikey={GOOGLE_MAPS_API_KEY}
+                strokeWidth={3}
+                strokeColor={themeColors.PRIMARY}
+                onError={error =>
+                  console.error('MapViewDirections error:', error)
+                } // Log error details
+              />
+            )}
         </MapView>
         <View style={styles.currentLocation}>
           <FontAwesome6
@@ -124,7 +129,7 @@ const OrderTracking = () => {
       <BottomSheet
         ref={bottomSheetRef}
         index={0} // Start collapsed
-        snapPoints={['40%', '90%']} // Snap points for the bottom sheet
+        snapPoints={['38%', '90%']} // Snap points for the bottom sheet
         // enablePanDownToClose={true}
       >
         {renderContent()}

@@ -62,7 +62,6 @@ const AppNavigator = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName="OrderTracking"
       screenOptions={{
         headerShown: false,
       }}>
