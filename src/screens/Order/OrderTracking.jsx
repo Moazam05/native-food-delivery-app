@@ -1,9 +1,6 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React, {useRef, useEffect, useState, useCallback} from 'react';
-import useTypedSelector from '../../hooks/useTypedSelector';
-import {selectedAddress} from '../../redux/address/addressSlice';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import {themeColors} from '../../constants/colors';
 import GetLocation from 'react-native-get-location';
 
 const OrderTracking = () => {
@@ -35,7 +32,16 @@ const OrderTracking = () => {
         setUserLocation(newUserLocation);
 
         if (mapRef.current) {
-          const coordinates = [newUserLocation];
+          const coordinates = [
+            {
+              latitude: newUserLocation.latitude + 0.0025, // 500m north
+              longitude: newUserLocation.longitude,
+            },
+            {
+              latitude: newUserLocation.latitude - 0.0025, // 500m south
+              longitude: newUserLocation.longitude,
+            },
+          ];
 
           mapRef.current.fitToCoordinates(coordinates, {
             edgePadding: {top: 50, right: 50, bottom: 50, left: 50},
@@ -56,8 +62,8 @@ const OrderTracking = () => {
         provider={PROVIDER_GOOGLE}
         initialRegion={{
           ...userLocation,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+          latitudeDelta: 0.135, // Initial zoom level
+          longitudeDelta: 0.135,
         }}>
         <Marker coordinate={userLocation} title="Current Location" />
       </MapView>
