@@ -76,51 +76,62 @@ const OrderDetailBottomSheet = () => {
       </View>
 
       <View style={styles.bottomContent}>
-        <Text>Your Delivery Time</Text>
-        <Text>
-          {currentTime.toLocaleTimeString('en-US', {
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true,
-          })}{' '}
-          -{' '}
-          {deliveryTime.toLocaleTimeString('en-US', {
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true,
-          })}
+        <Text
+          style={{
+            fontSize: 14,
+            fontFamily: Fonts.SEMIBOLD,
+            color: themeColors.BLACK,
+          }}>
+          Your Delivery Time
         </Text>
-
         <View
           style={{
-            marginVertical: 20,
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            marginTop: 3,
+            gap: 5,
           }}>
+          <Text
+            style={{
+              fontSize: 12,
+              fontFamily: Fonts.REGULAR,
+              color: themeColors.GRAY,
+            }}>
+            Estimated Time
+          </Text>
+          <Text
+            style={{
+              fontSize: 12,
+              fontFamily: Fonts.REGULAR,
+              color: themeColors.GRAY,
+            }}>
+            {currentTime.toLocaleTimeString('en-US', {
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: true,
+            })}{' '}
+            -{' '}
+            {deliveryTime.toLocaleTimeString('en-US', {
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: true,
+            })}
+          </Text>
+        </View>
+
+        <View style={styles.imageContainer}>
           {images.map((image, index) => (
-            <View
-              key={index}
-              style={{
-                alignItems: 'center',
-                flexDirection: 'row',
-                gap: 10,
-              }}>
+            <View key={index} style={styles.imageWrapper}>
               <Image
                 source={image}
-                style={{
-                  width: 24,
-                  height: 24,
-                  resizeMode: 'contain',
-                  tintColor: iconColors[index],
-                }}
+                style={[styles.image, {tintColor: iconColors[index]}]}
               />
-              {/* last index don't showing */}
               <Text
-                style={{
-                  color: iconColors[index],
-                  display: index === 3 ? 'none' : 'flex',
-                }}>
+                style={[
+                  styles.dash,
+                  {color: iconColors[index]},
+                  index === 3 ? styles.hidden : {},
+                ]}>
                 &#8212;&#8212;&#8212;&#8212;&#8212;
               </Text>
             </View>
@@ -147,9 +158,9 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   infoCard: {
-    marginVertical: 25,
+    marginVertical: 20,
     backgroundColor: themeColors.WHITE,
-    marginHorizontal: 20,
+    marginHorizontal: 15,
     borderRadius: 100,
     padding: 10,
   },
@@ -192,5 +203,27 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingHorizontal: 24,
     paddingVertical: 16,
+  },
+  imageContainer: {
+    marginVertical: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  imageWrapper: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 10,
+  },
+  image: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
+  },
+  dash: {
+    display: 'flex',
+  },
+  hidden: {
+    display: 'none',
   },
 });
