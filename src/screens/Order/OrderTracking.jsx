@@ -4,6 +4,8 @@ import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import GetLocation from 'react-native-get-location';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {themeColors} from '../../constants/colors';
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 
 const OrderTracking = () => {
   const mapRef = useRef();
@@ -41,7 +43,7 @@ const OrderTracking = () => {
               longitude: newUserLocation.longitude,
             },
             {
-              latitude: newUserLocation.latitude - 0.0025, // 225m south
+              latitude: newUserLocation.latitude - 0.004, // 400m south
               longitude: newUserLocation.longitude,
             },
           ];
@@ -70,17 +72,36 @@ const OrderTracking = () => {
 
   return (
     <GestureHandlerRootView style={styles.container}>
-      <MapView
-        ref={mapRef}
-        style={styles.map}
-        provider={PROVIDER_GOOGLE}
-        initialRegion={{
-          ...userLocation,
-          latitudeDelta: 0.135, // Initial zoom level
-          longitudeDelta: 0.135,
-        }}>
-        <Marker coordinate={userLocation} title="Current Location" />
-      </MapView>
+      <View style={styles.mapWrap}>
+        <MapView
+          ref={mapRef}
+          style={styles.map}
+          provider={PROVIDER_GOOGLE}
+          initialRegion={{
+            ...userLocation,
+            latitudeDelta: 0.135, // Initial zoom level
+            longitudeDelta: 0.135,
+          }}>
+          <Marker coordinate={userLocation} title="Current Location" />
+        </MapView>
+        <View style={styles.currentLocation}>
+          <FontAwesome6
+            name="location-arrow"
+            size={22}
+            color={themeColors.PRIMARY}
+            onPress={() => {
+              mapRef.current.animateToRegion(
+                {
+                  ...userLocation,
+                  latitudeDelta: 0.015,
+                  longitudeDelta: 0.015,
+                },
+                1000,
+              );
+            }}
+          />
+        </View>
+      </View>
       <BottomSheet
         ref={bottomSheetRef}
         index={0} // Start collapsed
@@ -104,6 +125,12 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
   },
+  mapWrap: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    position: 'relative',
+  },
   bottomSheet: {
     padding: 16,
     backgroundColor: 'white',
@@ -117,5 +144,24 @@ const styles = StyleSheet.create({
     marginTop: 16,
     color: 'blue',
     textAlign: 'center',
+  },
+  currentLocation: {
+    position: 'absolute',
+    bottom: 300,
+    right: 15,
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: themeColors.WHITE,
+    padding: 10,
+    borderRadius: 10,
+    shadowColor: themeColors.BLACK,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
 });
