@@ -1,39 +1,78 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React, {useRef} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import React, {useRef, useEffect, useState, useCallback} from 'react';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import {selectedAddress} from '../../redux/address/addressSlice';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import {themeColors} from '../../constants/colors';
+import GetLocation from 'react-native-get-location';
 
 const OrderTracking = () => {
   const mapRef = useRef();
 
-  const getCurrentAddress = useTypedSelector(selectedAddress);
+  const [userLocation, setUserLocation] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
 
-  console.log('getCurrentAddress', getCurrentAddress);
+  useEffect(() => {
+    checkLocationServices();
+  }, []);
+
+  const checkLocationServices = useCallback(async () => {
+    try {
+      const location = await GetLocation.getCurrentPosition({
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0,
+      });
+
+      if (location) {
+        const newUserLocation = {
+          latitude: location.latitude,
+          longitude: location.longitude,
+        };
+
+        setUserLocation(newUserLocation);
+
+        if (mapRef.current) {
+          const coordinates = [newUserLocation];
+
+          mapRef.current.fitToCoordinates(coordinates, {
+            edgePadding: {top: 50, right: 50, bottom: 50, left: 50},
+            animated: true,
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Error getting location:', error);
+    }
+  }, []);
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-      }}>
+    <View style={styles.container}>
       <MapView
         ref={mapRef}
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          ...userLocation,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
-        }}></MapView>
-    </SafeAreaView>
+        }}>
+        <Marker coordinate={userLocation} title="Current Location" />
+      </MapView>
+    </View>
   );
 };
 
 export default OrderTracking;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
   map: {
     flex: 1,
   },
