@@ -18,10 +18,10 @@ const OrderDetailBottomSheet = () => {
   const [deliveryTime, setDeliveryTime] = useState(new Date());
   const [step, setStep] = useState(0);
   const [iconColors, setIconColors] = useState([
-    '#808080', // gray
-    '#808080',
-    '#808080',
-    '#808080',
+    themeColors.GRAY,
+    themeColors.GRAY,
+    themeColors.GRAY,
+    themeColors.GRAY,
   ]);
 
   useEffect(() => {
@@ -46,9 +46,9 @@ const OrderDetailBottomSheet = () => {
     const updatedIconColors = [];
     for (let i = 0; i < 4; i++) {
       if (i <= step) {
-        updatedIconColors.push('#FFA07A'); // orange
+        updatedIconColors.push(themeColors.PRIMARY); // orange
       } else {
-        updatedIconColors.push('#808080'); // gray
+        updatedIconColors.push(themeColors.GRAY); // gray
       }
     }
     setIconColors(updatedIconColors);
