@@ -1,142 +1,129 @@
 import {GOOGLE_MAPS_API_KEY} from '@env';
 import React, {useEffect, useState} from 'react';
-import {FlatList, PermissionsAndroid, StyleSheet, View} from 'react-native';
-import Geolocation from 'react-native-geolocation-service';
+import {AppState, FlatList, Linking, StyleSheet, View} from 'react-native';
 import {categoriesData} from '../constants';
 import Categories from '../screens/Home/components/Categories';
 import HeroSection from '../screens/Home/components/HeroSection';
 import ProductList from '../screens/Home/components/ProductList';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {check, PERMISSIONS, request} from 'react-native-permissions';
+import CustomButton from '../components/CustomButton';
+import {themeColors} from '../constants/colors';
 
 const Home = ({setSelectedTab}) => {
-  const [permissionGranted, setPermissionGranted] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('Burger');
   const [userAddress, setUserAddress] = useState('');
-  const [latitude, setLatitude] = useState(0);
-  const [longitude, setLongitude] = useState(0);
-  const [alreadyFetched, setAlreadyFetched] = useState(false);
+  const [locationPermission, setLocationPermission] = useState(null);
 
-  const requestLocationPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: 'Foodies wants to access your location',
-          message:
-            'Foodies App needs access to your location' +
-            'so you can order food from your favorite restaurants.',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
+  console.log('locationPermission', locationPermission);
+
+  useEffect(() => {
+    const handlePermission = async () => {
+      const fineLocationStatus = await check(
+        PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
       );
-      console.log('granted:', JSON.stringify(granted, null, 2));
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        setPermissionGranted(true);
-        console.log('You can use the location');
-      } else {
-        console.log('Location permission denied');
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  };
+      const coarseLocationStatus = await check(
+        PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION,
+      );
 
-  const getCurrentLocation = async () => {
-    if (permissionGranted) {
-      try {
-        await Geolocation.getCurrentPosition(
-          posit => {
-            // console.log('position inside:', posit);
-            setLatitude(posit.coords.latitude);
-            setLongitude(posit.coords.longitude);
-            fetchAddress();
-          },
-          error => {
-            console.log('Error getting current location:', error);
-            return null;
-          },
-          {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+      if (
+        fineLocationStatus === 'undetermined' ||
+        coarseLocationStatus === 'undetermined'
+      ) {
+        const requestedPermission = await request(
+          PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
         );
-      } catch (error) {
-        console.error('Error getting current location:', error);
-      }
-    }
-  };
-
-  const fetchAddress = async () => {
-    const apiEndpoint = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_MAPS_API_KEY}`;
-    const timeout = 10000; // 10 seconds
-    const maxRetries = 3;
-    let retries = 0;
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch(apiEndpoint, {timeout});
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        // console.log('data', JSON.stringify(data));
-        if (data.results.length > 0) {
-          const address = data.results[0].formatted_address;
-          await AsyncStorage.setItem('user_address', address);
-          setUserAddress(address);
-        } else {
-          console.log('No address found');
-        }
-      } catch (error) {
-        if (retries < maxRetries) {
-          retries++;
-          console.log(`Retry ${retries}...`);
-          await new Promise(resolve => setTimeout(resolve, 2000)); // wait 2 seconds
-          await fetchData();
-        } else {
-          console.error('Error fetching address:', error);
-        }
+        setLocationPermission(requestedPermission);
+      } else {
+        setLocationPermission(
+          fineLocationStatus === 'granted' || coarseLocationStatus === 'granted'
+            ? 'granted'
+            : fineLocationStatus,
+        );
       }
     };
 
-    await fetchData();
-  };
-
-  useEffect(() => {
-    getCurrentLocation();
-  }, [permissionGranted]);
-
-  useEffect(() => {
-    requestLocationPermission()
-      .then(() => console.log('Permission requested'))
-      .catch(error => console.error('Error requesting permission:', error));
+    handlePermission();
   }, []);
 
-  AsyncStorage.getItem('user_address')
-    .then(value => {
-      if (value) {
-        setAlreadyFetched(true);
+  useEffect(() => {
+    const handleAppStateChange = async state => {
+      if (state === 'active') {
+        const fineLocationStatus = await check(
+          PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+        );
+        const coarseLocationStatus = await check(
+          PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION,
+        );
+
+        setLocationPermission(
+          fineLocationStatus === 'granted' || coarseLocationStatus === 'granted'
+            ? 'granted'
+            : fineLocationStatus,
+        );
       }
-      setUserAddress(value);
-    })
-    .then(res => {});
+    };
+
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange,
+    );
+
+    return () => {
+      subscription.remove(); // Use the remove method on the subscription
+    };
+  }, []);
 
   useEffect(() => {
-    if (latitude && longitude && !alreadyFetched) {
-      fetchAddress();
+    if (locationPermission === 'denied') {
+      const timeoutId = setTimeout(async () => {
+        const requestedPermission = await request(
+          PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+        );
+        setLocationPermission(requestedPermission);
+      }, 1000);
+      return () => clearTimeout(timeoutId);
     }
-  }, [latitude, longitude]);
+  }, [locationPermission]);
 
   return (
     <FlatList
       data={categoriesData}
       keyExtractor={item => item.id.toString()}
       ListHeaderComponent={
-        <View>
+        <View
+          style={{
+            position: 'relative',
+          }}>
           <HeroSection setSelectedTab={setSelectedTab} address={userAddress} />
           <Categories
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
           />
           <ProductList selectedCategory={selectedCategory} />
+
+          {locationPermission !== 'granted' && (
+            <View
+              style={{
+                position: 'absolute',
+                bottom: 190,
+                left: 0,
+                right: 0,
+                alignItems: 'center',
+                // width: '100%',
+              }}>
+              <CustomButton
+                name="Enable Location Permission"
+                loginStyle={{
+                  width: '80%',
+                  backgroundColor: themeColors.ERROR,
+                }}
+                onPress={() => {
+                  Linking.openSettings();
+                }}
+              />
+            </View>
+          )}
         </View>
       }
       showsVerticalScrollIndicator={false}

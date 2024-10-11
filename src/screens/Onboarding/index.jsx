@@ -25,8 +25,6 @@ const Onboarding = () => {
 
   const [locationPermission, setLocationPermission] = useState(null);
 
-  console.log('locationPermission', locationPermission);
-
   const handleNext = () => {
     if (swiperRef.current && !isLastSlide) {
       swiperRef.current.scrollBy(1);
