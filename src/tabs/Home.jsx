@@ -1,18 +1,15 @@
-import {GOOGLE_MAPS_API_KEY} from '@env';
 import React, {useEffect, useState} from 'react';
 import {AppState, FlatList, Linking, StyleSheet, View} from 'react-native';
 import {categoriesData} from '../constants';
 import Categories from '../screens/Home/components/Categories';
 import HeroSection from '../screens/Home/components/HeroSection';
 import ProductList from '../screens/Home/components/ProductList';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {check, PERMISSIONS, request} from 'react-native-permissions';
 import CustomButton from '../components/CustomButton';
 import {themeColors} from '../constants/colors';
 
 const Home = ({setSelectedTab}) => {
   const [selectedCategory, setSelectedCategory] = useState('Burger');
-  const [userAddress, setUserAddress] = useState('');
   const [locationPermission, setLocationPermission] = useState(null);
 
   useEffect(() => {
@@ -90,7 +87,7 @@ const Home = ({setSelectedTab}) => {
       keyExtractor={item => item.id.toString()}
       ListHeaderComponent={
         <View style={styles.container}>
-          <HeroSection setSelectedTab={setSelectedTab} address={userAddress} />
+          <HeroSection setSelectedTab={setSelectedTab} />
           <Categories
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
