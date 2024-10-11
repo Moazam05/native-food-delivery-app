@@ -13,13 +13,6 @@ import {Fonts} from '../../../constants/fonts';
 import {faker} from '@faker-js/faker';
 import {thousandSeparator} from '../../../utils';
 
-const personDetails = {
-  name: faker.person.fullName(),
-  phone: faker.phone.number({style: 'international'}),
-  orderID: faker.finance.accountNumber(5),
-  image: faker.image.avatar(),
-};
-
 const OrderDetailBottomSheet = ({total}) => {
   // eslint-disable-next-line no-unused-vars
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -31,6 +24,18 @@ const OrderDetailBottomSheet = ({total}) => {
     themeColors.GRAY,
     themeColors.GRAY,
   ]);
+  const [personDetails, setPersonDetails] = useState({});
+
+  console.log('personDetails', personDetails);
+
+  useEffect(() => {
+    setPersonDetails({
+      name: faker.person.fullName(),
+      phone: faker.phone.number({style: 'international'}),
+      orderID: faker.finance.accountNumber(5),
+      image: faker.image.avatar(),
+    });
+  }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -71,10 +76,12 @@ const OrderDetailBottomSheet = ({total}) => {
       <View style={styles.infoCard}>
         <View style={styles.infoRow}>
           <View style={styles.profileInfo}>
-            <Image
-              source={{uri: personDetails?.image}}
-              style={styles.profileImage}
-            />
+            {personDetails?.image && (
+              <Image
+                source={{uri: personDetails.image}}
+                style={styles.profileImage}
+              />
+            )}
             <View>
               <Text style={styles.nameText}>{personDetails?.name}</Text>
               <Text style={styles.orderIdText}>
