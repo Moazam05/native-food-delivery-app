@@ -15,8 +15,6 @@ const Home = ({setSelectedTab}) => {
   const [userAddress, setUserAddress] = useState('');
   const [locationPermission, setLocationPermission] = useState(null);
 
-  console.log('locationPermission', locationPermission);
-
   useEffect(() => {
     const handlePermission = async () => {
       const fineLocationStatus = await check(
@@ -91,10 +89,7 @@ const Home = ({setSelectedTab}) => {
       data={categoriesData}
       keyExtractor={item => item.id.toString()}
       ListHeaderComponent={
-        <View
-          style={{
-            position: 'relative',
-          }}>
+        <View style={styles.container}>
           <HeroSection setSelectedTab={setSelectedTab} address={userAddress} />
           <Categories
             selectedCategory={selectedCategory}
@@ -103,21 +98,10 @@ const Home = ({setSelectedTab}) => {
           <ProductList selectedCategory={selectedCategory} />
 
           {locationPermission !== 'granted' && (
-            <View
-              style={{
-                position: 'absolute',
-                bottom: 190,
-                left: 0,
-                right: 0,
-                alignItems: 'center',
-                // width: '100%',
-              }}>
+            <View style={styles.permissionPrompt}>
               <CustomButton
                 name="Enable Location Permission"
-                loginStyle={{
-                  width: '80%',
-                  backgroundColor: themeColors.ERROR,
-                }}
+                loginStyle={styles.buttonStyle}
                 onPress={() => {
                   Linking.openSettings();
                 }}
@@ -142,5 +126,19 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingTop: 20,
+  },
+  container: {
+    position: 'relative',
+  },
+  permissionPrompt: {
+    position: 'absolute',
+    bottom: 190,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
+  buttonStyle: {
+    width: '80%',
+    backgroundColor: themeColors.ERROR,
   },
 });
