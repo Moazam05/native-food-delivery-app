@@ -76,35 +76,10 @@ const OrderDetailBottomSheet = () => {
       </View>
 
       <View style={styles.bottomContent}>
-        <Text
-          style={{
-            fontSize: 14,
-            fontFamily: Fonts.SEMIBOLD,
-            color: themeColors.BLACK,
-          }}>
-          Your Delivery Time
-        </Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginTop: 3,
-            gap: 5,
-          }}>
-          <Text
-            style={{
-              fontSize: 12,
-              fontFamily: Fonts.REGULAR,
-              color: themeColors.GRAY,
-            }}>
-            Estimated Time
-          </Text>
-          <Text
-            style={{
-              fontSize: 12,
-              fontFamily: Fonts.REGULAR,
-              color: themeColors.GRAY,
-            }}>
+        <Text style={styles.title}>Your Delivery Time</Text>
+        <View style={styles.timeContainer}>
+          <Text style={styles.timeLabel}>Estimated Time</Text>
+          <Text style={styles.timeValue}>
             {currentTime.toLocaleTimeString('en-US', {
               hour: '2-digit',
               minute: '2-digit',
@@ -122,18 +97,18 @@ const OrderDetailBottomSheet = () => {
         <View style={styles.imageContainer}>
           {images.map((image, index) => (
             <View key={index} style={styles.imageWrapper}>
-              <Image
-                source={image}
-                style={[styles.image, {tintColor: iconColors[index]}]}
-              />
               <Text
                 style={[
                   styles.dash,
                   {color: iconColors[index]},
-                  index === 3 ? styles.hidden : {},
+                  index === 0 ? styles.hidden : {},
                 ]}>
                 &#8212;&#8212;&#8212;&#8212;&#8212;
               </Text>
+              <Image
+                source={image}
+                style={[styles.image, {tintColor: iconColors[index]}]}
+              />
             </View>
           ))}
         </View>
@@ -225,5 +200,26 @@ const styles = StyleSheet.create({
   },
   hidden: {
     display: 'none',
+  },
+  title: {
+    fontSize: 14,
+    fontFamily: Fonts.SEMIBOLD,
+    color: themeColors.BLACK,
+  },
+  timeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 3,
+    gap: 5,
+  },
+  timeLabel: {
+    fontSize: 12,
+    fontFamily: Fonts.REGULAR,
+    color: themeColors.GRAY,
+  },
+  timeValue: {
+    fontSize: 12,
+    fontFamily: Fonts.REGULAR,
+    color: themeColors.GRAY,
   },
 });
