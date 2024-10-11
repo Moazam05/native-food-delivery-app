@@ -32,7 +32,7 @@ const OrderDetailBottomSheet = () => {
         }
         return 0;
       });
-    }, 5000); // 5 seconds
+    }, 15000); // 15 seconds
 
     return () => clearInterval(intervalId);
   }, []);
@@ -111,6 +111,11 @@ const OrderDetailBottomSheet = () => {
               />
             </View>
           ))}
+        </View>
+
+        <View style={styles.orderTotalContainer}>
+          <Text style={styles.label}>Order Total</Text>
+          <Text style={styles.value}>Rs. 999</Text>
         </View>
       </View>
     </View>
@@ -219,6 +224,22 @@ const styles = StyleSheet.create({
   },
   timeValue: {
     fontSize: 12,
+    fontFamily: Fonts.REGULAR,
+    color: themeColors.GRAY,
+  },
+  orderTotalContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  label: {
+    fontSize: 14,
+    fontFamily: Fonts.SEMIBOLD,
+    color: themeColors.BLACK,
+  },
+  value: {
+    fontSize: 14,
     fontFamily: Fonts.REGULAR,
     color: themeColors.GRAY,
   },

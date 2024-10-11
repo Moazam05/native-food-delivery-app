@@ -1,14 +1,14 @@
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import React, {useRef, useEffect, useState, useCallback} from 'react';
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import GetLocation from 'react-native-get-location';
-import BottomSheet, {BottomSheetBackdrop} from '@gorhom/bottom-sheet';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {themeColors} from '../../constants/colors';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import MapViewDirections from 'react-native-maps-directions';
 import {GOOGLE_MAPS_API_KEY} from '@env';
+import BottomSheet from '@gorhom/bottom-sheet';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import GetLocation from 'react-native-get-location';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions';
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import {RestaurantIcon} from '../../assets/images';
+import {themeColors} from '../../constants/colors';
 import OrderDetailBottomSheet from './components/OrderDetailBottomSheet';
 
 const OrderTracking = () => {
@@ -112,15 +112,10 @@ const OrderTracking = () => {
       <BottomSheet
         ref={bottomSheetRef}
         index={0} // Start collapsed
-        snapPoints={['38%', '55%']}
+        snapPoints={['38%']}
         handleComponent={() => null}
         handleIndicatorStyle={styles.handleIndicator}
-        style={{
-          overflow: 'hidden',
-          borderTopLeftRadius: 24,
-          borderTopRightRadius: 24,
-        }}>
-        {/* {renderContent()} */}
+        style={styles.bottomSheetStyle}>
         <OrderDetailBottomSheet />
       </BottomSheet>
     </GestureHandlerRootView>
@@ -164,8 +159,9 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 
-  handleIndicator: {
-    backgroundColor: '#C2C2C2', // Change drag handle color
-    width: 55, // Optional: Change drag handle width
+  bottomSheetStyle: {
+    overflow: 'hidden',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
   },
 });
