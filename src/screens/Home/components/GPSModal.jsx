@@ -11,6 +11,7 @@ import React from 'react';
 import CustomModal from '../../../components/CustomModal';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import {StyleSheet} from 'react-native';
+import {themeColors} from '../../../constants/colors';
 
 const GPSModal = ({visible, loading}) => {
   // todo: Open GPS settings (Android-specific)
@@ -24,7 +25,11 @@ const GPSModal = ({visible, loading}) => {
   return (
     <CustomModal visible={visible}>
       <View style={styles.container}>
-        <FontAwesome6 name="circle-exclamation" size={40} color="#F6C41F" />
+        <FontAwesome6
+          name="circle-exclamation"
+          size={40}
+          color={themeColors.PRIMARY}
+        />
 
         <Text style={styles.title}>GPS PERMISSION</Text>
 
@@ -47,12 +52,12 @@ const GPSModal = ({visible, loading}) => {
           <View style={styles.button}>
             {loading ? (
               <View style={styles.loader}>
-                <ActivityIndicator size="small" color="#F6C41F" />
+                <ActivityIndicator size="small" color={themeColors.PRIMARY} />
               </View>
             ) : (
               <Button
                 title="Enable GPS"
-                color="#F6C41F"
+                color={themeColors.PRIMARY}
                 onPress={openGPSSettings}
               />
             )}
@@ -95,7 +100,7 @@ const styles = StyleSheet.create({
   },
   loader: {
     borderWidth: 1,
-    borderColor: '#F6C41F',
+    borderColor: themeColors.PRIMARY,
     borderRadius: 5,
     padding: 5,
     height: 35,

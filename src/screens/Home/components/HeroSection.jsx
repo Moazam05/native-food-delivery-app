@@ -39,7 +39,11 @@ const HeroSection = ({setSelectedTab}) => {
   const [modalVisible, setModalVisible] = useState(true);
   const [currentAddress, setCurrentAddress] = useState('');
 
-  console.log('getCurrentAddress', getCurrentAddress);
+  useEffect(() => {
+    if (getCurrentAddress?.latitude) {
+      setUserLocation(getCurrentAddress);
+    }
+  }, [getCurrentAddress]);
 
   // todo: Check location services
   useEffect(() => {
@@ -126,7 +130,7 @@ const HeroSection = ({setSelectedTab}) => {
                 <View style={styles.locationDetails}>
                   <Image source={Location} style={styles.locationIcon} />
 
-                  <Text style={styles.locationName}>Dummy Address</Text>
+                  <Text style={styles.locationName}>{currentAddress}</Text>
                 </View>
               </View>
               <View style={styles.imgWrap}>
