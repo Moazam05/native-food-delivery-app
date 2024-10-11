@@ -4,14 +4,17 @@ import {PersistGate} from 'redux-persist/integration/react';
 import AppNavigator from './AppNavigator';
 import ToastComponent from './src/components/ToastComponent';
 import {persistor, store} from './src/redux/store';
+import {NavigationContainer} from '@react-navigation/native';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <AppNavigator />
-      </PersistGate>
-      <ToastComponent />
+      <NavigationContainer>
+        <PersistGate loading={null} persistor={persistor}>
+          <AppNavigator />
+        </PersistGate>
+        <ToastComponent />
+      </NavigationContainer>
     </Provider>
   );
 };

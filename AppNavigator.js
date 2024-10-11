@@ -60,89 +60,31 @@ const AppNavigator = () => {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        {loginUser ? (
-          <>
-            <Stack.Screen
-              name="HomeScreen"
-              component={HomeScreen}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="ProductDetail"
-              component={ProductDetail}
-              options={{
-                headerShown: false,
-              }}
-            />
-
-            <Stack.Screen
-              name="ProfileDetail"
-              component={ProfileDetail}
-              options={{
-                headerShown: false,
-              }}
-            />
-
-            <Stack.Screen
-              name="Favorites"
-              component={Favorites}
-              options={{
-                headerShown: false,
-              }}
-            />
-          </>
-        ) : (
-          <>
-            <Stack.Screen
-              name="Onboarding"
-              component={Onboarding}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="SignUp"
-              component={SignUp}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="ForgotPassword"
-              component={ForgotPassword}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="EmailVerification"
-              component={EmailVerification}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="ResetPassword"
-              component={ResetPassword}
-              options={{
-                headerShown: false,
-              }}
-            />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      {loginUser ? (
+        <>
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="ProductDetail" component={ProductDetail} />
+          <Stack.Screen name="ProfileDetail" component={ProfileDetail} />
+          <Stack.Screen name="Favorites" component={Favorites} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="Onboarding" component={Onboarding} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+          <Stack.Screen
+            name="EmailVerification"
+            component={EmailVerification}
+          />
+          <Stack.Screen name="ResetPassword" component={ResetPassword} />
+        </>
+      )}
+    </Stack.Navigator>
   );
 };
 
