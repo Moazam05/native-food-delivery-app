@@ -56,6 +56,10 @@ import HelpIcon from './Help.png';
 import LogoutIcon from './Logout.png';
 import RightArrow from './RightArrow.png';
 import RestaurantIcon from './Destination.png';
+import Phone from './Phone.png';
+import TickTwo from './TickTwo.png';
+import Bike from './Bike.png';
+import Cooking from './Cooking.png';
 
 export {
   Onboarding1,
@@ -116,4 +120,8 @@ export {
   LogoutIcon,
   RightArrow,
   RestaurantIcon,
+  Phone,
+  TickTwo,
+  Bike,
+  Cooking,
 };

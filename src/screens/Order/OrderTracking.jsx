@@ -8,6 +8,7 @@ import {themeColors} from '../../constants/colors';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import MapViewDirections from 'react-native-maps-directions';
 import {GOOGLE_MAPS_API_KEY} from '@env';
+import {RestaurantIcon} from '../../assets/images';
 
 const OrderTracking = () => {
   const mapRef = useRef();
@@ -91,7 +92,7 @@ const OrderTracking = () => {
           }}>
           <Marker coordinate={userLocation} title="Current Location" />
 
-          <Marker coordinate={destination} pinColor={themeColors.PRIMARY} />
+          <Marker coordinate={destination} icon={RestaurantIcon} />
 
           {destination &&
             userLocation.latitude !== 0 &&
