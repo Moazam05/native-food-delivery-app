@@ -21,6 +21,7 @@ const personDetails = {
 };
 
 const OrderDetailBottomSheet = ({total}) => {
+  // eslint-disable-next-line no-unused-vars
   const [currentTime, setCurrentTime] = useState(new Date());
   const [deliveryTime, setDeliveryTime] = useState(new Date());
   const [step, setStep] = useState(0);
