@@ -1,4 +1,4 @@
-import {NavigationContainer} from '@react-navigation/native';
+import {useNavigationState} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
 import Onboarding from './src/screens/Onboarding';
@@ -10,7 +10,14 @@ import ResetPassword from './src/screens/Authentication/ForgotPassword/component
 import {useDispatch} from 'react-redux';
 import {selectedUser, setUser} from './src/redux/auth/authSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Image, StatusBar, StyleSheet, View} from 'react-native';
+import {
+  Alert,
+  BackHandler,
+  Image,
+  StatusBar,
+  StyleSheet,
+  View,
+} from 'react-native';
 import {Onboarding2} from './src/assets/images';
 import useTypedSelector from './src/hooks/useTypedSelector';
 import HomeScreen from './src/screens/Home/HomeScreen';
@@ -26,6 +33,7 @@ const AppNavigator = () => {
   const loginUser = useTypedSelector(selectedUser);
 
   const [isLoading, setIsLoading] = useState(true);
+  const currentRouteIndex = useNavigationState(state => state?.index); // Get current screen index
 
   useEffect(() => {
     const loadUser = async () => {
@@ -45,6 +53,34 @@ const AppNavigator = () => {
     };
     loadUser();
   }, [dispatch]);
+
+  useEffect(() => {
+    const handleBackButtonClick = () => {
+      if (currentRouteIndex === 0) {
+        // If on the first screen (root screen)
+        Alert.alert(
+          'Exit App',
+          'Are you sure you want to exit?',
+          [
+            {text: 'Cancel', onPress: () => null, style: 'cancel'},
+            {text: 'Yes', onPress: () => BackHandler.exitApp()},
+          ],
+          {cancelable: false},
+        );
+        return true;
+      }
+      return false; // Allow normal back navigation for other screens
+    };
+
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+
+    return () => {
+      BackHandler.removeEventListener(
+        'hardwareBackPress',
+        handleBackButtonClick,
+      );
+    };
+  }, [currentRouteIndex]);
 
   // Show loading screen while checking AsyncStorage
   if (isLoading) {
