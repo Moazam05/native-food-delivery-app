@@ -1,5 +1,6 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
+  AppState,
   Image,
   StatusBar,
   StyleSheet,
@@ -13,6 +14,7 @@ import {themeColors} from '../../constants/colors';
 import {onboarding} from '../../constants';
 import {Fonts} from '../../constants/fonts';
 import {useNavigation} from '@react-navigation/native';
+import {check, PERMISSIONS, request} from 'react-native-permissions';
 
 const Onboarding = () => {
   const swiperRef = useRef(null);
@@ -20,6 +22,10 @@ const Onboarding = () => {
   const isLastSlide = activeIndex === onboarding.length - 1;
   const isFirstSlide = activeIndex === 0;
   const navigation = useNavigation();
+
+  const [locationPermission, setLocationPermission] = useState(null);
+
+  console.log('locationPermission', locationPermission);
 
   const handleNext = () => {
     if (swiperRef.current && !isLastSlide) {
@@ -32,6 +38,75 @@ const Onboarding = () => {
       swiperRef.current.scrollBy(-1);
     }
   };
+
+  useEffect(() => {
+    const handlePermission = async () => {
+      const fineLocationStatus = await check(
+        PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+      );
+      const coarseLocationStatus = await check(
+        PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION,
+      );
+
+      if (
+        fineLocationStatus === 'undetermined' ||
+        coarseLocationStatus === 'undetermined'
+      ) {
+        const requestedPermission = await request(
+          PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+        );
+        setLocationPermission(requestedPermission);
+      } else {
+        setLocationPermission(
+          fineLocationStatus === 'granted' || coarseLocationStatus === 'granted'
+            ? 'granted'
+            : fineLocationStatus,
+        );
+      }
+    };
+
+    handlePermission();
+  }, []);
+
+  useEffect(() => {
+    const handleAppStateChange = async state => {
+      if (state === 'active') {
+        const fineLocationStatus = await check(
+          PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+        );
+        const coarseLocationStatus = await check(
+          PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION,
+        );
+
+        setLocationPermission(
+          fineLocationStatus === 'granted' || coarseLocationStatus === 'granted'
+            ? 'granted'
+            : fineLocationStatus,
+        );
+      }
+    };
+
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange,
+    );
+
+    return () => {
+      subscription.remove(); // Use the remove method on the subscription
+    };
+  }, []);
+
+  useEffect(() => {
+    if (locationPermission === 'denied') {
+      const timeoutId = setTimeout(async () => {
+        const requestedPermission = await request(
+          PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+        );
+        setLocationPermission(requestedPermission);
+      }, 1000);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [locationPermission]);
 
   return (
     <>
