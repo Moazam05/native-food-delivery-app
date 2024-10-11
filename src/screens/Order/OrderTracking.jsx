@@ -2,7 +2,7 @@ import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import React, {useRef, useEffect, useState, useCallback} from 'react';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import GetLocation from 'react-native-get-location';
-import BottomSheet from '@gorhom/bottom-sheet';
+import BottomSheet, {BottomSheetBackdrop} from '@gorhom/bottom-sheet';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {themeColors} from '../../constants/colors';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
@@ -118,7 +118,14 @@ const OrderTracking = () => {
       <BottomSheet
         ref={bottomSheetRef}
         index={0} // Start collapsed
-        snapPoints={['38%', '90%']}>
+        snapPoints={['38%', '55%']}
+        handleComponent={() => null}
+        handleIndicatorStyle={styles.handleIndicator}
+        style={{
+          overflow: 'hidden',
+          borderTopLeftRadius: 24,
+          borderTopRightRadius: 24,
+        }}>
         {renderContent()}
       </BottomSheet>
     </GestureHandlerRootView>
@@ -144,8 +151,10 @@ const styles = StyleSheet.create({
   },
   bottomSheet: {
     padding: 16,
-    backgroundColor: 'white',
+    backgroundColor: 'orange',
     height: '100%',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
   },
   sheetTitle: {
     fontSize: 18,
@@ -174,5 +183,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+
+  handleIndicator: {
+    backgroundColor: '#C2C2C2', // Change drag handle color
+    width: 55, // Optional: Change drag handle width
   },
 });
