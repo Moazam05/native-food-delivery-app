@@ -45,7 +45,7 @@ const OrderDetailBottomSheet = ({total}) => {
         }
         return 0;
       });
-    }, 15000); // 15 seconds
+    }, 5000); // 15 seconds
 
     return () => clearInterval(intervalId);
   }, []);
