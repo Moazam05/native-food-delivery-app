@@ -30,9 +30,9 @@ export const onboarding = [
   },
   {
     id: 2,
-    title: 'We deliver your order in no time',
+    title: 'We deliver your order in on time',
     description:
-      'We deliver your order in no time, we are the fastest delivery service in the city.',
+      'We deliver your order in on time, we are the fastest delivery service in the city.',
   },
   {
     id: 3,
