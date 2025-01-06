@@ -1,79 +1,79 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Getting Started
+# Fast Food Delivery App
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+A fast-food delivery app built with React Native CLI, designed for a single restaurant. The app allows users to order items like pizza, burgers, tacos, and cold drinks, with features such as location tracking, real-time updates, and order trackig.
 
-## Step 1: Start the Metro Server
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+## Features
 
-```bash
-# using npm
-npm start
+**User Authentication**  
+- Easily create an account with minimal information.
 
-# OR using Yarn
-yarn start
-```
+**Food Item Discovery**  
+- Browse a variety of food items like pizza, burgers, tacos, and cold drinks.
+- Use search and filter options to find your desired meal quickly.
 
-## Step 2: Start your Application
+**Order Management**  
+- Add items to your cart and place orders seamlessly.
+- Track your order status in real time.
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+**Location Services**  
+- Use GPS to detect your location and get accurate delivery directions.
 
-### For Android
+**Wishlist**  
+- Save your favorite foods to a wishlist for future purchases.
 
-```bash
-# using npm
-npm run android
+**Profile Management**  
+- Update your profile details effortlessly to manage your account.
 
-# OR using Yarn
-yarn android
-```
+## Tech Stack
 
-### For iOS
+**Client:** React Native, Redux Toolkit, Redux Persist, Formik & Yup, React Navigation
 
-```bash
-# using npm
-npm run ios
+**Location & Maps:** React Native Maps, React Native Maps Directions, React Native Maps Directions
 
-# OR using Yarn
-yarn ios
-```
+**Storage:** Async Storage
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+**Additional Libraries:** React Native Gesture Handler, React Native Reanimated, React Native Toast Message, React Native Swiper
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-## Step 3: Modifying your App
+## Screenshots
 
-Now that you have successfully run the app, let's modify it.
+![Onboarding 1](https://i.ibb.co/nDmLwqz/1.png)
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+![Onboarding 2](https://i.ibb.co/jwJy4xn/2.png)
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+![Onboarding 3](https://i.ibb.co/k8T1f3L/3.png)
 
-## Congratulations! :tada:
+![Login](https://i.ibb.co/rF1VhrF/4.png)
 
-You've successfully run and modified your React Native App. :partying_face:
+![Sign Up](https://i.ibb.co/qrcgp4k/5.png)
 
-### Now what?
+![Forgot Password](https://i.ibb.co/NLGDRdR/6.png)
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+![Splash Screen](https://i.ibb.co/8j4r8sC/7.png)
 
-# Troubleshooting
+![Home 1](https://i.ibb.co/jR3cpCD/8.png)
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+![Wishlist](https://i.ibb.co/QNb7Ldg/9.png)
 
-# Learn More
+![Search](https://i.ibb.co/qxZNFL5/10.png)
 
-To learn more about React Native, take a look at the following resources:
+![Profile](https://i.ibb.co/MZYS2p6/11.png)
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+![Change Password](https://i.ibb.co/PgJhWbY/12.png)
+
+![Product Detail](https://i.ibb.co/sPt3s8P/13.png)
+
+![Shopping Bag](https://i.ibb.co/jbcZg93/14.png)
+
+![Create Address](https://i.ibb.co/MNhtzXk/15.png)
+
+![Address Listt](https://i.ibb.co/rQdXyTs/16.png)
+
+![Checkout](https://i.ibb.co/YBFJjWB/17.png)
+
+![Payment](https://i.ibb.co/fH2nbvX/18.png)
+
+![Payment Success](https://i.ibb.co/djXwDBD/19.jpg)
